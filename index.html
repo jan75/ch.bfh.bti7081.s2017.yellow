@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="http://bootswatch.com/flatly/bootstrap.min.css">
+        <link rel="stylesheet" href="https://bootswatch.com/flatly/bootstrap.min.css">
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -35,10 +35,18 @@
                 <h1>Presentations</h1>
             </div>
             <div class="row">
-                <script>
-                    var content = httpGet("https://api.github.com/repos/jan75/ch.bfh.bti7081.s2017.yellow/contents/slides?ref=gh-pages");
-                    console.log(content);
-                </script>
+                <ul class="list-group" id="presentationList">
+                    <script type="application/javascript">
+                        var rq = httpGet(function(e) {
+                            JSON.parse(this.responseText).forEach(function(file) {
+                                var patt = /(\_|\.html$)/g
+                                var name = file.name.replace(patt, " ");
+                                $("#presentationList").append("<a href='" +  file.path + "' class='list-group-item'>"+ name +"</a>");
+                            });
+                        },
+                        "https://api.github.com/repos/jan75/ch.bfh.bti7081.s2017.yellow/contents/slides?ref=gh-pages");
+                    </script>
+                </ul>
             </div>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

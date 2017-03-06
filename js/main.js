@@ -1,7 +1,8 @@
-function httpGet(theUrl)
+function httpGet(func, theUrl)
 {
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", theUrl, false );
-    xmlHttp.send( null );
-    return xmlHttp.responseText;
+    xmlHttp.open( "GET", theUrl, true);
+    xmlHttp.onload = func.bind(xmlHttp);
+    xmlHttp.send(null);
+    return xmlHttp;
 }

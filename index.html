@@ -15,36 +15,65 @@
         <title>Software Engineering - Team Yellow</title>
     </head>
     <body>
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Team Yellow</a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="index.html">Documentation</a></li>
+                        <li><a href="diary.html">Diary</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="https://github.com/jan75/ch.bfh.bti7081.s2017.yellow/">Github - Repo</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
         <div class="container" role="main">
             <div class="jumbotron">
                 <h1>BFH - Software Engineering</h1>
                 <p>We are team <b>Yellow</b></p>
             </div>
-            <div class="page-header">
-                <h1>Documentation</h1>
+            <div class="row">
+                <h1>Description</h1>
+                <p>This is a school project, involving 7 students. We tackle a project by using software engineering.</p>
             </div>
             <div class="row">
+                <h1>Documentation</h1>
                 <ul class="list-group">
-                    <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-                    <a href="#" class="list-group-item">Morbi leo risus</a>
-                    <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-                    <a href="#" class="list-group-item">Vestibulum at eros</a>
+                    <script type="application/javascript">
+                        var rq = httpGet(function(e) {
+                            if(this.status != 200) {
+                                return;
+                            }
+                            var excludeList = ['diary.md', 'toc.txt'];
+                            getAllFiles(JSON.parse(this.responseText)).forEach(function(file) {
+                                if(excludeList.find(file.name) != undefined) {
+                                    $("#docList").append("<a href='" +  file.path + "' class='list-group-item'>"+ file.name +"</a>");
+                                }
+                            });
+                        },
+                        "https://api.github.com/repos/jan75/ch.bfh.bti7081.s2017.yellow/contents/doc?ref=develop");
+                    </script>
                 </ul>
             </div>
-            <div class="page-header">
-                <h1>Presentations</h1>
-            </div>
             <div class="row">
+                <h1>Presentations</h1>
                 <ul class="list-group" id="presentationList">
                     <script type="application/javascript">
                         var rq = httpGet(function(e) {
+                            if(this.status != 200) {
+                                return;
+                            }
                             JSON.parse(this.responseText).forEach(function(file) {
                                 var patt = /(\_|\.html$)/g
                                 var name = file.name.replace(patt, " ");
                                 $("#presentationList").append("<a href='" +  file.path + "' class='list-group-item'>"+ name +"</a>");
                             });
                         },
-                        "https://api.github.com/repos/jan75/ch.bfh.bti7081.s2017.yellow/contents/slides?ref=gh-pages");
+                        "https://api.github.com/repos/jan75/ch.bfh.bti7081.s2017.yellow/contents/doc/slides?ref=develop");
                     </script>
                 </ul>
             </div>

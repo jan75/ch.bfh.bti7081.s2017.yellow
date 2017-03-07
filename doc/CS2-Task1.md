@@ -19,4 +19,4 @@
     * Repairing
 	
 ### 1.2 Use Case Diagram
-![Use Case Diagram](https://raw.githubusercontent.com/jan75/ch.bfh.bti7081.s2017.yellow/develop/doc/media/CS2_Task1_UseCaseDiagram.png)
+![Use Case Diagram](https://raw.githubusercontent.com/jan75/ch.bfh.bti7081.s2017.yellow/CS2_Task1_Diagram/doc/media/CS2_Task1_UseCaseDiagram.png)

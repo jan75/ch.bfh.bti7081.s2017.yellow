@@ -28,7 +28,7 @@
 | -------------     | ------------  |
 | Name & Nr         | Case 1        |
 | Scenario          | Load battery  |
-| Short description | The battery is nearly empty and the patient has to realod the PIP | 
+| Short description | The battery is nearly empty and the patient has to reload the PIP | 
 | Actors            | Patient, PIP  | 
 | Start condition   | PIP alarms patient that battery is on low level   | 
 | Result            | Battery is fully charged  |
@@ -77,7 +77,7 @@
 | ----- | -------------     | -----                            |  
 | 1.0   | Patient           | Patient can't press button       |
 | 2.0   | PIP               | PIP can't measure current level, because sensor is defect --> show alarm message |
-| 3.0   | PIP               | Measure history is not available (inital measure) |
+| 3.0   | PIP               | Measure history is not available (initial measure) |
 | 3.1   | PIP               | No advice showed |
 | 4.0   | PIP               | Blood sugar level is very low --> display alarm |
 
@@ -87,17 +87,17 @@
 | -------------     | ------------  |
 | Name & Nr         | Case 3        |
 | Scenario          | Injection of insulin|
-| Short description | The Patient aktivates the insuline injection function, the system calculates the dose and injects if needed | 
+| Short description | The Patient activates the insulin injection function, the system calculates the dose and injects if needed | 
 | Actors            | Patient, PIP  | 
-| Start condition   | PIP is running and insuline is aviable | 
+| Start condition   | PIP is running and insulin is available | 
 | Result            | injection and messages |
 
 #### Steps
 | Nr.    | Actor         | Description  |
 | ------ | ------------- | -----        |
 | 1      | Patient       | Patient presses button injection |
-| 2      | PIP           | Calculat the dose based on the actual blood sugar level and the information of the previous step|
-| 3      | PIP           | Injection of insuline using a pump |
+| 2      | PIP           | Calculate the dose based on the actual blood sugar level and the information of the previous step|
+| 3      | PIP           | Injection of insulin using a pump |
 | 4      | Patient       | Patient can read message|
 
 
@@ -106,6 +106,6 @@
 | ----- | -------------     | -----        |  
 | 1.0   | Patient           | Patient can't press button       |
 | 2.0   | PIP               | PIP can't measure current level, because sensor is defect --> show alarm message |
-| 2.1   | PIP               | Measure history is not available (inital measure) |
+| 2.1   | PIP               | Measure history is not available (initial measure) |
 | 3.0   | PIP               | Pump is defect --> display alarm |
-| 3.1   | PIP               | Insuline reservoir is empty --> display alarm |
+| 3.1   | PIP               | Insulin reservoir is empty --> display alarm |

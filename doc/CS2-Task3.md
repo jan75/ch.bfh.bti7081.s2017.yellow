@@ -12,7 +12,9 @@
         * Measure blood sugar level
         * Alarm patient if sugar level is critical
         * PIP has to work under any weather condition
-        *
+        * Inject insulin to maintain a safe blood sugar level
+		* Continuous measurement
+		* Decision must be based on previous levels and rate of change of sugar level
 	2.2 Non-Functional Requirements     
         * Speed
             - Blood Measurement duration < 2.0s
@@ -26,7 +28,7 @@
             - Available 99.0%
 	2.3 Domain Requirements
         * The blood sugar level mesearument must conform to norm ISO 15197
-        * 
+        * Official approval from national health authorities
 
 
 

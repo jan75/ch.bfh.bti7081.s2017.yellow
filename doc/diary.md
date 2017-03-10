@@ -1,9 +1,9 @@
 # Diary
 
-| Date                    | Attendees                             | Tasks                                                                         |
-|-------------------------|---------------------------------------|-------------------------------------------------------------------------------|
-| 2017-02-27              | jan75, walts3, ackes3, brunm1         | CS0 - Task 1, discussed INSIEME report                                        |
-| 2017-02-28              | walts3, ackes3, brunm1                | CS1 - Task 1&2, read requirements, define key features per user               |
-| 2017-03-06              | no group work (self study)            | study requirement types and the notation for Use Cases and Activity Diagrams  |
-| 2017-03-07			  | whole group							  | CS2 - Tawk 1,2,3															  |
-| 2017-03-10			  | whole group							  | CS2 - Finishing Tasks 2 & 3													  |
+| Date                    | Attendees                                 | Tasks                                                                         | Situation                             | Materials
+|-------------------------|-------------------------------------------|-------------------------------------------------------------------------------|---------------------------------------|---------------
+| 2017-02-27              | jan75, walts3, ackes3, brunm1             | CS0 - Task 1, discussed INSIEME report                                        |                                       |
+| 2017-02-28              | walts3, ackes3, brunm1                    | CS1 - Task 1&2, read requirements, define key features per user               |                                       |
+| 2017-03-06              | no group work (self study)                | study requirement types and the notation for Use Cases and Activity Diagrams  | no class (teacher absent)             |
+| 2017-03-07              | some in class room, others in chat rooms  | CS2 - Task 1,2,3                                                              | no class (teacher absent)             | Chapter 3.4 "Requirements Elicitation and Analysis" of lecture slides, Sommerville_SE9ed_pp100_109.pdf
+| 2017-03-10              | some in class room, others in chat rooms  | CS2 - Finishing Tasks 2 & 3                                                   | no class (teacher absent)             | Chapter 3.6 "Requirements Specification Document", 3.7 "Requirements Validation", 3.8 "Requirements Management", Sommerville_SE9ed_pp094_098.pdf, Sommerville_SE9ed_pp110_114.pdf

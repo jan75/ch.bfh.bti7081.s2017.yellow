@@ -34,12 +34,12 @@
 | Result            | Battery is fully charged  |
 
 #### Steps
-| Nr.      | Actor         | Description  |
-| ------   | ------------- | -----        |
-| 1.1      | PIP           | Alert on display "low battery" |
-| 1.2      | Patient       | Connect PIP to power with cable |
-| 1.3      | PIP           | Display shows that PIP is charging now |
-| 1.4      | PIP           | Alert on display "battery fully charged" |
+| Nr.    | Actor         | Description  |
+| ------ | ------------- | -----        |
+| 1      | PIP           | Alert on display "low battery" |
+| 2      | Patient       | Connect PIP to power with cable |
+| 3      | PIP           | Display shows that PIP is charging now |
+| 4      | PIP           | Alert on display "battery fully charged" |
 
 
 #### Exceptions, Variants
@@ -65,11 +65,11 @@
 #### Steps
 | Nr.    | Actor         | Description                                  |
 | ------ | ------------- | -------------------------------------------- |
-| 1.1    | Patient       | Patient press button "Check level"           |
-| 1.2    | PIP           | Measure current blood sugar level            |
-| 1.3    | PIP           | Calculate value and compare with recent data |
-| 1.4    | PIP           | PIP show level and give an advice            |
-| 1.5    | Patient       | Patient can read message                     |
+| 1      | Patient       | Patient presses the button "Check level"           |
+| 2      | PIP           | Measure current blood sugar level            |
+| 3      | PIP           | Calculate value and compare with recent data |
+| 4      | PIP           | PIP show level and give an advice            |
+| 5      | Patient       | Patient can read message                     |
 
 
 #### Exceptions, Variants
@@ -81,30 +81,31 @@
 | 3.1   | PIP               | No advice showed |
 | 4.0   | PIP               | Blood sugar level is very low --> display alarm |
 
-### Case 3
+### Case 3 
 #### General Informations
 |       Title       |   Description | 
 | -------------     | ------------  |
 | Name & Nr         | Case 3        |
-| Scenario          | Inject insulin |
-| Short description | The blood level | 
-| Actors            |  | 
-| Start condition   |  | 
-| Result            |  |
+| Scenario          | Injection of insulin|
+| Short description | The Patient aktivates the insuline injection function, the system calculates the dose and injects if needed | 
+| Actors            | Patient, PIP  | 
+| Start condition   | PIP is running and insuline is aviable | 
+| Result            | injection and messages |
 
 #### Steps
 | Nr.    | Actor         | Description  |
 | ------ | ------------- | -----        |
-| 1.0    |               | |
-| 2.0    |               | |
-| 3.0    |               | |
-| 4.0    |               | |
+| 1      | Patient       | Patient presses button injection |
+| 2      | PIP           | Calculat the dose based on the actual blood sugar level and the information of the previous step|
+| 3      | PIP           | Injection of insuline using a pump |
+| 4      | Patient       | Patient can read message|
 
 
 #### Exceptions, Variants
 | Nr.   | Actor             | What         |
 | ----- | -------------     | -----        |  
-| 1.0   |                   |  |
-| 1.1   |                   |  |
-| 2.0   |                   |  |
-| 2.1   |                   |  |
+| 1.0   | Patient           | Patient can't press button       |
+| 2.0   | PIP               | PIP can't measure current level, because sensor is defect --> show alarm message |
+| 2.1   | PIP               | Measure history is not available (inital measure) |
+| 3.0   | PIP               | Pump is defect --> display alarm |
+| 3.1   | PIP               | Insuline reservoir is empty --> display alarm |

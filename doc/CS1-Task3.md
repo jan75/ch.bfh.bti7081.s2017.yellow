@@ -1,12 +1,13 @@
 # CS1 Task 3: Exploring use cases and user requirements by the means of design thinking
 ### Scoping 
 Result of a first brainstorm: 
-![Draft](media/CS1/Task3/CS1_Task3_Draft.jpg)
+![Draft](media/CS1/Task3/CS1_Task3_Scoping_1st_draft.jpg)
 
 After that, we grouped the cards into the different requriements: 
 ![Scoping](media/CS1/Task3/CS1_Task3_Scoping.jpg)
 
 Notice: Our end user is the head of the psychiatry department. In short the colors: 
+
 | Colour | Explanation                                                                          |
 |--------|--------------------------------------------------------------------------------------|
 | Green  | Project-team skills and resources                                                    |
@@ -16,5 +17,4 @@ Notice: Our end user is the head of the psychiatry department. In short the colo
 
 ### Prototyping
 Based on the results from "Scoping" we created a first comic showing how the end result could be used by the end user: 
-![Storyboard](media/CS11/Task3/CS1_Task3_Storyboard.jpg)
-
+![Storyboard](media/CS11/Task3/CS1_Task3_Storyboard_1st_draft.jpg)

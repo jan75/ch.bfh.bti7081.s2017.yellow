@@ -15,6 +15,18 @@ Notice: Our end user is the head of the psychiatry department. In short the colo
 | Blue   | Technical requirements                                                               |
 | Black  | User requirements, the user being the head of the psychiatry department in this case |
 
-### Prototyping
-Based on the results from "Scoping" we created a first comic showing how the end result could be used by the end user: 
+### Storyboards
+Based on the results from "Scoping" we created a first general comic showing how the end result could be used by the end user: 
 ![Storyboard](media/CS1/Task3/CS1_Task3_Storyboard_1st_draft.jpg)
+
+to
+
+be
+
+expanded
+
+### Interview
+To gather further input on the requirements, especially on the user requirements, we 
+chose to do an interview with a head of a psychiatry department. To find good and 
+insightful questions we each defined some questions based on the findings above: 
+![Brainstorming interview questions](media/CS1/Task3/CS1_Task3_Interview_1st_draft.jpg)

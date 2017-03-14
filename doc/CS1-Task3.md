@@ -1,4 +1,8 @@
 # CS1 Task 3: Exploring use cases and user requirements by the means of design thinking
+
+### Initial Discussion
+See [Discussion Results (DE)](media/CS1/Task3/CS1_Task3_Ergebnis_Diskussionsrunde.md) for a summary of the discussion results.
+
 ### Scoping 
 Result of a first brainstorm: 
 ![Draft](media/CS1/Task3/CS1_Task3_Scoping_1st_draft.jpg)

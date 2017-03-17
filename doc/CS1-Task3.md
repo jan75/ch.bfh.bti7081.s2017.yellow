@@ -24,8 +24,8 @@ Based on the results from "Scoping" we created a first general comic showing how
 ![Storyboard](media/CS1/Task3/CS1_Task3_Storyboard_2nd_draft.jpg)
 
 Adding a contact | Generating a report: 
-![Storyboard contact](media/CS1/Task3/CS1_Task3_Storyboard_Kontakt.jpg | width=200)
-![Storyboard report](media/CS1/Task3/CS1_Task3_Storyboard_Report.jpg | width=200)
+![Storyboard contact](media/CS1/Task3/CS1_Task3_Storyboard_Kontakt.jpg)
+![Storyboard report](media/CS1/Task3/CS1_Task3_Storyboard_Report.jpg)
 
 ### Interview
 To gather further input on the requirements, especially on the user requirements, we 

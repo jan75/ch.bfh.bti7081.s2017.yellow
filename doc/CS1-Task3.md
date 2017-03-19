@@ -24,6 +24,7 @@ Based on the results from "Scoping" we created a first general comic showing how
 ![Storyboard](media/CS1/Task3/CS1_Task3_Storyboard_2nd_draft.jpg)
 
 In some storyboards we showed how the application could be used by the target user in different tasks:
+
 <img src="media/CS1/Task3/Storyboard/CS1_Task3_Storyboard_simon.jpg" alt="Storyboard emergency" width="200px">
 <img src="media/CS1/Task3/Storyboard/CS1_Task3_Storyboard_idee_marc.jpg" alt="Storyboard presentation" width="200px">
 <img src="media/CS1/Task3/Storyboard/CS1_Task3_Storyboard_Kontakt.jpg" alt="Storyboard contact" width="200px">
@@ -35,6 +36,8 @@ The storyboards above give a general idea about how the app might be used.
 
 ### Prototyping
 Some ideas we worked out in more detail and created prototypes:
+
+
 <img src="media/CS1/Task3/Prototype/CS1_Task3_Prototype_Budget.jpg" alt="Prototype Budget" width="200px">
 <img src="media/CS1/Task3/Prototype/CS1_Task3_Prototype_Einsatzplan.jpg" alt="Prototype Einsatzplan" width="200px">
 <img src="media/CS1/Task3/Prototype/CS1_Task3_Prototype_Kontakte.jpg" alt="Prototype Kontakte" width="200px">

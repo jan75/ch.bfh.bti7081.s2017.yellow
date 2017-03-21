@@ -1,8 +1,8 @@
 # CS1 Task 3: Final Requirements  
-After talking with our interview partner we refined our requirements. The process which led to this document can be found (here)[CS1-Task3-process.md]. 
+After talking with our interview partner we refined our requirements. The process which led to this document can be found [here](CS1-Task3-process.md). 
 
 ### Synthesizing
-Our target user Theodor is teamleader at a mental institution / authority. He's 35 years old, has two children and lives in Steffisburg. Based on the requirements we found in the past iterations we asked him some questions in an interview. 
+Our target user Theodor is teamleader at a mental institution / authority. He's 35 years old, has two children and lives in Steffisburg. Based on the requirements we found beforehand we asked him some questions in an interview. 
 
 His main tasks are ordered by their workload: 
   * Scheduling his employees 
@@ -36,12 +36,16 @@ What isn't inside our scope:
  
 #### Storyboards 
 In some storyboards we show how the application can be used everyday: 
+
+
 <img src="media/CS1/Task3/Storyboard/CS1_Task3_Storyboard_Employee_management.jpg" alt="Storyboard Employee Management" width="200px">
 <img src="media/CS1/Task3/Storyboard/CS1_Task3_Storyboard_Wiki.jpg" alt="Storyboard Wiki" width="200px">
 <img src="media/CS1/Task3/Storyboard/CS1_Task3_Storyboard_Rating_Patients.jpg" alt="Storyboard Rating Patients" width="200px">
 
 ### Prototypes 
 To show how this application and its core features can look we made the following prototypes: 
+
+
 <img src="media/CS1/Task3/Prototype/CS1_Task3_Prototype_Einsatzplan.jpg" alt="Prototype Einsatzplan" width="150px">
 <img src="media/CS1/Task3/Prototype/CS1_Task3_Prototype_Kontakte.jpg" alt="Prototype Kontakte" width="150px">
 <img src="media/CS1/Task3/Prototype/CS1_Task3_Prototype_Report.jpg" alt="Prototype Report" width="150px">

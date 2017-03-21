@@ -1,7 +1,7 @@
 # CS1 Task 3: Exploring use cases and user requirements by the means of design thinking
 
 ### Initial Discussion
-See [Discussion Results (DE)](media/CS1/Task3/CS1_Task3_Ergebnis_Diskussionsrunde.md) for a summary of the discussion results. See [CS1-Task3-process.md] for a description of our process in this task. 
+See [Discussion Results (DE)](media/CS1/Task3/CS1_Task3_Ergebnis_Diskussionsrunde.md) for a summary of the discussion results. See [CS1-Task3-process.md](CS1-Task3-process.md) for a description of our process in this task. 
 
 ### Scoping 
 Result of a first brainstorm: 
@@ -25,6 +25,7 @@ Based on the results from "Scoping" we created a first general comic showing how
 
 In some storyboards we showed how the application could be used by the target user in different tasks:
 
+
 <img src="media/CS1/Task3/Storyboard/CS1_Task3_Storyboard_simon.jpg" alt="Storyboard emergency" width="200px">
 <img src="media/CS1/Task3/Storyboard/CS1_Task3_Storyboard_idee_marc.jpg" alt="Storyboard presentation" width="200px">
 <img src="media/CS1/Task3/Storyboard/CS1_Task3_Storyboard_Kontakt.jpg" alt="Storyboard contact" width="200px">
@@ -32,7 +33,7 @@ In some storyboards we showed how the application could be used by the target us
 <img src="media/CS1/Task3/Storyboard/CS1_Task3_Storyboard_Report.jpg" alt="Storyboard report" width="200px">
 <img src="media/CS1/Task3/Storyboard/CS1_Task3_Storyboard_sam.jpg" alt="Storyboard meeting" width="200px">
 
-The storyboards above give a general idea about how the app might be used. 
+The storyboards above give a general idea about how the app might be used. All storyboards can be found [here](media/CS1/Task3/Storyboard/).
 
 ### Prototyping
 Some ideas we worked out in more detail and created prototypes:

@@ -117,7 +117,7 @@
                     files.forEach(function(file) {
                         var patt = /(\_|-|\.html$)/g
                         var name = file.name.replace(patt, " ");
-                        $("#presentationList").append("<a class='list-group-item' href='" + file.path + "'>"
+                        $("#presentationList").append("<a class='list-group-item' href='slides/" + file.name + "'>"
                             + "<h4 class='list-group-item-heading'>"+ name + " <small>("+ file.path +")</small></h4>"
                             + "</a>"
                         );

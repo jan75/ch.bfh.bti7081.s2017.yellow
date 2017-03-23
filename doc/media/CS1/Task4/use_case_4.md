@@ -5,7 +5,7 @@
 | Short description             | The Employee knows the patient and can therefore estimate how much resources must be assigned to the patient.                                    | 
 | Trigger                       | A new patient arrives or the condition of a patient changes.                                          | 
 | Results                       | The patient condition is updated and available in the planning tool for the LMHD. |              
-                                                                                                                                            | 
+                                                                                                                                            
 ### Flow
 
 |Nr.|Who|What|

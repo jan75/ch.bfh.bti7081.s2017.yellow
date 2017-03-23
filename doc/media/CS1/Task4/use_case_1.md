@@ -5,7 +5,7 @@
 | Short description             | The LMHD writes informative articles that can be read by employees.                                       | 
 | Trigger                       | An employee asks LMHD a question that was already asked before.                                           | 
 | Results                       | The answer to the question is in the wiki. The employee can read the article instead of asking the LMHD.  |              
-                                                                                                                                            | 
+                                                                                                                                             
 ### Flow
 
 |Nr.|Who|What|

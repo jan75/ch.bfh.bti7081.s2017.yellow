@@ -10,19 +10,19 @@
 
 |Nr.|Who|What|
 |-|-|-|
-|3.0|Employee|takes in a new patient|
-|3.0|Employee|opens web app|
-|3.0|Employee|navigates to the estimation feature|
-|3.0|Employee|creates a new patient profile|
-|3.0|Employee|enters patient condition and saves|
+|4.0|Employee|takes in a new patient|
+|4.0|Employee|opens web app|
+|4.0|Employee|navigates to the estimation feature|
+|4.0|Employee|creates a new patient profile|
+|4.0|Employee|enters patient condition and saves|
 
 
 ### Exceptions / Variants
 |Nr.|Who|What|
 |-|-|-|
-|3.0|Employee|observes a change of the condition of a patient|
-|3.0.1|Employee|opens app|
-|3.0.2|Employee|navigates to the estimation feature|
-|3.0.3|Employee|enters the name or number of the patient|
-|3.0.4|Employee|selects the patient|
-|3.0.5|Employee|changes the patient condition and saves|
+|4.0|Employee|observes a change of the condition of a patient|
+|4.0.1|Employee|opens app|
+|4.0.2|Employee|navigates to the estimation feature|
+|4.0.3|Employee|enters the name or number of the patient|
+|4.0.4|Employee|selects the patient|
+|4.0.5|Employee|changes the patient condition and saves|

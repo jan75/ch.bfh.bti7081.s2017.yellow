@@ -5,7 +5,7 @@
 | Short description             | The LMHD searches for contact information in the web app when other parties have to be informed about the situation.                                    | 
 | Trigger                       | An emergency situation ocurrs.                                           | 
 | Results                       | The LMHD has fastly gained access to the most important contacts needed for further actions. |              
-                                                                                                                                            | 
+                                                                                                                                             
 ### Flow
 
 |Nr.|Who|What|

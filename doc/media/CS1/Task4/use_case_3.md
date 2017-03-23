@@ -5,7 +5,7 @@
 | Short description             | The LMHD assigns workloads to employees depending on factors like experience, holidays and patient conditions etc.                                    | 
 | Trigger                       | No workload is assigned to employees or the workload has to be reassigned because of incidents.                                          | 
 | Results                       | The LMHD has an overview of all workloads of all employees. |              
-                                                                                                                                            | 
+                                                                                                                                             
 ### Flow
 
 |Nr.|Who|What|

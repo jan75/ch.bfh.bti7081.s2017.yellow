@@ -15,6 +15,7 @@ This document is aimed to the health authority management as well as the develop
 The patient management system (PMS) is applied by an health authority organisation to manage and analyse the care of patients suffering from mental health problems. The PSM is devided in several applications, each covering a part of a target user.
 One part is that of the health authority management which we describe here.
 The application supports the management by doing five main tasks to reduce the workload and risks which may occur by working with high sensitive data.
+The whole system is build in a enterprise network for easy accessibility.
 
 1. Patient management
 * The process to acquired or mutated the date of a patient is running via the health authority management. Whereby a patient's treatment data does not belong to it.

@@ -12,3 +12,4 @@
 | 2017-03-17              | some in class room, others in chat rooms  | CS1 - Task 3                                                                  | independent group work                |
 | 2017-03-20              | some in class room, others in chat rooms  | CS1 - Task 3                                                                  | independent group work                |
 | 2017-03-21              | some in class room, others in chat rooms  | CS1 - Finishing Task 3, Presentation of results                               | independent and in class              |
+| 2017-03-24              | collective presentation of RDS (two missing)  | CS1 - Task 4                                                              | in class presentation              |

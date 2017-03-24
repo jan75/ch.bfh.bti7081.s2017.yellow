@@ -8,7 +8,8 @@
   * [CS1-Task3](CS1/Task3/CS1-Task3.md) - Requirements by design thinking 
     * [CS1-Task3-final](CS1/Task3/CS1-Task3-final.md) - final document about this task 
     * [CS1-Task3-process](CS1/Task3/CS1-Task3-process.md) - process how we went about this task 
-  
+  * [CS1-Task4](CS1/Task4/CS1-Task4-RSD.doc) - Requirement specification document  
+ 
 ## CS2 - Personal Insulin Pump (PIP)
   * [CS2-Task1](CS2/Task1/CS2-Task1.md)
   * [CS2-Task1](CS2/Task1/CS2-Task1.md)

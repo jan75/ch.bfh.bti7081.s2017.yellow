@@ -19,7 +19,7 @@ Parameters of experience, treatment methods, news, etc. are stored centrally in 
 4. Contacts
 Finally, then management must be able to access all contacts in the entire system. The access takes place for various reasons, on the one hand to provided for the patient and staff administration. On the other hand to contact the appropriate stations/organizations if an emergency oncures.
 
-##3  Glossary
+## 3  Glossary
 |Item|Comment|
 |-|-|
 |RSD|Requirement specification document|

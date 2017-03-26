@@ -39,7 +39,7 @@ This is an overview of the use cases:
 ## 5 System architecture
 Our Application should be platform independent. This means that it should be possible to connect to the application from every device with any kind of operating system. Additionally, it should be accessible from the internet because of the employees outward of your enterprise. For this we designed a three tier web application.
 
-<img src="media/CS1-Task4-System-Architecture.jpg" alt="System Architecture" width="800px">
+<img src="media/CS1-Task4-System-Architecture.png" alt="System Architecture" width="800px">
 
 ### 5.1 Web frontend server
 In this architecture we have the web frontend servers for the presentation layer (first tier). He we will use a webservice for the application presentation

@@ -1,6 +1,6 @@
 # Task 5 "Requirements Review
 
-Team **Yellow** reviews the document from Team **Red**: 
+Team **Yellow** reviews the document from Team **Orange**: 
 [UserandSystemRequirements_Orange_V1.0.pdf](https://github.com/leandrolerena/ch.bfh.bti7081.s2017.orange/blob/develop/Orange/doc/CS01/task04/UserandSystemRequirements_Orange_V1.0.pdf)
 
 ## Criteria
@@ -13,4 +13,6 @@ Team **Yellow** reviews the document from Team **Red**:
 * **Traceability**: Is the origin of the requirement clearly stated?
 * **Adaptability**: Can the requirement be changed without a large impact on other requirements?
 
-=> The Review for team orange is documented in the file [yellow_reviews_orange.docs](yellow_reviews_orange.docx)
+|Page|Criteria|Explanation/Comments/Improvements|
+|-|-|-|
+|8|Comprehensibility|There are five levels in the step numbers to depict different paths. An activity diagram might convey path branching more clearly.

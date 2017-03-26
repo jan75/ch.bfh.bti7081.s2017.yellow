@@ -34,12 +34,12 @@ Finally, then management must be able to access all contacts in the entire syste
 ## 4 User requirements definition
 This is an overview of the use cases:
 
-<img src="media/use_case_diagram_mobile_application_system.png" alt="Use Case Diagram" width="200px">
+<img src="media/use_case_diagram_mobile_application_system.png" alt="Use Case Diagram" width="800px">
 
 ## 5 System architecture
 Our Application should be platform independent. This means that it should be possible to connect to the application from every device with any kind of operating system. Additionally, it should be accessible from the internet because of the employees outward of your enterprise. For this we designed a three tier web application.
 
-<img src="media/CS1-Task4-System-Architecture.jpg" alt="System Architecture" width="200px">
+<img src="media/CS1-Task4-System-Architecture.jpg" alt="System Architecture" width="800px">
 
 ### 5.1 Web frontend server
 In this architecture we have the web frontend servers for the presentation layer (first tier). He we will use a webservice for the application presentation
@@ -179,7 +179,7 @@ Additionally, to our application components, we have also the following componen
 |4.0.5|Employee|changes the patient condition and saves|
 
 ## 7 System models
-<img src="media/system_model-data_flow.png" alt="System model" width="200px">
+<img src="media/system_model-data_flow.png" alt="System model" width="800px">
 
 ## 8 System evolution 
 For a more momentary view about the System Requirements check the corresponding chapter "System Requirements". A short overview over the components and technology used for this application:

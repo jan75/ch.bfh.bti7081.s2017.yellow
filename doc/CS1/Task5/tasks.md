@@ -18,8 +18,8 @@ Team **Yellow** reviews the document from Team **Orange**:
 |4|Traceability|In the UML-Diagram the arrows to "Arzt/Pflegerin" and "Patient" aren't the same as the ones to "Relative"
 |6|Comprehensibility|Section "Ausnahmen, Varianten" 3.x.x.x.0 -> unclear, is the meaning there that in case of no internet = Use Case 3 doesn't work at all?
 |8|Comprehensibility|There are five levels in the step numbers to depict different paths. An activity diagram might convey path branching more clearly.
-|10 - 13||Why is each step in a table? It looks a bit strange...
-|||There is no section for the Appendices
-|||There is no section for the Index
+|10 - 13|-|Why is each step in a table? It looks a bit strange...
+|-|-|There is no section for the Appendices
+|-|-|There is no section for the Index
 
 Team Orange did a great job. The document contains all important chapters and is well written. Explanations are clear and understandable. Only the sections appendices and index are missing. Since all we criticized is cosmetic stuff we give team Orange 10 out of 10 points. 

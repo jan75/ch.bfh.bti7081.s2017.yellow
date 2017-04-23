@@ -28,7 +28,7 @@ var load = function() {
 				return renderPrefix(g1)+'src="'+imageRootPath+'/'+g1+'"'
 			})
 			data = data.replace(/\[([^\]]+)\]\(([^\/][^)]*)\)/g, function(a,g1,g2) {
-				return '['+g1+']('+renderPrefix(g2)+imageRootPath+'/'+g2+')"'
+				return '['+g1+']('+renderPrefix(g2)+imageRootPath+'/'+g2+')'
 			})
 			$('#markdown-content').html(marked(data));
 			$("table").addClass("table table-striped table-hover");

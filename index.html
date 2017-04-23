@@ -92,25 +92,53 @@
                     });
                 });
 
-                var fillDocList = function(files) {
-                    var excludeList = ['diary.md', 'toc.txt'];
-                    files.forEach(function(file) {
-                        if (excludeList.indexOf(file.name) != -1) {
-                            return;
-                        }
-                        var patt = /(\_|-|\.md$)/g
-                        var name = file.name.replace(patt, " ");
-                        $("#docList").append("<a class='list-group-item'>"
-                            + "<h4 class='list-group-item-heading'>"+ name + " <small>("+ file.path +")</small></h4>"
-                            + "<p class='list-group-item-text'>"
-                            + "<button type='button' class='btn btn-primary btn-sm' data-toggle='modal' data-target='#mdModal' data-path='"+ file.path +"'>Show</button>"
-                            + "<button type='button' class='btn btn-link' onclick='window.open(\""+ file.html +"\")'>View on Github</button>"
-                            + "</p>"
-                            + "</a>"
-                        );
-                    });
-                };
-                helper.getAllFiles('doc').then(fillDocList);
+				helper.getDocumentationFiles().then(data=>{
+					let filtered = data.tree.filter(e=>{
+						return e.type == 'blob' && e.path.startsWith('doc/CS') && !/doc\/CS[^\/]+\/Task[^\/]+\/media/.test(e.path)
+					})
+					let dir = {}
+					let createOrGet = (node,attr)=>{
+						let value = node[attr]
+						return value ? value : node[attr] = {}
+					}
+					filtered.forEach(e=>{
+						let parts = e.path.split('/')
+						let leaf = parts.reduce((node,part)=>createOrGet(node,part), dir)
+						leaf.path = e.path
+					})
+					let traverse = (label, obj, domNode)=>{
+						let li = document.createElement('li')
+						let t = document.createTextNode(label)
+						if(obj.path) {
+							let a = document.createElement('a')
+							if(/.*\.md$/.test(obj.path)) {
+								a.href = 'renderer.html#https://raw.githubusercontent.com/jan75/ch.bfh.bti7081.s2017.yellow/develop/' + obj.path
+							} else {
+								a.href = 'https://raw.githubusercontent.com/jan75/ch.bfh.bti7081.s2017.yellow/develop/' + obj.path
+							}
+							a.appendChild(t)
+							li.appendChild(a)
+						} else {
+							li.appendChild(t)
+							Object.keys(obj).forEach(key=>{
+								let ul = document.createElement('ul')
+								li.appendChild(ul)
+								traverse(key, obj[key], ul)
+							})
+						}
+						domNode.appendChild(li)
+					}
+					let rootTraverse = (obj, domNode)=>{
+						Object.keys(obj).forEach(key=>{
+							let ul = document.createElement('ul')
+							domNode.appendChild(ul)
+							traverse(key, obj[key], ul)
+						})
+					}
+					let rootUl = document.createElement('ul')
+					rootTraverse(dir, rootUl)
+					document.getElementById('docList').appendChild(rootUl)
+				});
 
                 // Presentations
                 var fillPres = function(files) {

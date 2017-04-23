@@ -33,9 +33,22 @@ var Helper = function() {
         
         return promise;
     }
+	
+	var getDocumentationFiles = function() {
+		return jQuery.get({
+			headers: {'Authorization':'token '+tok1+tok2+tok3},
+			url: 'https://api.github.com/repos/jan75/ch.bfh.bti7081.s2017.yellow/git/refs/heads/develop'
+		}).then(function(data) {
+			return jQuery.get({
+				headers: {'Authorization':'token '+tok1+tok2+tok3},
+				url:'https://api.github.com/repos/jan75/ch.bfh.bti7081.s2017.yellow/git/trees/'+data.object.sha+'?recursive=1'
+			})
+		});
+	}
 
     return {
         getAllFiles: getAllFiles,
-        getRawContent: getRawContent
+        getRawContent: getRawContent,
+		getDocumentationFiles: getDocumentationFiles
     };
 };

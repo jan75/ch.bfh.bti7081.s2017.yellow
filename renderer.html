@@ -25,9 +25,15 @@ var load = function() {
 			url: hash
 		}).then(function(data) {
 			data = data.replace(/src *= *"([^\/][^"]*)"/g, function(a, g1) {
+				if(g1.startsWith('http')) {
+					return a
+				}
 				return renderPrefix(g1)+'src="'+imageRootPath+'/'+g1+'"'
 			})
 			data = data.replace(/\[([^\]]+)\]\(([^\/][^)]*)\)/g, function(a,g1,g2) {
+				if(g2.startsWith('http')) {
+					return a
+				}
 				return '['+g1+']('+renderPrefix(g2)+imageRootPath+'/'+g2+')'
 			})
 			$('#markdown-content').html(marked(data));

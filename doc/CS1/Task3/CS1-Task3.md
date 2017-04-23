@@ -1,14 +1,14 @@
 # CS1 Task 3: Exploring use cases and user requirements by the means of design thinking
 
 ### Initial Discussion
-See [Discussion Results (DE)](media/CS1/Task3/CS1_Task3_Ergebnis_Diskussionsrunde.md) for a summary of the discussion results. See [CS1-Task3-process.md](CS1-Task3-process.md) for a description of our process in this task. 
+See [Discussion Results (DE)](media/CS1_Task3_Ergebnis_Diskussionsrunde.md) for a summary of the discussion results. See [CS1-Task3-process.md](CS1-Task3-process.md) for a description of our process in this task. 
 
 ### Scoping 
 Result of a first brainstorm: 
-![Draft](media/CS1/Task3/CS1_Task3_Scoping_1st_draft.jpg)
+![Draft](media/CS1_Task3_Scoping_1st_draft.jpg)
 
 After that, we grouped the cards into the different requriements: 
-![Scoping](media/CS1/Task3/CS1_Task3_Scoping.jpg)
+![Scoping](media/CS1_Task3_Scoping.jpg)
 
 Notice: Our end user is the head of the psychiatry department. In short the colors: 
 
@@ -21,17 +21,17 @@ Notice: Our end user is the head of the psychiatry department. In short the colo
 
 ### Storyboards
 Based on the results from "Scoping" we created a first general comic showing how the end result could be used by the end user: 
-![Storyboard](media/CS1/Task3/CS1_Task3_Storyboard_2nd_draft.jpg)
+![Storyboard](media/CS1_Task3_Storyboard_2nd_draft.jpg)
 
 In some storyboards we showed how the application could be used by the target user in different tasks:
 
 
-<img src="media/CS1/Task3/Storyboard/CS1_Task3_Storyboard_simon.jpg" alt="Storyboard emergency" width="200px">
-<img src="media/CS1/Task3/Storyboard/CS1_Task3_Storyboard_idee_marc.jpg" alt="Storyboard presentation" width="200px">
-<img src="media/CS1/Task3/Storyboard/CS1_Task3_Storyboard_Kontakt.jpg" alt="Storyboard contact" width="200px">
-<img src="media/CS1/Task3/Storyboard/CS1_Task3_Storyboard_marc.jpg" alt="Storyboard lookup information" width="200px">
-<img src="media/CS1/Task3/Storyboard/CS1_Task3_Storyboard_Report.jpg" alt="Storyboard report" width="200px">
-<img src="media/CS1/Task3/Storyboard/CS1_Task3_Storyboard_sam.jpg" alt="Storyboard meeting" width="200px">
+<img src="media/Storyboard/CS1_Task3_Storyboard_simon.jpg" alt="Storyboard emergency" width="200px">
+<img src="media/Storyboard/CS1_Task3_Storyboard_idee_marc.jpg" alt="Storyboard presentation" width="200px">
+<img src="media/Storyboard/CS1_Task3_Storyboard_Kontakt.jpg" alt="Storyboard contact" width="200px">
+<img src="media/Storyboard/CS1_Task3_Storyboard_marc.jpg" alt="Storyboard lookup information" width="200px">
+<img src="media/Storyboard/CS1_Task3_Storyboard_Report.jpg" alt="Storyboard report" width="200px">
+<img src="media/Storyboard/CS1_Task3_Storyboard_sam.jpg" alt="Storyboard meeting" width="200px">
 
 The storyboards above give a general idea about how the app might be used. All storyboards can be found [here](media/CS1/Task3/Storyboard/).
 
@@ -39,17 +39,17 @@ The storyboards above give a general idea about how the app might be used. All s
 Some ideas we worked out in more detail and created prototypes:
 
 
-<img src="media/CS1/Task3/Prototype/CS1_Task3_Prototype_Budget.jpg" alt="Prototype Budget" width="200px">
-<img src="media/CS1/Task3/Prototype/CS1_Task3_Prototype_Einsatzplan.jpg" alt="Prototype Einsatzplan" width="200px">
-<img src="media/CS1/Task3/Prototype/CS1_Task3_Prototype_Kontakte.jpg" alt="Prototype Kontakte" width="200px">
-<img src="media/CS1/Task3/Prototype/CS1_Task3_Prototype_Report.jpg" alt="Prototype Report" width="200px">
-<img src="media/CS1/Task3/Prototype/CS1_Task3_Prototype_Wiki.jpg" alt="Prototype Wiki" width="200px">
+<img src="media/Prototype/CS1_Task3_Prototype_Budget.jpg" alt="Prototype Budget" width="200px">
+<img src="media/Prototype/CS1_Task3_Prototype_Einsatzplan.jpg" alt="Prototype Einsatzplan" width="200px">
+<img src="media/Prototype/CS1_Task3_Prototype_Kontakte.jpg" alt="Prototype Kontakte" width="200px">
+<img src="media/Prototype/CS1_Task3_Prototype_Report.jpg" alt="Prototype Report" width="200px">
+<img src="media/Prototype/CS1_Task3_Prototype_Wiki.jpg" alt="Prototype Wiki" width="200px">
 
 ### Interview
 To gather further input on the requirements, especially on the user requirements, we 
 chose to do an interview with a head of a psychiatry department. To find good and 
 insightful questions we each defined some questions based on the findings above: 
-[Brainstorming interview questions](media/CS1/Task3/CS1_Task3_Interview_1st_draft.jpg)
+[Brainstorming interview questions](media/CS1_Task3_Interview_1st_draft.jpg)
 
 #### Interview Questions and Structure
 

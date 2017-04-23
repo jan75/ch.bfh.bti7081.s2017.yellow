@@ -19,7 +19,7 @@
     * Repairing
 	
 ## 1.2 Use Case Diagram
-![Use Case Diagram](media/CS2/Task1/CS2_Task1_UseCaseDiagram.png)
+![Use Case Diagram](media/CS2_Task1_UseCaseDiagram.png)
 
 ## 1.3 Use cases
 ### Case 1

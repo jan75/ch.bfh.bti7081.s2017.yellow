@@ -90,15 +90,16 @@ Additionally, to our application components, we have also the following componen
 - A F5 loadbalancer to handle the load and system failures
 - All system are redundant
 ## 6 System requirements specification
-### 6.1 Write/Read wiki articles  
+### 6.1 Write/Read wiki articles
+
 | Name                          | Write/Read wiki articles                                                                                  |
-|-------------------------------|-----------------------------------------------------------------------------------------------------------| 
-| Number                        | 1                                                                                                         | 
-| Actors                        | Leader of Mental Health Department (LMHD), Employee                                                       | 
-| Short description             | The LMHD writes informative articles that can be read by employees.                                       | 
-| Trigger                       | An employee asks LMHD a question that was already asked before.                                           | 
-| Results                       | The answer to the question is in the wiki. The employee can read the article instead of asking the LMHD.  |              
-                                                                                                                                             
+|-------------------------------|-----------------------------------------------------------------------------------------------------------|
+| Number                        | 1                                                                                                         |
+| Actors                        | Leader of Mental Health Department (LMHD), Employee                                                       |
+| Short description             | The LMHD writes informative articles that can be read by employees.                                       |
+| Trigger                       | An employee asks LMHD a question that was already asked before.                                           |
+| Results                       | The answer to the question is in the wiki. The employee can read the article instead of asking the LMHD.  |
+
 #### Flow
 
 |Nr.|Who|What|

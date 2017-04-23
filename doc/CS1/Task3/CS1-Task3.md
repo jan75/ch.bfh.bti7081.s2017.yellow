@@ -5,10 +5,10 @@ See [Discussion Results (DE)](media/CS1_Task3_Ergebnis_Diskussionsrunde.md) for 
 
 ### Scoping 
 Result of a first brainstorm: 
-![Draft](media/CS1_Task3_Scoping_1st_draft.jpg)
+<img src="media/CS1_Task3_Scoping_1st_draft.jpg" alt="Scoping 1st draft" width="600px">
 
 After that, we grouped the cards into the different requriements: 
-![Scoping](media/CS1_Task3_Scoping.jpg)
+<img src="media/CS1_Task3_Scoping.jpg" alt="Scoping" width="600px">
 
 Notice: Our end user is the head of the psychiatry department. In short the colors: 
 

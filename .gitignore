@@ -1,5 +1,5 @@
 .gitignore
-ch.bfh.bti7081.s2017.yellow.iml
+*.iml
 .idea
 out
 

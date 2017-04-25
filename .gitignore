@@ -1,7 +1,8 @@
 .gitignore
 *.iml
 .idea
-out
+target
+
 
 # ...
 doc/CS1/Task7/media/feh_004157_000001_filelist

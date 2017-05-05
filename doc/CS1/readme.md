@@ -1,0 +1,1 @@
+Link zu Sprint Planning Table: https://docs.google.com/spreadsheets/d/1iFbsm2_kjS5EBUsHNf2VfFOZimbVRK1W5t5_vorC3DQ/edit?usp=sharing

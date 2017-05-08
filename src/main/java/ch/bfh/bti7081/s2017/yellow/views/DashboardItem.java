@@ -7,7 +7,7 @@ import com.vaadin.ui.Component;
  * @author iSorp
  * @see DashboardViewImpl
  */
-public interface DashboardView extends Component {
+public interface DashboardItem extends Component {
     /**
      * Adds a DashboardViewItem component to a View.
      * @param dashboardViewItem

@@ -1,5 +1,7 @@
 package ch.bfh.bti7081.s2017.yellow.presenters;
 
+import ch.bfh.bti7081.s2017.yellow.views.DashboardContactView;
+import ch.bfh.bti7081.s2017.yellow.views.DashboardContactViewImpl;
 import ch.bfh.bti7081.s2017.yellow.views.DashboardView;
 
 import java.util.ArrayList;
@@ -11,7 +13,7 @@ import java.util.ArrayList;
 public class DashboardPresenter {
 
     private DashboardView view = null;
-    private ArrayList<DashboardItemPresenter> dashboardItemList = new ArrayList<DashboardItemPresenter>();
+    private static ArrayList<DashboardItemPresenter> dashboardItemList = new ArrayList<DashboardItemPresenter>();
 
     /**
      * Default DashboardPresenter Constructor.
@@ -19,6 +21,8 @@ public class DashboardPresenter {
      */
     public DashboardPresenter(DashboardView view) {
         this.view = view;
+        DashboardContactView dashboardContactView = new DashboardContactViewImpl();
+        addDashboardItem(new DashboardContactPresenter(dashboardContactView));
     }
 
     /**

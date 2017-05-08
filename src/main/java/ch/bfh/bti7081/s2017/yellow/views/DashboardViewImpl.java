@@ -8,7 +8,11 @@ import com.vaadin.ui.VerticalLayout;
  */
 public class DashboardViewImpl extends VerticalLayout implements DashboardView {
 
-    public DashboardViewImpl() {
+    public DashboardViewImpl() {}
+
+    @Override
+    public void addComponent(DashboardItem dashboardViewItem) {
+
     }
 
     /*

@@ -1,26 +1,26 @@
 package ch.bfh.bti7081.s2017.yellow.presenters;
 
-import ch.bfh.bti7081.s2017.yellow.views.DashboardContactView;
+import ch.bfh.bti7081.s2017.yellow.views.ContactDashboardView;
 
 /**
  * Created by jan on 5/8/17.
  */
-public class DashboardContactPresenter implements DashboardItemPresenter {
+public class ContactDashboardPresenter implements DashboardItemPresenter {
 
-    private DashboardContactView view = null;
+    private ContactDashboardView view = null;
 
     /**
      * Default DashboardPresenter Constructor.
      * @param view
      */
-    public DashboardContactPresenter(DashboardContactView view) {
+    public ContactDashboardPresenter(ContactDashboardView view) {
         this.view = view;
     }
 
     /**
      * @return The instance of the presenters view
      */
-    public DashboardContactView getView() {
+    public ContactDashboardView getView() {
         return view;
     }
 }

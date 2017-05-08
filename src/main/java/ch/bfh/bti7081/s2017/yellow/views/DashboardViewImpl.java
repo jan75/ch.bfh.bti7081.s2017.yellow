@@ -12,8 +12,9 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
 
     @Override
     public void addComponent(DashboardItem dashboardViewItem) {
-
+        super.addComponent(dashboardViewItem);
     }
+
 
     /*
     * TODO: Maybe some listeners are needed?

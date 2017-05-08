@@ -25,11 +25,11 @@ public class MainView extends UI {
         infoLayout.addComponent(contactView);
         rootLayout.addComponent(infoLayout);
 
-        VerticalLayout dashboardLayout = new VerticalLayout();
         DashboardView dashboardView = new DashboardViewImpl();
         new DashboardPresenter(dashboardView);
-        dashboardLayout.addComponent(dashboardView);
-        rootLayout.addComponent(dashboardLayout);
+        rootLayout.addComponent(dashboardView);
+
+        String x = "hello";
 
         setContent(rootLayout);
     }

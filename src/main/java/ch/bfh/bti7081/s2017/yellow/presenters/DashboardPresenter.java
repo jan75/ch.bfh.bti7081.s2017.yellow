@@ -1,9 +1,6 @@
 package ch.bfh.bti7081.s2017.yellow.presenters;
 
-import ch.bfh.bti7081.s2017.yellow.views.ContactDashboardView;
-import ch.bfh.bti7081.s2017.yellow.views.ContactDashboardViewImpl;
 import ch.bfh.bti7081.s2017.yellow.views.DashboardView;
-
 import java.util.ArrayList;
 
 /**
@@ -21,8 +18,6 @@ public class DashboardPresenter {
      */
     public DashboardPresenter(DashboardView view) {
         this.view = view;
-        ContactDashboardView contactDashboardView = new ContactDashboardViewImpl();
-        addDashboardItem(new ContactDashboardPresenter(contactDashboardView));
     }
 
     /**
@@ -34,6 +29,7 @@ public class DashboardPresenter {
      * @author iSorp
      */
     public void addDashboardItem(DashboardItemPresenter item) {
+
         dashboardItemList.add(item);
         this.view.addComponent(item.getView());
     }

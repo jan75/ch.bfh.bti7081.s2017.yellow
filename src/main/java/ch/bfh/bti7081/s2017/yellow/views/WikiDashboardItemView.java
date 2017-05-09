@@ -1,5 +1,7 @@
 package ch.bfh.bti7081.s2017.yellow.views;
 
-public class WikiDashboardItemView extends DashboardViewImpl{
+import com.vaadin.ui.VerticalLayout;
+
+public class WikiDashboardItemView extends VerticalLayout implements DashboardItem{
 
 }

@@ -3,6 +3,8 @@ package ch.bfh.bti7081.s2017.yellow.presenters;
 import ch.bfh.bti7081.s2017.yellow.views.ContactDashboardItemView;
 import ch.bfh.bti7081.s2017.yellow.views.ContactDashboardItemViewImpl;
 import ch.bfh.bti7081.s2017.yellow.views.DashboardView;
+import ch.bfh.bti7081.s2017.yellow.views.WikiDashboardItemView;
+import ch.bfh.bti7081.s2017.yellow.views.WikiDashboardItemViewImpl;
 
 import java.util.ArrayList;
 
@@ -23,6 +25,8 @@ public class DashboardPresenter {
         this.view = view;
         ContactDashboardItemView contactDashboardView = new ContactDashboardItemViewImpl();
         addDashboardItem(new ContactDashboardPresenter(contactDashboardView));
+        WikiDashboardItemView wikiDashboardItemView = new WikiDashboardItemViewImpl();
+        addDashboardItem(new WikiDashboardItemPresenter(wikiDashboardItemView));
     }
 
     /**

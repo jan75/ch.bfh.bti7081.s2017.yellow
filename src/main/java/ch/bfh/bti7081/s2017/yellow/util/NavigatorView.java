@@ -1,8 +1,19 @@
 package ch.bfh.bti7081.s2017.yellow.util;
 
+import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+
 /**
- * Created by simon on 09.05.17.
- * 
+ * Interface for a navigatable View. contains the interface NavigatorViewListener
+ * for Presenters.
+ * All listeners view must implement the interface NavigationView
+ *
+ * @author iSorp
+ * @see NavigatorView
  */
-public interface NavigatorView {
+public interface NavigatorView extends View {
+    interface NavigatorViewListener {
+        void changeView(ViewChangeEvent event);
+    }
+    public void addListener(NavigatorViewListener listener);
 }

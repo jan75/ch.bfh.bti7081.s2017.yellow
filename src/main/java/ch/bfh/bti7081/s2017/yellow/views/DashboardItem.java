@@ -8,8 +8,5 @@ import com.vaadin.ui.Component;
  * @see DashboardViewImpl
  */
 public interface DashboardItem extends Component {
-    /**
-     * Adds a DashboardViewItem component to a View.
-     * @param dashboardViewItem
-     */
+
 }

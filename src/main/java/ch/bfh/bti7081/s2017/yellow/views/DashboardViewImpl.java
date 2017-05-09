@@ -11,7 +11,7 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
     public DashboardViewImpl() {}
 
     @Override
-    public void addComponent(DashboardItem dashboardViewItem) {
+    public void addComponent(DashboardItemView dashboardViewItem) {
         super.addComponent(dashboardViewItem);
     }
 

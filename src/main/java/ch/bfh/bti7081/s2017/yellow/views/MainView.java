@@ -29,8 +29,6 @@ public class MainView extends UI {
         new DashboardPresenter(dashboardView);
         rootLayout.addComponent(dashboardView);
 
-        String x = "hello";
-
         setContent(rootLayout);
     }
 }

@@ -7,9 +7,9 @@ import com.vaadin.ui.Label;
  * Container for DashboardItems, Vertically layouted.
  * @author iSorp
  */
-public class ContactDashboardViewImpl extends HorizontalLayout implements ContactDashboardView {
+public class ContactDashboardItemViewImpl extends HorizontalLayout implements ContactDashboardItemView {
 
-    public ContactDashboardViewImpl() {
+    public ContactDashboardItemViewImpl() {
         /*
         HorizontalLayout menuLayout = new HorizontalLayout();
         menuLayout.addComponent(new Button("dashboard contact view impl"));

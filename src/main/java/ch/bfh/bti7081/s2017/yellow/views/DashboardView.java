@@ -12,5 +12,5 @@ public interface DashboardView extends Component {
      * Adds a DashboardViewItem component to a View.
      * @param dashboardViewItem
      */
-    void addComponent(DashboardItem dashboardViewItem);
+    void addComponent(DashboardItemView dashboardViewItem);
 }

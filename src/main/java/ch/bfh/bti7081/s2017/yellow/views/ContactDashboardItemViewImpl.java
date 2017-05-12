@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Container for DashboardItems, Vertically layouted.
  * @author iSorp
  */
-public class ContactDashboardViewImpl extends HorizontalLayout implements ContactDashboardView {
+public class ContactDashboardItemViewImpl extends HorizontalLayout implements ContactDashboardItemView {
 
     class Contact{
         String prename, surname, phone, email;
@@ -52,7 +52,7 @@ public class ContactDashboardViewImpl extends HorizontalLayout implements Contac
         }
     }
 
-    public ContactDashboardViewImpl() {
+    public ContactDashboardItemViewImpl() {
         ArrayList<Contact> contactArrayList = new ArrayList<Contact>();
         Contact contact1 = new Contact("Tim", "Fischer");
         Contact contact2 = new Contact("Lukas", "Spring");

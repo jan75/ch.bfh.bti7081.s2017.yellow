@@ -38,10 +38,9 @@ public class PlanningDashboardItemViewImpl extends VerticalLayout implements Pla
         public String getTo() {
             return new SimpleDateFormat("HH:mm").format(this.to);
         }
-
     }
 
-    private class DateFactory {
+    private class DateService {
 
         public Date createDateFromString(String dateToParse) {
 
@@ -57,22 +56,24 @@ public class PlanningDashboardItemViewImpl extends VerticalLayout implements Pla
         }
     }
 
+
+
     public PlanningDashboardItemViewImpl() {
 
         Label label = new Label("Employees planned today " + new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
         addComponent(label);
 
-        DateFactory df = new DateFactory();
-        // Have some data
-        List<Shift> shifts = Arrays.asList(
-                new Shift("Peter Zwegat", df.createDateFromString("2011-01-01 04:00:00"), df.createDateFromString("2011-01-01 08:00:00")),
-                new Shift("Hans Lustig",  df.createDateFromString("2011-01-01 08:00:00"), df.createDateFromString("2011-01-01 12:00:00")),
-                new Shift("Otto Schulte", df.createDateFromString("2011-01-01 04:00:00"), df.createDateFromString("2011-01-01 12:00:00")),
-                new Shift("Steffi Geil", df.createDateFromString("2011-01-01 12:00:00"), df.createDateFromString("2011-01-01 18:00:00")),
-                new Shift("Petra Müller",  df.createDateFromString("2011-01-01 18:00:00"), df.createDateFromString("2011-01-01 24:00:00")),
-                new Shift("Stefan Raab", df.createDateFromString("2011-01-01 08:00:00"), df.createDateFromString("2011-01-01 18:00:00")));
+        DateService ds = new DateService();
 
-        // Create a grid bound to the list
+        // Create sample shift data
+        List<Shift> shifts = Arrays.asList(
+                new Shift("Peter Zwegat", ds.createDateFromString("2011-01-01 04:00:00"), ds.createDateFromString("2011-01-01 08:00:00")),
+                new Shift("Hans Lustig",  ds.createDateFromString("2011-01-01 08:00:00"), ds.createDateFromString("2011-01-01 12:00:00")),
+                new Shift("Otto Schulte", ds.createDateFromString("2011-01-01 04:00:00"), ds.createDateFromString("2011-01-01 12:00:00")),
+                new Shift("Steffi Geil", ds.createDateFromString("2011-01-01 12:00:00"), ds.createDateFromString("2011-01-01 18:00:00")),
+                new Shift("Petra Müller",  ds.createDateFromString("2011-01-01 18:00:00"), ds.createDateFromString("2011-01-01 24:00:00")),
+                new Shift("Stefan Raab", ds.createDateFromString("2011-01-01 08:00:00"), ds.createDateFromString("2011-01-01 18:00:00")));
+
         Grid<Shift> grid = new Grid<>();
         grid.setItems(shifts);
         grid.addColumn(Shift::getEmployee).setCaption("Employee");

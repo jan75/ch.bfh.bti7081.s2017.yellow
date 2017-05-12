@@ -21,12 +21,7 @@ public class MainView extends UI {
         rootLayout.addComponent(view);
 
         DashboardView dashboardView = new DashboardViewImpl();
-        DashboardPresenter presenter = new DashboardPresenter(dashboardView);
-
-        PlanningDashboardItemViewImpl planningDashboardItemView = new PlanningDashboardItemViewImpl();
-        PlanningDashboardItemPresenter planningPresenter = new PlanningDashboardItemPresenter(planningDashboardItemView);
-        presenter.addDashboardItem(planningPresenter);
-
+        new DashboardPresenter(dashboardView);
         rootLayout.addComponent(dashboardView);
 
         setContent(rootLayout);

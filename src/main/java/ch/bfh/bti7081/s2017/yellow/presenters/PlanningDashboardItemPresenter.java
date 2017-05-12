@@ -1,6 +1,6 @@
 package ch.bfh.bti7081.s2017.yellow.presenters;
 
-import ch.bfh.bti7081.s2017.yellow.views.DashboardItem;
+import ch.bfh.bti7081.s2017.yellow.views.DashboardItemView;
 import ch.bfh.bti7081.s2017.yellow.views.PlanningDashboardItemView;
 
 /**
@@ -8,14 +8,14 @@ import ch.bfh.bti7081.s2017.yellow.views.PlanningDashboardItemView;
  */
 public class PlanningDashboardItemPresenter implements DashboardItemPresenter {
 
-    private DashboardItem view;
+    PlanningDashboardItemView planningDashboardItemView;
 
     public PlanningDashboardItemPresenter(PlanningDashboardItemView view) {
-        this.view = view;
+        this.planningDashboardItemView = view;
     }
 
     @Override
-    public DashboardItem getView() {
-        return this.view;
+    public DashboardItemView getView() {
+        return this.planningDashboardItemView;
     }
 }

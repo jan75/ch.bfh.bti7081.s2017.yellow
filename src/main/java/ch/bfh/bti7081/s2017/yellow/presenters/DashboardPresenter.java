@@ -20,7 +20,7 @@ public class DashboardPresenter {
     public DashboardPresenter(DashboardView view) {
         this.view = view;
         ContactDashboardItemView contactDashboardView = new ContactDashboardItemViewImpl();
-        addDashboardItem(new ContactDashboardPresenter(contactDashboardView));
+        addDashboardItem(new ContactDashboardItemPresenter(contactDashboardView));
         WikiDashboardItemView wikiDashboardItemView = new WikiDashboardItemViewImpl();
         addDashboardItem(new WikiDashboardItemPresenter(wikiDashboardItemView));
         PlanningDashboardItemView planningDashboardItemView = new PlanningDashboardItemViewImpl();

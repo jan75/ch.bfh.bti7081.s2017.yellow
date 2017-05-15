@@ -1,6 +1,11 @@
 package ch.bfh.bti7081.s2017.yellow.presenters;
 
+<<<<<<< HEAD
 import ch.bfh.bti7081.s2017.yellow.views.ContactDetailView;
+=======
+import ch.bfh.bti7081.s2017.yellow.entities.person.Person;
+import ch.bfh.bti7081.s2017.yellow.services.SimpleService;
+>>>>>>> 911245498ee6f73f7b8aae2f47fe79e4a2b208f5
 import ch.bfh.bti7081.s2017.yellow.views.ContactView;
 import ch.bfh.bti7081.s2017.yellow.views.listeners.ContactViewListener;
 
@@ -12,6 +17,7 @@ public class ContactPresenter implements ContactViewListener {
     private ContactView view;
     private ContactDetailPresenter contactDetailPresenter;
 
+<<<<<<< HEAD
     // Service to access contact data
     private ContactService service =  new ContactService();
 
@@ -21,6 +27,11 @@ public class ContactPresenter implements ContactViewListener {
      */
     public ContactPresenter(ContactView view) {
         // concrete ContactView
+=======
+    private SimpleService<Person> service;
+
+    public ContactPresenter(ContactView view, SimpleService<Person> service) {
+>>>>>>> 911245498ee6f73f7b8aae2f47fe79e4a2b208f5
         this.view = view;
 
         // SubView items

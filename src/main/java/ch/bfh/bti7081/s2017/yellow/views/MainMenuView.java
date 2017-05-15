@@ -18,7 +18,7 @@ public class MainMenuView extends CustomComponent implements MenuView, Button.Cl
         listeners = new ArrayList<>();
         HorizontalLayout menuLayout = new HorizontalLayout();
 
-        for(int i = 0; i <= 6; i++) {
+        for(int i = 0; i <= 4; i++) {
             menuLayout.addComponent(new MenuButton("Menu "+ i, this));
         }
         setCompositionRoot(menuLayout);

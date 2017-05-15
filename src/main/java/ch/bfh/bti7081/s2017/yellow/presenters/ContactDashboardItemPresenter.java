@@ -5,7 +5,7 @@ import ch.bfh.bti7081.s2017.yellow.views.ContactDashboardItemView;
 /**
  * Created by jan on 5/8/17.
  */
-public class ContactDashboardPresenter implements DashboardItemPresenter {
+public class ContactDashboardItemPresenter implements DashboardItemPresenter {
 
     private ContactDashboardItemView view = null;
 
@@ -13,7 +13,7 @@ public class ContactDashboardPresenter implements DashboardItemPresenter {
      * Default DashboardPresenter Constructor.
      * @param view
      */
-    public ContactDashboardPresenter(ContactDashboardItemView view) {
+    public ContactDashboardItemPresenter(ContactDashboardItemView view) {
         this.view = view;
     }
 

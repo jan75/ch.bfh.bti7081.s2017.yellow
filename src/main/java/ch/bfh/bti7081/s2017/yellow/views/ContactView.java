@@ -1,6 +1,6 @@
 package ch.bfh.bti7081.s2017.yellow.views;
 
-import ch.bfh.bti7081.s2017.yellow.entities.Employee;
+import ch.bfh.bti7081.s2017.yellow.entities.person.Person;
 
 import java.util.List;
 
@@ -9,5 +9,5 @@ import java.util.List;
  */
 public interface ContactView {
 
-    void setContacts(List<Employee> employees);
+    void setContacts(List<Person> employees);
 }

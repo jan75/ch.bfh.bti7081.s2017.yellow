@@ -1,41 +1,41 @@
 package ch.bfh.bti7081.s2017.yellow.presenters;
 
-<<<<<<< HEAD
+import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBookEntry;
+import ch.bfh.bti7081.s2017.yellow.services.ContactService;
+import ch.bfh.bti7081.s2017.yellow.util.NavigatorView;
 import ch.bfh.bti7081.s2017.yellow.views.ContactDetailView;
-=======
-import ch.bfh.bti7081.s2017.yellow.entities.person.Person;
-import ch.bfh.bti7081.s2017.yellow.services.SimpleService;
->>>>>>> 911245498ee6f73f7b8aae2f47fe79e4a2b208f5
+import ch.bfh.bti7081.s2017.yellow.views.ContactDetailViewImpl;
 import ch.bfh.bti7081.s2017.yellow.views.ContactView;
-import ch.bfh.bti7081.s2017.yellow.views.listeners.ContactViewListener;
+import com.vaadin.navigator.ViewChangeListener;
+
+import java.awt.*;
+import java.util.Set;
 
 /**
  * Presenter for a ContactView. Supports displaying and editing of Contacts fields.
  * @author iSorp
  */
-public class ContactPresenter implements ContactViewListener {
+public class ContactPresenter implements ContactView.ContactViewListener {
     private ContactView view;
     private ContactDetailPresenter contactDetailPresenter;
 
-<<<<<<< HEAD
     // Service to access contact data
-    private ContactService service =  new ContactService();
+    private ContactService service = new ContactService();
 
     /**
      * Default ContactPresenter Constructor.
      * @param view A instance of an concrete ContactView
      */
     public ContactPresenter(ContactView view) {
-        // concrete ContactView
-=======
-    private SimpleService<Person> service;
 
-    public ContactPresenter(ContactView view, SimpleService<Person> service) {
->>>>>>> 911245498ee6f73f7b8aae2f47fe79e4a2b208f5
+        // concrete ContactView
         this.view = view;
 
         // SubView items
-        contactDetailPresenter = new ContactDetailPresenter(new ContactDetailView());
+        contactDetailPresenter = new ContactDetailPresenter(view.getContactDetailView());
+
+        // View listeners
+        view.addListener(this);
     }
 
     /**
@@ -45,27 +45,36 @@ public class ContactPresenter implements ContactViewListener {
         return view;
     }
 
-
     /**
      * Displays all contacts
      */
     public void displayContacts() {
-        view.setContacts(service.getALlEntities());
+        try {
+            view.setContacts(service.getContactBookEntries());
+        }catch (Exception exception) {
+            // TODO: MessageBox
+        }
     }
 
     /**
      * Sets a filter for displaying a certain contact category.
-     * @param index
+     * @param filter
      */
-    public void setFilter(int index) {
-
+    public void setFilter(String filter) {
+        service.setFilter(filter);
     }
 
     /**
      * Displays the detail view for a single contact.
      */
     public void showContactDetail() {
-        //contactDetailPresenter.showContact(contact);
+
+        Set<ContactBookEntry> e = view.getSelectedContactBookEntry();
+        contactDetailPresenter.displayContact(e.toArray(new ContactBookEntry[]{})[0]);
     }
 
+    @Override
+    public void changeView(ViewChangeListener.ViewChangeEvent event) {
+        displayContacts();
+    }
 }

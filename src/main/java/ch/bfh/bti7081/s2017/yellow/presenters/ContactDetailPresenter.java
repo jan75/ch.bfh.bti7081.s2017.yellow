@@ -1,5 +1,6 @@
 package ch.bfh.bti7081.s2017.yellow.presenters;
 
+import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBookEntry;
 import ch.bfh.bti7081.s2017.yellow.views.ContactDetailView;
 
 /**
@@ -28,8 +29,9 @@ public class ContactDetailPresenter {
     /**
      *
      */
-    public void displayContact() {
-
+    public void displayContact(ContactBookEntry contactBookEntry) {
+        view.setFirstName(contactBookEntry.getPerson().getFirstName());
+        view.setLastname(contactBookEntry.getPerson().getLastName());
+        view.setPhoneNumber(contactBookEntry.getPhoneNr());
     }
-
 }

@@ -10,7 +10,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="CONTACT_BOOK_ENTRY")
-public class ContactBookEntry implements Storable{
+public class ContactBookEntry implements Storable {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -23,6 +23,8 @@ public class ContactBookEntry implements Storable{
 
     @Column(name="PHONE_NR")
     private String phoneNr;
+
+    public ContactBookEntry(){ }
 
     public ContactBookEntry(Person person, String phoneNr) {
         this.person = person;

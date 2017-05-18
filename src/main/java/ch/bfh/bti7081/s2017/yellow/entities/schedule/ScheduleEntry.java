@@ -3,6 +3,8 @@ package ch.bfh.bti7081.s2017.yellow.entities.schedule;
 import ch.bfh.bti7081.s2017.yellow.entities.Storable;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Person;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 /**
@@ -19,11 +21,7 @@ public class ScheduleEntry implements Storable{
 
     @Column(name="PERSON")
     @ManyToMany
-    private Person person;
-
-    public ScheduleEntry(Person person) {
-        this.person = person;
-    }
+    private List<Person> person;
 
     @Override
     public Long getId() {
@@ -35,11 +33,13 @@ public class ScheduleEntry implements Storable{
         this.id = id;
     }
 
-    public Person getPerson() {
-        return person;
-    }
+	public List<Person> getPerson() {
+		return person;
+	}
 
-    public void setPerson(Person person) {
-        this.person = person;
-    }
+	public void setPerson(List<Person> person) {
+		this.person = person;
+	}
+
+
 }

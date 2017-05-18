@@ -1,6 +1,7 @@
 package ch.bfh.bti7081.s2017.yellow.entities.wiki;
 
 import ch.bfh.bti7081.s2017.yellow.entities.Storable;
+import ch.bfh.bti7081.s2017.yellow.entities.person.User;
 
 import javax.persistence.*;
 
@@ -16,8 +17,7 @@ public class WikiEntry implements Storable{
     @Column(name="ID")
     private Long id;
 
-    @OneToMany
-    @Column(name="WIKI")
+    @ManyToOne
     private Wiki wiki;
 
     @Column(name="CAPTION")
@@ -26,6 +26,9 @@ public class WikiEntry implements Storable{
     @Column(name="ENTRY")
     private String entry;
 
+    @ManyToOne
+    private User user;
+    
     public WikiEntry(Wiki wiki, String caption, String entry) {
         this.wiki = wiki;
         this.caption = caption;

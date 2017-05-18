@@ -13,7 +13,6 @@ import javax.persistence.*;
 public class User extends Person {
 
     @OneToOne
-    @Column(name="CONTACT_BOOK")
     private ContactBook contactBook;
 
     public User(String firstName, String lastName) {

@@ -13,11 +13,11 @@ import java.util.List;
 public class ContactBook implements Storable{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID")
     private Long id;
 
-    @Column(name="CONTACT_BOOK_ENTRY")
+    @OneToMany
     private List<ContactBookEntry> entries;
 
     public ContactBook(List<ContactBookEntry> entries){

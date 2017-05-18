@@ -3,6 +3,7 @@ package ch.bfh.bti7081.s2017.yellow.entities.contacts;
 import ch.bfh.bti7081.s2017.yellow.entities.Storable;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +19,11 @@ public class ContactBook implements Storable{
     private Long id;
 
     @Column(name="CONTACT_BOOK_ENTRY")
-    private List<ContactBookEntry> entries;
+    private List<ContactBookEntry> entries = new ArrayList<>();
+
+    public ContactBook() {
+
+    }
 
     public ContactBook(List<ContactBookEntry> entries){
         this.entries = entries;

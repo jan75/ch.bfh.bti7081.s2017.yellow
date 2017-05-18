@@ -1,15 +1,14 @@
 package ch.bfh.bti7081.s2017.yellow.presenters;
 
-import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBookEntry;
 import ch.bfh.bti7081.s2017.yellow.services.ContactService;
-import ch.bfh.bti7081.s2017.yellow.util.NavigatorView;
-import ch.bfh.bti7081.s2017.yellow.views.ContactDetailView;
-import ch.bfh.bti7081.s2017.yellow.views.ContactDetailViewImpl;
-import ch.bfh.bti7081.s2017.yellow.views.ContactView;
+import ch.bfh.bti7081.s2017.yellow.util.NavigatorController;
+import ch.bfh.bti7081.s2017.yellow.views.contact.ContactBookEntryBean;
+import ch.bfh.bti7081.s2017.yellow.views.contact.ContactDetailView;
+import ch.bfh.bti7081.s2017.yellow.views.contact.ContactDetailViewImpl;
+import ch.bfh.bti7081.s2017.yellow.views.contact.ContactView;
 import com.vaadin.navigator.ViewChangeListener;
 
-import java.awt.*;
-import java.util.Set;
+import java.util.Optional;
 
 /**
  * Presenter for a ContactView. Supports displaying and editing of Contacts fields.
@@ -32,10 +31,16 @@ public class ContactPresenter implements ContactView.ContactViewListener {
         this.view = view;
 
         // SubView items
-        contactDetailPresenter = new ContactDetailPresenter(view.getContactDetailView());
+        ContactDetailView contactDetailView = new ContactDetailViewImpl();
+        contactDetailPresenter = new ContactDetailPresenter(contactDetailView);
 
         // View listeners
         view.addListener(this);
+
+        // Data provider for grid
+        view.setDataProvider(service.getContactBookDataProvider());
+
+        NavigatorController.getInstance().addView("contactDetailView", contactDetailView);
     }
 
     /**
@@ -46,35 +51,31 @@ public class ContactPresenter implements ContactView.ContactViewListener {
     }
 
     /**
-     * Displays all contacts
-     */
-    public void displayContacts() {
-        try {
-            view.setContacts(service.getContactBookEntries());
-        }catch (Exception exception) {
-            // TODO: MessageBox
-        }
-    }
-
-    /**
      * Sets a filter for displaying a certain contact category.
      * @param filter
      */
     public void setFilter(String filter) {
         service.setFilter(filter);
+        service.getContactBookDataProvider().refreshAll();
     }
-
     /**
      * Displays the detail view for a single contact.
      */
-    public void showContactDetail() {
+    public void selectionChange(ContactBookEntryBean selection) {
+        if (selection != null) {
+            contactDetailPresenter.displayContact(selection);
+            NavigatorController.getInstance().navigateTo("contactDetailView");
+        }
+    }
 
-        Set<ContactBookEntry> e = view.getSelectedContactBookEntry();
-        contactDetailPresenter.displayContact(e.toArray(new ContactBookEntry[]{})[0]);
+    @Override
+    public void addContact() {
+        contactDetailPresenter.displayContact(new ContactBookEntryBean());
+        NavigatorController.getInstance().navigateTo("contactDetailView");
     }
 
     @Override
     public void changeView(ViewChangeListener.ViewChangeEvent event) {
-        displayContacts();
+        service.getContactBookDataProvider().refreshAll();
     }
 }

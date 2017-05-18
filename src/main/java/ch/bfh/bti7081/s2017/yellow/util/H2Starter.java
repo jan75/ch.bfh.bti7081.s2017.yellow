@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2017.yellow;
+package ch.bfh.bti7081.s2017.yellow.util;
 
 import java.sql.SQLException;
 

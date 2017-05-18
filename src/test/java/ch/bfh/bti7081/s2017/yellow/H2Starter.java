@@ -2,6 +2,11 @@ package ch.bfh.bti7081.s2017.yellow;
 
 import java.sql.SQLException;
 
+/**
+ * Run as separate application.
+ * It starts a TCP server and connects to it via browser,
+ * creating an in-memory database.
+ */
 public class H2Starter {
 	public static void main(String... args){
 		try {

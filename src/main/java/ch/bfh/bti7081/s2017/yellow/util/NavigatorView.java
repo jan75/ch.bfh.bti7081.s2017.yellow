@@ -15,5 +15,5 @@ public interface NavigatorView extends View {
     interface NavigatorViewListener {
         void changeView(ViewChangeEvent event);
     }
-    public void addListener(NavigatorViewListener listener);
+    //void addListener(NavigatorViewListener listener);
 }

@@ -20,9 +20,13 @@ public class MainView extends UI {
         new MainMenuPresenter(view);
         rootLayout.addComponent(view);
 
-        DashboardView dashboardView = new DashboardViewImpl();
+        /*DashboardView dashboardView = new DashboardViewImpl();
         new DashboardPresenter(dashboardView);
         rootLayout.addComponent(dashboardView);
+*/
+        ContactView contactView = new ContactViewImpl();
+        new ContactPresenter(contactView);
+        rootLayout.addComponent(contactView);
 
         setContent(rootLayout);
     }

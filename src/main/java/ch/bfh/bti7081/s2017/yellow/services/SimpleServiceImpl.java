@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class SimpleServiceImpl<T extends Storable, R extends CrudRepository<T>> implements SimpleService<T> {
+public class SimpleServiceImpl<T extends Storable/*, R extends CrudRepository<T>*/> implements SimpleService<T> {
 
     @Autowired
     private CrudRepository<T> repo;

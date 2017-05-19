@@ -2,6 +2,8 @@ package ch.bfh.bti7081.s2017.yellow.entities.schedule;
 
 import ch.bfh.bti7081.s2017.yellow.entities.Storable;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 /**
@@ -16,12 +18,10 @@ public class Schedule implements Storable{
     @Column(name="ID")
     private Long id;
 
-    @Column(name="SCHEDULE_ENTRY")
-    private ScheduleEntry scheduleEntry;
+    @OneToMany
+    private List<ScheduleEntry> scheduleEntry;
 
-    public Schedule(ScheduleEntry scheduleEntry) {
-        this.scheduleEntry = scheduleEntry;
-    }
+
 
     @Override
     public Long getId() {
@@ -33,11 +33,13 @@ public class Schedule implements Storable{
         this.id = id;
     }
 
-    public ScheduleEntry getScheduleEntry() {
-        return scheduleEntry;
-    }
+	public List<ScheduleEntry> getScheduleEntry() {
+		return scheduleEntry;
+	}
 
-    public void setScheduleEntry(ScheduleEntry scheduleEntry) {
-        this.scheduleEntry = scheduleEntry;
-    }
+	public void setScheduleEntry(List<ScheduleEntry> scheduleEntry) {
+		this.scheduleEntry = scheduleEntry;
+	}
+
+
 }

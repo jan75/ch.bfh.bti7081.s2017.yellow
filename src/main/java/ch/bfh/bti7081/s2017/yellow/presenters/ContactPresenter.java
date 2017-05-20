@@ -2,13 +2,11 @@ package ch.bfh.bti7081.s2017.yellow.presenters;
 
 import ch.bfh.bti7081.s2017.yellow.services.ContactService;
 import ch.bfh.bti7081.s2017.yellow.util.NavigatorController;
-import ch.bfh.bti7081.s2017.yellow.views.contact.ContactBookEntryBean;
+import ch.bfh.bti7081.s2017.yellow.beans.ContactBookEntryBean;
 import ch.bfh.bti7081.s2017.yellow.views.contact.ContactDetailView;
 import ch.bfh.bti7081.s2017.yellow.views.contact.ContactDetailViewImpl;
 import ch.bfh.bti7081.s2017.yellow.views.contact.ContactView;
 import com.vaadin.navigator.ViewChangeListener;
-
-import java.util.Optional;
 
 /**
  * Presenter for a ContactView. Supports displaying and editing of Contacts fields.
@@ -34,12 +32,13 @@ public class ContactPresenter implements ContactView.ContactViewListener {
         ContactDetailView contactDetailView = new ContactDetailViewImpl();
         contactDetailPresenter = new ContactDetailPresenter(contactDetailView);
 
-        // View listeners
+        // View listeners (add contact, change view)
         view.addListener(this);
 
-        // Data provider for grid
+        // Adding List of ContactBookEntryBeans to a data provider
         view.setDataProvider(service.getContactBookDataProvider());
 
+        // View Navigator for detailed contact form
         NavigatorController.getInstance().addView("contactDetailView", contactDetailView);
     }
 
@@ -63,14 +62,14 @@ public class ContactPresenter implements ContactView.ContactViewListener {
      */
     public void selectionChange(ContactBookEntryBean selection) {
         if (selection != null) {
-            contactDetailPresenter.displayContact(selection);
+            contactDetailPresenter.setContact(selection);
             NavigatorController.getInstance().navigateTo("contactDetailView");
         }
     }
 
     @Override
     public void addContact() {
-        contactDetailPresenter.displayContact(new ContactBookEntryBean());
+        contactDetailPresenter.setContact(new ContactBookEntryBean());
         NavigatorController.getInstance().navigateTo("contactDetailView");
     }
 

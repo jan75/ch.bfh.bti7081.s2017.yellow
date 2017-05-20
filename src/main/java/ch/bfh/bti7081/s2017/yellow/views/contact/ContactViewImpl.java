@@ -1,5 +1,6 @@
 package ch.bfh.bti7081.s2017.yellow.views.contact;
 
+import ch.bfh.bti7081.s2017.yellow.beans.ContactBookEntryBean;
 import com.vaadin.data.provider.DataProvider;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.shared.ui.ValueChangeMode;
@@ -37,7 +38,7 @@ public class ContactViewImpl extends CustomComponent implements ContactView {
 
         HorizontalLayout toolbar = new HorizontalLayout(filtering, addCustomerBtn);
 
-        grid.setColumns("firstName", "lastName", "phoneNumber");
+        grid.setColumns("firstName", "lastName", "phoneNr");
 
         HorizontalLayout main = new HorizontalLayout(grid);
         main.setSizeFull();

@@ -1,5 +1,6 @@
 package ch.bfh.bti7081.s2017.yellow.views.contact;
 
+import ch.bfh.bti7081.s2017.yellow.beans.ContactBookEntryBean;
 import ch.bfh.bti7081.s2017.yellow.util.NavigatorView;
 import com.vaadin.data.provider.DataProvider;
 import com.vaadin.ui.Component;

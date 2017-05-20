@@ -15,10 +15,10 @@ public class Person implements Storable {
     private Long id;
 
     @Column(name="FIRST_NAME")
-    private String firstName;
+    private String firstName = "";
 
     @Column(name = "LAST_NAME")
-    private String lastName;
+    private String lastName = "";
 
     public Person() {
     	

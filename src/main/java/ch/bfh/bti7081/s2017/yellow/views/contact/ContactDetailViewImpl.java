@@ -1,6 +1,7 @@
 package ch.bfh.bti7081.s2017.yellow.views.contact;
 
-import com.vaadin.data.Binder;
+import ch.bfh.bti7081.s2017.yellow.beans.ContactBookEntryBean;
+import com.vaadin.data.BeanValidationBinder;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.*;
@@ -11,21 +12,22 @@ import com.vaadin.ui.themes.ValoTheme;
  */
 public class ContactDetailViewImpl extends FormLayout implements ContactDetailView {
 
+    private ContactDetailViewListener listener;
     private TextField firstName = new TextField("First name");
     private TextField lastName = new TextField("Last name");
-    private TextField phoneNumber = new TextField("Phone number");
+    private TextField phoneNr = new TextField("Phone number");
     private Button btnSave = new Button("Save");
     private Button btnDelete = new Button("Delete");
     private Button btnCancel = new Button("Cancel");
-    private Binder<ContactBookEntryBean> binder = new Binder<>(ContactBookEntryBean.class);
+    private BeanValidationBinder<ContactBookEntryBean> beanValidationBinder = new BeanValidationBinder(ContactBookEntryBean.class);
 
     public ContactDetailViewImpl() {
         setSizeUndefined();
         HorizontalLayout buttons = new HorizontalLayout(btnSave, btnDelete, btnCancel);
-        VerticalLayout textBoxes = new VerticalLayout(firstName, lastName, phoneNumber);
+        VerticalLayout textBoxes = new VerticalLayout(firstName, lastName, phoneNr);
         addComponents(textBoxes, buttons);
 
-        binder.bindInstanceFields(this);
+        beanValidationBinder.bindInstanceFields(this);
 
         btnSave.setStyleName(ValoTheme.BUTTON_PRIMARY);
         btnDelete.setClickShortcut(ShortcutAction.KeyCode.ENTER);
@@ -34,23 +36,34 @@ public class ContactDetailViewImpl extends FormLayout implements ContactDetailVi
 
     @Override
     public void setContact(ContactBookEntryBean contactBookEntryBean) {
-        binder.setBean(contactBookEntryBean);
+        beanValidationBinder.setBean(contactBookEntryBean);
     }
 
     @Override
     public ContactBookEntryBean getContact() {
-        return new ContactBookEntryBean(firstName.getValue(), lastName.getValue(), phoneNumber.getValue());
+        return beanValidationBinder.getBean();
     }
 
     @Override
+    public boolean validate() {
+        beanValidationBinder.validate();
+        return beanValidationBinder.isValid();
+    }
+    @Override
     public void addListener(ContactDetailViewListener listener) {
-        btnSave.addClickListener(event -> listener.save());
-        btnDelete.addClickListener(event -> listener.delete());
-        btnCancel.addClickListener(event -> listener.cancel());
+        this.listener = listener;
+        btnSave.addClickListener(event ->   listener.saveClicked());
+        btnDelete.addClickListener(event -> listener.deleteClicked());
+        btnCancel.addClickListener(event -> listener.cancelClicked());
     }
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
-
+        if (listener != null) {
+            listener.changeView(viewChangeEvent);
+        }
     }
 }
+
+
+

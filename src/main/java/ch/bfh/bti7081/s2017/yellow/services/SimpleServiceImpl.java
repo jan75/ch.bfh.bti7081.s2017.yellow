@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SimpleServiceImpl<T extends Storable, B extends BaseBean<T>> implements SimpleService<B>, BeanMapperConsumer<T, B> {
@@ -29,11 +30,6 @@ public class SimpleServiceImpl<T extends Storable, B extends BaseBean<T>> implem
     private Class<B> bean;
     private Class<T> entity;
 
-
-    /*public SimpleServiceImpl() {
-        this(null, null);
-    }*/
-
     public SimpleServiceImpl(Class<T> entity, Class<B> bean) {
         this.repo = new CrudRepositoryImpl<>();
         this.bean = bean;
@@ -45,16 +41,12 @@ public class SimpleServiceImpl<T extends Storable, B extends BaseBean<T>> implem
 
     @Override
     public List<B> getALlEntities() {
-        List<B> beanList = new ArrayList<>();
-        List<T> entityList = new ArrayList<>();
-        return mapperFactory.getMapperFacade().map(repo.getAll(entity), beanList.getClass());
+        return mapperFactory.getMapperFacade().mapAsList(repo.getAll(entity), bean);
     }
 
     @Override
     public List<B> findEntities(Criteria criteria) {
-        List<B> beanList = new ArrayList<>();
-        List<T> entityList = new ArrayList<>();
-        return mapperFactory.getMapperFacade().map(repo.find(criteria), beanList.getClass());
+        return mapperFactory.getMapperFacade().mapAsList(repo.find(criteria), bean);
     }
 
     @Override

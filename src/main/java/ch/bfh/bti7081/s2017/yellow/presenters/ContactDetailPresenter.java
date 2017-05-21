@@ -18,7 +18,8 @@ public class ContactDetailPresenter implements ContactDetailView.ContactDetailVi
     private ContactDetailView view;
 
     // Service to access contact data
-    private ContactService service = new ContactService();
+    private SimpleService<ContactBookEntryBean> service =
+            new SimpleServiceImpl<ContactBookEntry, ContactBookEntryBean>(ContactBookEntry.class, ContactBookEntryBean.class);
 
     /**
      * Default ContactPresenter Constructor.
@@ -55,8 +56,8 @@ public class ContactDetailPresenter implements ContactDetailView.ContactDetailVi
     public void saveClicked() {
         // TODO: distinguish Person type
         if (view.validate()) {
-            //service.saveEntities(Arrays.asList(
-            //       new ContactBookEntry(new Person(bean.getFirstName(), bean.getLastName()), bean.getPhoneNumber())));
+            service.saveEntity(view.getContact());
+
             navigateBack();
         }
     }

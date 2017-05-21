@@ -1,11 +1,15 @@
 package ch.bfh.bti7081.s2017.yellow.services;
 
+import ch.bfh.bti7081.s2017.yellow.beans.ContactBookBean;
 import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBook;
 import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBookEntry;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Person;
-import ch.bfh.bti7081.s2017.yellow.util.BeanMapper;
 import ch.bfh.bti7081.s2017.yellow.beans.ContactBookEntryBean;
 import com.vaadin.data.provider.DataProvider;
+import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.MapperFactory;
+import ma.glasnost.orika.MappingContext;
+import ma.glasnost.orika.impl.DefaultMapperFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,32 +19,27 @@ import java.util.stream.Collectors;
 /**
  * Created by simon on 15.05.17.
  */
-public class ContactService extends SimpleServiceImpl<ContactBook> {
+public class ContactService extends SimpleServiceImpl<ContactBook, ContactBookBean>  {
 
     public List<ContactBookEntryBean> contactList = new ArrayList<>();
-    private BeanMapper<ContactBookEntry, ContactBookEntryBean> beanMapper = new BeanMapper<>();
+
     private String filter;
 
-    public ContactService(){
-
-        List<ContactBook> mockList = new ArrayList<>();
+    public ContactService() {
+        super(ContactBook.class, ContactBookBean.class);
+        List<ContactBook> mockList = new ArrayList<ContactBook>();
         ContactBook contactBook = new ContactBook();
         contactBook.setEntries(new ContactBookEntry(new Person("simon", "wälti"), "0797492467"));
         contactBook.setEntries(new ContactBookEntry(new Person("simon", "wälti"), "0797492467"));
         contactBook.setEntries(new ContactBookEntry(new Person("hugo", "habicht"), "0797492467"));
         mockList.add(contactBook);
 
-        mockList.forEach(book -> book.getEntries().forEach(entry ->
-            contactList.add(beanMapper.getEntityBean(entry, new ContactBookEntryBean()))
-        ));
-    }
+        List<ContactBookBean> mockList2 = new ArrayList<ContactBookBean>();
 
-    /**
-     *
-     * @param contactBookEntryBean
-     */
-    public void saveEntities(ContactBookEntryBean contactBookEntryBean) {
-        super.saveEntities(null);
+        MapperFacade mapper = this.mapperFactory.getMapperFacade();
+        ContactBookBean bean = mapper.map(contactBook, ContactBookBean.class);
+
+        bean.getEntries().forEach(entry -> contactList.add(entry));
     }
 
     /**
@@ -69,7 +68,6 @@ public class ContactService extends SimpleServiceImpl<ContactBook> {
                 .collect(Collectors.toList());
     }
 
-
     /**
      * Returns a DataProvider for a List
      * @return
@@ -84,4 +82,13 @@ public class ContactService extends SimpleServiceImpl<ContactBook> {
             // Second callback fetches the number of items for a query
             query -> getContactBookEntries().size()
     );
+
+    @Override
+    public void mapEntityToBean(ContactBook contactEntity, ContactBookBean contactBookBean) {
+        // Add all entity references to the beans
+        contactBookBean.setEntity(contactEntity);
+        for (int i = 0; i < contactBookBean.getEntries().size(); i++) {
+            contactBookBean.getEntries().get(i).setEntity(contactEntity.getEntries().get(i));
+        }
+    }
 }

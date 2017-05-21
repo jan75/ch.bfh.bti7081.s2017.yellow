@@ -1,6 +1,8 @@
 package ch.bfh.bti7081.s2017.yellow.presenters;
 
+import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBook;
 import ch.bfh.bti7081.s2017.yellow.services.ContactService;
+import ch.bfh.bti7081.s2017.yellow.services.SimpleService;
 import ch.bfh.bti7081.s2017.yellow.util.NavigatorController;
 import ch.bfh.bti7081.s2017.yellow.beans.ContactBookEntryBean;
 import ch.bfh.bti7081.s2017.yellow.views.contact.ContactDetailView;

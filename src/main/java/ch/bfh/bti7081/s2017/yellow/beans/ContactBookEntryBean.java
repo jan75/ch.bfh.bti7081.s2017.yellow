@@ -23,14 +23,11 @@ public class ContactBookEntryBean extends BaseBean<ContactBookEntry> {
     @NotNull
     private PersonBean person = new PersonBean();
 
-    public ContactBookEntryBean() {
-        entity = new ContactBookEntry();
-    }
+    public ContactBookEntryBean() { }
 
-    public ContactBookEntryBean(String firstName) {
+    public ContactBookEntryBean(String phoneNr) {
         this.phoneNr = phoneNr;
     }
-
 
     public PersonBean getPerson(){
         return this.person;

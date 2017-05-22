@@ -25,7 +25,7 @@ public class ContactBook implements Storable{
     private Long id = new Long(0);
 
     @OneToMany(fetch = FetchType.EAGER)
-    @Cascade(CascadeType.ALL)
+    @Cascade({ CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH})
     private List<ContactBookEntry> entries;
 
     public ContactBook() {

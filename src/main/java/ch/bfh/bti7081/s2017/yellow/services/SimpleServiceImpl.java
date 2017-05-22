@@ -29,50 +29,50 @@ public class SimpleServiceImpl<A extends Storable, B extends BaseBean<A>> implem
     @Autowired
     protected CrudRepository<A> repo;
 
-    private Class<A> entity;
-    private Class<B> bean;
+    private Class<A> entityClazz;
+    private Class<B> beanClazz;
 
     public SimpleServiceImpl(Class<A> entity, Class<B> bean) {
         this.repo = new CrudRepositoryImpl<>();
-        this.bean = bean;
-        this.entity = entity;
+        this.beanClazz = bean;
+        this.entityClazz = entity;
         mapperFactory.classMap(ContactBook.class, ContactBookBean.class).customize(mapper).register();
         mapper.setBeanMapperConsumer(this);
     }
 
     @Override
     public List<B> getALlEntities() {
-        return mapperFactory.getMapperFacade().mapAsList(repo.getAll(entity), bean);
+        return mapperFactory.getMapperFacade().mapAsList(repo.getAll(entityClazz), beanClazz);
     }
 
     @Override
     public List<B> findEntities(Criteria criteria) {
-        return mapperFactory.getMapperFacade().mapAsList(repo.find(criteria), bean);
+        return mapperFactory.getMapperFacade().mapAsList(repo.find(criteria), beanClazz);
     }
 
     @Override
     public void saveEntities(List<B> beans) {
         for (B b : beans) {
-            if (b.getEntity().getId() == 0) {
-                repo.save(mapperFactory.getMapperFacade().map(bean, entity));
+            if (b.getId() == null) {
+                repo.save(mapperFactory.getMapperFacade().map(beanClazz, entityClazz));
             } else {
-                repo.update(mapperFactory.getMapperFacade().map(bean, entity));
+                repo.update(mapperFactory.getMapperFacade().map(beanClazz, entityClazz));
             }
         }
     }
 
     @Override
     public void saveEntity(B bean) {
-        if (bean.getEntity().getId() == 0) {
-            repo.save(mapperFactory.getMapperFacade().map(bean, entity));
+        if (bean.getId() == null) {
+            repo.save(mapperFactory.getMapperFacade().map(bean, entityClazz));
         } else {
-            repo.update(mapperFactory.getMapperFacade().map(bean, entity));
+            repo.update(mapperFactory.getMapperFacade().map(bean, entityClazz));
         }
     }
 
     @Override
     public void mapEntityToBean(A entity, B bean) {
-        bean.setEntity(entity);
+        //bean.(entity);
     }
 
     @Override

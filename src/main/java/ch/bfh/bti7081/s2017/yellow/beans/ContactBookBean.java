@@ -12,10 +12,6 @@ import java.util.List;
  */
 public class ContactBookBean extends BaseBean<ContactBook> {
 
-    public ContactBookBean() {
-        entity = new ContactBook();
-    }
-
     private List<ContactBookEntryBean> entries = new ArrayList<>();
 
     public List<ContactBookEntryBean> getEntries(){

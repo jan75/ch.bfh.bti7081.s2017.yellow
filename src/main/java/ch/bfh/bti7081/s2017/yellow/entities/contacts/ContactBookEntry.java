@@ -19,8 +19,8 @@ public class ContactBookEntry implements Storable {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="ID")
-    private Long id = new Long(0);
-    
+    private Long id;
+
     @OneToOne
     @Cascade(CascadeType.ALL)
     private Person person = new Person();

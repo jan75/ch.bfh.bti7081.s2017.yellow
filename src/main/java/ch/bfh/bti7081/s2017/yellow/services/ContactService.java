@@ -25,19 +25,23 @@ import java.util.stream.Collectors;
 public class ContactService extends SimpleServiceImpl<ContactBook, ContactBookBean>  {
 
     //public List<ContactBookEntryBean> contactList = new ArrayList<>();
+    private static boolean init = false;
 
     private String filter;
 
     public ContactService() {
         super(ContactBook.class, ContactBookBean.class);
 
-        ContactBookBean contactBookBean = new ContactBookBean();
-        ContactBookEntryBean entryBean = new ContactBookEntryBean();
-        entryBean.setFirstName("Hugo");
-        entryBean.setLastName("Habicht");
-        entryBean.setPhoneNr("999999");
-        contactBookBean.addEntry(entryBean);
-        saveEntity(contactBookBean);
+        if (init == false) {
+            ContactBookBean contactBookBean = new ContactBookBean();
+            ContactBookEntryBean entryBean = new ContactBookEntryBean();
+            entryBean.setFirstName("Hugo");
+            entryBean.setLastName("Habicht");
+            entryBean.setPhoneNr("999999");
+            contactBookBean.addEntry(entryBean);
+            saveEntity(contactBookBean);
+            init = true;
+        }
     }
 
     /**
@@ -85,9 +89,9 @@ public class ContactService extends SimpleServiceImpl<ContactBook, ContactBookBe
     @Override
     public void mapEntityToBean(ContactBook contactEntity, ContactBookBean contactBookBean) {
         // Add all entity references to the beans
-        contactBookBean.setEntity(contactEntity);
+        /*contactBookBean.setEntity(contactEntity);
         for (int i = 0; i < contactBookBean.getEntries().size(); i++) {
             contactBookBean.getEntries().get(i).setEntity(contactEntity.getEntries().get(i));
-        }
+        }*/
     }
 }

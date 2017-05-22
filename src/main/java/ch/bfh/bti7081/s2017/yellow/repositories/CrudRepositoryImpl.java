@@ -97,7 +97,9 @@ public class CrudRepositoryImpl<T extends Storable> implements CrudRepository<T>
 
     @Override
     public void update(T entity) {
-
+		entityManager.getTransaction().begin();
+		entityManager.merge( entity );
+		entityManager.getTransaction().commit();
     }
 
     @Override

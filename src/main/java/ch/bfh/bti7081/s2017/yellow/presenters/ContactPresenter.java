@@ -73,7 +73,7 @@ public class ContactPresenter implements ContactView.ContactViewListener {
     @Override
     public void addContact() {
         ContactBookEntryBean bean = new ContactBookEntryBean();
-        bean.setEntity(new ContactBookEntry());
+        //bean.setEntity(new ContactBookEntry());
         contactDetailPresenter.setContact(new ContactBookEntryBean());
         NavigatorController.getInstance().navigateTo("contactDetailView");
     }

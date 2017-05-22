@@ -6,12 +6,12 @@ import ch.bfh.bti7081.s2017.yellow.entities.Storable;
  * Created by simon on 20.05.17.
  */
 public class BaseBean<E extends Storable> {
-    protected E entity;
+    private Long id;
 
-    public void setEntity(E entity) {
-        this.entity = entity;
+    public void setId(Long id) {
+        this.id = id;
     }
-    public E getEntity() {
-        return entity;
+    public Long getId() {
+        return id;
     }
 }

@@ -1,9 +1,12 @@
 package ch.bfh.bti7081.s2017.yellow.views.contact;
 
 import ch.bfh.bti7081.s2017.yellow.beans.ContactBookEntryBean;
+import com.sun.org.apache.xml.internal.utils.DefaultErrorHandler;
 import com.vaadin.data.BeanValidationBinder;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.ErrorHandler;
+import com.vaadin.server.ErrorMessage;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 

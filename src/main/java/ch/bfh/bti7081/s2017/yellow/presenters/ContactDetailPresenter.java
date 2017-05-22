@@ -21,8 +21,8 @@ public class ContactDetailPresenter implements ContactDetailView.ContactDetailVi
     private ContactDetailView view;
 
     // Service to access contact data
-    //private SimpleService<ContactBookEntryBean> service =
-    //        new SimpleServiceImpl<ContactBookEntry, ContactBookEntryBean>(ContactBookEntry.class, ContactBookEntryBean.class);
+    private SimpleService<ContactBookEntryBean> service1 =
+            new SimpleServiceImpl<ContactBookEntry, ContactBookEntryBean>(ContactBookEntry.class, ContactBookEntryBean.class);
     private ContactService service = new ContactService();
 
     /**

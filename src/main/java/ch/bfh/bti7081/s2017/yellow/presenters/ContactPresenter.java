@@ -1,6 +1,7 @@
 package ch.bfh.bti7081.s2017.yellow.presenters;
 
 import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBook;
+import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBookEntry;
 import ch.bfh.bti7081.s2017.yellow.services.ContactService;
 import ch.bfh.bti7081.s2017.yellow.services.SimpleService;
 import ch.bfh.bti7081.s2017.yellow.util.NavigatorController;
@@ -71,6 +72,8 @@ public class ContactPresenter implements ContactView.ContactViewListener {
 
     @Override
     public void addContact() {
+        ContactBookEntryBean bean = new ContactBookEntryBean();
+        bean.setEntity(new ContactBookEntry());
         contactDetailPresenter.setContact(new ContactBookEntryBean());
         NavigatorController.getInstance().navigateTo("contactDetailView");
     }

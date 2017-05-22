@@ -2,8 +2,12 @@ package ch.bfh.bti7081.s2017.yellow.entities.contacts;
 
 import ch.bfh.bti7081.s2017.yellow.entities.Storable;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Person;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * Created by dario on 09.05.2017.
@@ -15,10 +19,11 @@ public class ContactBookEntry implements Storable {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="ID")
-    private Long id;
+    private Long id = new Long(0);
     
     @OneToOne
-    private Person person;
+    @Cascade(CascadeType.ALL)
+    private Person person = new Person();
 
     @Column(name="PHONE_NR")
     private String phoneNr;

@@ -10,6 +10,10 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class PersonBean extends BaseBean<Person> {
 
+    public PersonBean() {
+        entity = new Person();
+    }
+
     @NotBlank
     private String firstName = "";
     @NotBlank

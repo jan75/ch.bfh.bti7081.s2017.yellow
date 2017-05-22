@@ -37,8 +37,8 @@ public class BeanMapperImpl<A extends Storable, B extends BaseBean> extends Cust
     @Override
     public void mapBtoA(B bean, A entity, MappingContext context) {
         MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
-        mapperFactory.classMap(entity.getClass(), bean.getClass()).byDefault();
-        mapperFactory.getMapperFacade().map(entity, bean);
+        mapperFactory.classMap(bean.getClass(), entity.getClass()).byDefault();
+        mapperFactory.getMapperFacade().map(bean, entity);
         consumer.mapBeanToEntity(bean, entity);
     }
 

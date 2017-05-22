@@ -1,5 +1,6 @@
 package ch.bfh.bti7081.s2017.yellow.presenters;
 
+import ch.bfh.bti7081.s2017.yellow.beans.ContactBookBean;
 import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBookEntry;
 import ch.bfh.bti7081.s2017.yellow.services.ContactService;
 import ch.bfh.bti7081.s2017.yellow.services.SimpleService;
@@ -8,6 +9,8 @@ import ch.bfh.bti7081.s2017.yellow.util.NavigatorController;
 import ch.bfh.bti7081.s2017.yellow.beans.ContactBookEntryBean;
 import ch.bfh.bti7081.s2017.yellow.views.contact.ContactDetailView;
 import com.vaadin.navigator.ViewChangeListener;
+
+import java.util.List;
 
 /**
  * Presenter for a ContactDetailPresenter. Supports displaying and editing of a single contact.
@@ -18,8 +21,9 @@ public class ContactDetailPresenter implements ContactDetailView.ContactDetailVi
     private ContactDetailView view;
 
     // Service to access contact data
-    private SimpleService<ContactBookEntryBean> service =
-            new SimpleServiceImpl<ContactBookEntry, ContactBookEntryBean>(ContactBookEntry.class, ContactBookEntryBean.class);
+    //private SimpleService<ContactBookEntryBean> service =
+    //        new SimpleServiceImpl<ContactBookEntry, ContactBookEntryBean>(ContactBookEntry.class, ContactBookEntryBean.class);
+    private ContactService service = new ContactService();
 
     /**
      * Default ContactPresenter Constructor.
@@ -56,8 +60,9 @@ public class ContactDetailPresenter implements ContactDetailView.ContactDetailVi
     public void saveClicked() {
         // TODO: distinguish Person type
         if (view.validate()) {
-            service.saveEntity(view.getContact());
-
+            ContactBookBean book = service.getALlEntities().get(0);
+            book.addEntry(view.getContact());
+            service.saveEntity(book);
             navigateBack();
         }
     }

@@ -5,11 +5,14 @@ import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBook;
 import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBookEntry;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Person;
 import ch.bfh.bti7081.s2017.yellow.beans.ContactBookEntryBean;
+import ch.bfh.bti7081.s2017.yellow.util.BeanMapper;
+import ch.bfh.bti7081.s2017.yellow.util.BeanMapperImpl;
 import com.vaadin.data.provider.DataProvider;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.MappingContext;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
+import org.hibernate.Criteria;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,25 +24,20 @@ import java.util.stream.Collectors;
  */
 public class ContactService extends SimpleServiceImpl<ContactBook, ContactBookBean>  {
 
-    public List<ContactBookEntryBean> contactList = new ArrayList<>();
+    //public List<ContactBookEntryBean> contactList = new ArrayList<>();
 
     private String filter;
 
     public ContactService() {
         super(ContactBook.class, ContactBookBean.class);
-        List<ContactBook> mockList = new ArrayList<ContactBook>();
-        ContactBook contactBook = new ContactBook();
-        contactBook.setEntries(new ContactBookEntry(new Person("simon", "wälti"), "0797492467"));
-        contactBook.setEntries(new ContactBookEntry(new Person("simon", "wälti"), "0797492467"));
-        contactBook.setEntries(new ContactBookEntry(new Person("hugo", "habicht"), "0797492467"));
-        mockList.add(contactBook);
 
-        List<ContactBookBean> mockList2 = new ArrayList<ContactBookBean>();
-
-        MapperFacade mapper = this.mapperFactory.getMapperFacade();
-        ContactBookBean bean = mapper.map(contactBook, ContactBookBean.class);
-
-        bean.getEntries().forEach(entry -> contactList.add(entry));
+        ContactBookBean contactBookBean = new ContactBookBean();
+        ContactBookEntryBean entryBean = new ContactBookEntryBean();
+        entryBean.setFirstName("Hugo");
+        entryBean.setLastName("Habicht");
+        entryBean.setPhoneNr("999999");
+        contactBookBean.addEntry(entryBean);
+        saveEntity(contactBookBean);
     }
 
     /**
@@ -60,10 +58,11 @@ public class ContactService extends SimpleServiceImpl<ContactBook, ContactBookBe
         Predicate<ContactBookEntryBean> firstNamePredicate = a -> {
             if (filter == null || filter == "")
                 return true;
-            return a.getFirstName().contains(filter) || a.getLastName().contains(filter);
+            return a.getPerson().getFirstName().contains(filter) || a.getPerson().getLastName().contains(filter);
             };
         // Mapping of a ContactBook list to a list of ContactBookEntry list
-        return contactList.stream()
+        return getALlEntities().stream()
+                .flatMap(a->a.getEntries().stream())
                 .filter(firstNamePredicate)
                 .collect(Collectors.toList());
     }
@@ -80,7 +79,7 @@ public class ContactService extends SimpleServiceImpl<ContactBook, ContactBookBe
             query -> getContactBookEntries().stream(),
 
             // Second callback fetches the number of items for a query
-            query -> getContactBookEntries().size()
+            query ->getContactBookEntries().size()
     );
 
     @Override

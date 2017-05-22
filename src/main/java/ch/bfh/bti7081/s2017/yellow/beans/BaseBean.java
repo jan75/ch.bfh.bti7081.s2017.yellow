@@ -6,7 +6,7 @@ import ch.bfh.bti7081.s2017.yellow.entities.Storable;
  * Created by simon on 20.05.17.
  */
 public class BaseBean<E extends Storable> {
-    private E entity;
+    protected E entity;
 
     public void setEntity(E entity) {
         this.entity = entity;

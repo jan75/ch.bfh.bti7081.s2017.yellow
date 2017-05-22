@@ -21,9 +21,11 @@ public class ContactBookEntryBean extends BaseBean<ContactBookEntry> {
     private String lastName = "";
 
     @NotNull
-    private PersonBean person;
+    private PersonBean person = new PersonBean();
 
-    public ContactBookEntryBean() {}
+    public ContactBookEntryBean() {
+        entity = new ContactBookEntry();
+    }
 
     public ContactBookEntryBean(String firstName) {
         this.phoneNr = phoneNr;
@@ -44,6 +46,7 @@ public class ContactBookEntryBean extends BaseBean<ContactBookEntry> {
 
     public void setFirstName(String firstName) {
         this.person.setFirstName(firstName);
+        this.firstName = firstName;
     }
     public String getLastName() {
         return person.getLastName();
@@ -51,6 +54,7 @@ public class ContactBookEntryBean extends BaseBean<ContactBookEntry> {
 
     public void setLastName(String lastName) {
         this.person.setLastName(lastName);
+        this.lastName = lastName;
     }
 
     public String getPhoneNr() {

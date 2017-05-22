@@ -1,6 +1,7 @@
 package ch.bfh.bti7081.s2017.yellow.services;
 
 import ch.bfh.bti7081.s2017.yellow.beans.BaseBean;
+import ch.bfh.bti7081.s2017.yellow.beans.ContactBookBean;
 import ch.bfh.bti7081.s2017.yellow.entities.Storable;
 import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBook;
 import ch.bfh.bti7081.s2017.yellow.repositories.CrudRepository;
@@ -20,23 +21,23 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class SimpleServiceImpl<T extends Storable, B extends BaseBean<T>> implements SimpleService<B>, BeanMapperConsumer<T, B> {
+public class SimpleServiceImpl<A extends Storable, B extends BaseBean<A>> implements SimpleService<B>, BeanMapperConsumer<A, B> {
 
     final protected MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
+    BeanMapper mapper = new BeanMapperImpl<A, B>();
 
     @Autowired
-    private CrudRepository<T> repo;
+    protected CrudRepository<A> repo;
 
+    private Class<A> entity;
     private Class<B> bean;
-    private Class<T> entity;
 
-    public SimpleServiceImpl(Class<T> entity, Class<B> bean) {
+    public SimpleServiceImpl(Class<A> entity, Class<B> bean) {
         this.repo = new CrudRepositoryImpl<>();
         this.bean = bean;
         this.entity = entity;
-        BeanMapper mapper = new BeanMapperImpl<>();
+        mapperFactory.classMap(ContactBook.class, ContactBookBean.class).customize(mapper).register();
         mapper.setBeanMapperConsumer(this);
-        mapperFactory.classMap(entity, bean).customize(mapper).register();
     }
 
     @Override
@@ -51,20 +52,30 @@ public class SimpleServiceImpl<T extends Storable, B extends BaseBean<T>> implem
 
     @Override
     public void saveEntities(List<B> beans) {
-
+        for (B b : beans) {
+            if (b.getEntity().getId() == 0) {
+                repo.save(mapperFactory.getMapperFacade().map(bean, entity));
+            } else {
+                repo.update(mapperFactory.getMapperFacade().map(bean, entity));
+            }
+        }
     }
 
     @Override
     public void saveEntity(B bean) {
-        repo.save(mapperFactory.getMapperFacade().map(bean.getEntity(), entity));
+        if (bean.getEntity().getId() == 0) {
+            repo.save(mapperFactory.getMapperFacade().map(bean, entity));
+        } else {
+            repo.update(mapperFactory.getMapperFacade().map(bean, entity));
+        }
     }
 
     @Override
-    public void mapEntityToBean(T entity, B bean) {
+    public void mapEntityToBean(A entity, B bean) {
         bean.setEntity(entity);
     }
 
     @Override
-    public void mapBeanToEntity(B bean, T entity) {
+    public void mapBeanToEntity(B bean, A entity) {
     }
 }

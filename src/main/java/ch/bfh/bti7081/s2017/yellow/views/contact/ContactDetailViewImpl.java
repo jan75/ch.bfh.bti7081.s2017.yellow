@@ -11,7 +11,43 @@ import com.vaadin.ui.themes.ValoTheme;
  * Created by simon on 15.05.17.
  */
 public class ContactDetailViewImpl extends FormLayout implements ContactDetailView {
+	State state;
+	abstract class State {
+		abstract void inputChanged();
+	}
+	class InvalidState extends State {
 
+		public InvalidState() {
+			//mark input field red
+			System.out.println("Mark input field red");
+		}
+		
+		@Override
+		void inputChanged() {
+			
+			//validate input
+			if(!firstName.equals("")) {
+				state = new ValidState();
+			}
+		}
+		
+	}
+	class ValidState extends State {
+		
+		public ValidState() {
+			//mark input field green
+			System.out.println("Mark input field green");
+		}
+
+		@Override
+		void inputChanged() {
+			if(firstName.equals("")) {
+				state = new InvalidState();
+			}
+		}
+		
+	}
+	
     private ContactDetailViewListener listener;
     private TextField firstName = new TextField("First name");
     private TextField lastName = new TextField("Last name");
@@ -32,6 +68,11 @@ public class ContactDetailViewImpl extends FormLayout implements ContactDetailVi
         btnSave.setStyleName(ValoTheme.BUTTON_PRIMARY);
         btnDelete.setClickShortcut(ShortcutAction.KeyCode.ENTER);
         btnCancel.setClickShortcut(ShortcutAction.KeyCode.ESCAPE);
+       
+        state = new InvalidState();
+        firstName.addValueChangeListener(event->{
+        	state.inputChanged();
+        });
     }
 
     @Override

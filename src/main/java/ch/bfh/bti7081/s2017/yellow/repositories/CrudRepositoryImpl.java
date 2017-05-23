@@ -32,7 +32,8 @@ public class CrudRepositoryImpl<T extends Storable> implements CrudRepository<T>
 	private static StandardServiceRegistry registry;
 	private static SessionFactory sessionFactory;
 	private static EntityManager entityManager;
-	private static boolean isDbInitialized = false;
+	static boolean isDbInitialized = false;
+	private static Console console;
 	
 	public static void initDbConnection() throws SQLException {
 		if(isDbInitialized) return;
@@ -69,8 +70,8 @@ public class CrudRepositoryImpl<T extends Storable> implements CrudRepository<T>
 	}
 	
 	public static void shutdown() {
-		sessionFactory.close();
 		entityManager.close();
+		sessionFactory.close();
 	}
 	
     @Override
@@ -90,7 +91,7 @@ public class CrudRepositoryImpl<T extends Storable> implements CrudRepository<T>
 
     @Override
     public void save(T entity) {
-        entityManager.getTransaction().begin();
+    	entityManager.getTransaction().begin();
         entityManager.persist( entity );
         entityManager.getTransaction().commit();
     }

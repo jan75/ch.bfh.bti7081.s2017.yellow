@@ -1,13 +1,11 @@
 package ch.bfh.bti7081.s2017.yellow.services;
 
+import ch.bfh.bti7081.s2017.yellow.beans.*;
 import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBook;
-import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBookEntry;
-import ch.bfh.bti7081.s2017.yellow.entities.person.Person;
-import ch.bfh.bti7081.s2017.yellow.util.BeanMapper;
-import ch.bfh.bti7081.s2017.yellow.beans.ContactBookEntryBean;
+import ch.bfh.bti7081.s2017.yellow.entities.person.Employee;
 import com.vaadin.data.provider.DataProvider;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -15,32 +13,42 @@ import java.util.stream.Collectors;
 /**
  * Created by simon on 15.05.17.
  */
-public class ContactService extends SimpleServiceImpl<ContactBook> {
+public class ContactService extends SimpleServiceImpl<ContactBook, ContactBookBean>  {
 
-    public List<ContactBookEntryBean> contactList = new ArrayList<>();
-    private BeanMapper<ContactBookEntry, ContactBookEntryBean> beanMapper = new BeanMapper<>();
+    //public List<ContactBookEntryBean> contactList = new ArrayList<>();
+    private static boolean init = false;
+
     private String filter;
 
-    public ContactService(){
+    public ContactService() {
+        super(ContactBook.class, ContactBookBean.class);
 
-        List<ContactBook> mockList = new ArrayList<>();
-        ContactBook contactBook = new ContactBook();
-        contactBook.setEntries(new ContactBookEntry(new Person("simon", "wälti"), "0797492467"));
-        contactBook.setEntries(new ContactBookEntry(new Person("simon", "wälti"), "0797492467"));
-        contactBook.setEntries(new ContactBookEntry(new Person("hugo", "habicht"), "0797492467"));
-        mockList.add(contactBook);
+        if (init == false) {
+            ContactBookBean contactBookBean = new ContactBookBean();
+            ContactBookEntryBean<PatientBean> entryPatientBean = new ContactBookEntryBean<>();
+            ContactBookEntryBean<EmployeeBean> entryEmployeeBean = new ContactBookEntryBean<>();
 
-        mockList.forEach(book -> book.getEntries().forEach(entry ->
-            contactList.add(beanMapper.getEntityBean(entry, new ContactBookEntryBean()))
-        ));
-    }
+            PatientBean patient = new PatientBean();
+            EmployeeBean employee = new EmployeeBean();
+            patient.setFirstName("jöggu");
+            patient.setLastName("hugo");
+            LocalDate localDate = LocalDate.now();
+            patient.setCheckInDate(localDate);
+            patient.setCheckOutDate(localDate);
+            entryPatientBean.setPerson(patient);
+            entryPatientBean.setPhoneNr("000000");
 
-    /**
-     *
-     * @param contactBookEntryBean
-     */
-    public void saveEntities(ContactBookEntryBean contactBookEntryBean) {
-        super.saveEntities(null);
+            employee.setFirstName("sdg");
+            employee.setLastName("g");
+            employee.setSince(localDate);
+            entryEmployeeBean.setPerson(employee);
+            entryEmployeeBean.setPhoneNr("999999");
+
+            contactBookBean.addEntry(entryEmployeeBean);
+            contactBookBean.addEntry(entryPatientBean);
+            saveEntity(contactBookBean);
+            init = true;
+        }
     }
 
     /**
@@ -61,14 +69,14 @@ public class ContactService extends SimpleServiceImpl<ContactBook> {
         Predicate<ContactBookEntryBean> firstNamePredicate = a -> {
             if (filter == null || filter == "")
                 return true;
-            return a.getFirstName().contains(filter) || a.getLastName().contains(filter);
+            return a.getPerson().getFirstName().contains(filter) || a.getPerson().getLastName().contains(filter);
             };
         // Mapping of a ContactBook list to a list of ContactBookEntry list
-        return contactList.stream()
+        return getALlEntities().stream()
+                .flatMap(a->a.getEntries().stream())
                 .filter(firstNamePredicate)
                 .collect(Collectors.toList());
     }
-
 
     /**
      * Returns a DataProvider for a List
@@ -82,6 +90,6 @@ public class ContactService extends SimpleServiceImpl<ContactBook> {
             query -> getContactBookEntries().stream(),
 
             // Second callback fetches the number of items for a query
-            query -> getContactBookEntries().size()
+            query ->getContactBookEntries().size()
     );
 }

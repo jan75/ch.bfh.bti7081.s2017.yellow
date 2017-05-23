@@ -26,7 +26,7 @@ public class Person implements Storable {
     @Column(name = "LAST_NAME")
     private String lastName = "";
     
-    @OneToMany(cascade= {CascadeType.ALL})
+    @OneToMany(cascade= {CascadeType.PERSIST}, mappedBy="person")
     private List<ContactBookEntry> contactBookEntries;
 
     public Person() {

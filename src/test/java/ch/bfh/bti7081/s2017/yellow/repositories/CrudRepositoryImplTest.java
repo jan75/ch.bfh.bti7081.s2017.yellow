@@ -4,6 +4,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -111,6 +114,19 @@ public class CrudRepositoryImplTest {
 	 * the relation is saved the other way. Instead of
 	 * adding the person the the ContactBookEntry,
 	 * the contactBookEntry is added to the person.
+	 * 
+	 * Note the new attribute "mappedBy". If set, Hibernate knows to
+	 * add a foreign key to the table CONTACT_BOOK_ENTRY. Otherwise,
+	 * Hibernate creates an intermediate table.
+	 *    
+     *   @OneToMany(cascade= {CascadeType.PERSIST}, mappedBy="person")
+     *   private List<ContactBookEntry> contactBookEntries;
+     *   
+	 * Resulting query:
+	 * insert into PERSON (FIRST_NAME, LAST_NAME, ID) values (?, ?, ?)
+     * insert into CONTACT_BOOK_ENTRY (person_ID, PHONE_NR, ID) values (?, ?, ?)
+     * 
+     * 
 	 * @throws SQLException 
 	 */
 	@Test
@@ -126,12 +142,10 @@ public class CrudRepositoryImplTest {
 		//assign the MANY entity to the ONE entity
 		contactBookEntry.setPerson(person);
 		List<ContactBookEntry> contactBookEntries = new ArrayList<>();
+		contactBookEntries.add(contactBookEntry);
 		person.setContactBookEntries(contactBookEntries);
 		//only save contactBookEntry. Because of CascadeType.PERSIST, person is also saved
 		personRepo.save(person);
 		CrudRepositoryImpl.shutdown();
-		
-		//contactbook, entry. dann laden entries. ein zweiter entry.
-		//wieder laden, ein entry laden -> ging nicht
 	}
 }

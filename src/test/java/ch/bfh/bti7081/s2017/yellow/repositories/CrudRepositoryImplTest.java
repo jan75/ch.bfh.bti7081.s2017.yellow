@@ -1,6 +1,8 @@
 package ch.bfh.bti7081.s2017.yellow.repositories;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -30,7 +32,9 @@ public class CrudRepositoryImplTest {
 	 * insert into PERSON (FIRST_NAME, LAST_NAME, ID) values (?, ?, ?)
 	 */
 	@Test
+	@Ignore
 	public void saveAnEntityWithoutRelations() throws SQLException {
+		System.out.println("-----------saveAnEntityWithoutRelations-------------------------");
 		//Get an instance to a repo
 		CrudRepository<Person> repo = new CrudRepositoryImpl<>();
 		//create the entity
@@ -57,9 +61,11 @@ public class CrudRepositoryImplTest {
 	 * Note that person is saved first.
 	 */
 	@Test
+	@Ignore
 	public void saveEntityWithManyToOneRelation1() throws SQLException {
+		System.out.println("-----------saveEntityWithManyToOneRelation1-------------------------");
 		CrudRepositoryImpl.initDbConnection();
-		//Get an instance to a repo
+		//Get an instance of a repo
 		CrudRepository<ContactBookEntry> contactBookEntryRepo = new CrudRepositoryImpl<>();
 		//create the MANY entity
 		ContactBookEntry contactBookEntry = new ContactBookEntry();
@@ -74,9 +80,19 @@ public class CrudRepositoryImplTest {
 	
 	/**
 	 * Update the DB with the same instance used to save data into the DB.
+	 * Creates the following queries:
+	 * insert into PERSON (FIRST_NAME, LAST_NAME, ID) values (?, ?, ?)
+	 * update PERSON set FIRST_NAME=? where ID=?
+	 * 
+	 * Note that the query would look like this if @DynamicUpdate on the Person entity
+	 * is omitted:
+     * update PERSON set FIRST_NAME=?, LAST_NAME=? where ID=?
+     * With @DynamicUpdate, Hibernate adds only the changed columns to the query.
 	 */
 	@Test
+	@Ignore
 	public void updateEntity() throws SQLException {
+		System.out.println("-----------updateEntity-------------------------");
 		CrudRepositoryImpl.initDbConnection();
 		CrudRepository<Person> repo = new CrudRepositoryImpl<>();
 		//create entity
@@ -86,6 +102,36 @@ public class CrudRepositoryImplTest {
 		//use same instance to change data in DB
 		person.setFirstName("other first name");
 		repo.save(person);
+		
 		CrudRepositoryImpl.shutdown();
+	}
+	
+	/**
+	 * Same as saveEntityWithManyToOneRelation1, but this time,
+	 * the relation is saved the other way. Instead of
+	 * adding the person the the ContactBookEntry,
+	 * the contactBookEntry is added to the person.
+	 * @throws SQLException 
+	 */
+	@Test
+	public void saveEntityWithManyToOneRelation2() throws SQLException{
+		System.out.println("-----------saveEntityWithManyToOneRelation2-------------------------");
+		CrudRepositoryImpl.initDbConnection();
+		//Get an instance of a repo
+		CrudRepository<Person> personRepo = new CrudRepositoryImpl<>();
+		//create the MANY entity
+		ContactBookEntry contactBookEntry = new ContactBookEntry();
+		//create the ONE entity
+		Person person = new Person("name1", "name2");
+		//assign the MANY entity to the ONE entity
+		contactBookEntry.setPerson(person);
+		List<ContactBookEntry> contactBookEntries = new ArrayList<>();
+		person.setContactBookEntries(contactBookEntries);
+		//only save contactBookEntry. Because of CascadeType.PERSIST, person is also saved
+		personRepo.save(person);
+		CrudRepositoryImpl.shutdown();
+		
+		//contactbook, entry. dann laden entries. ein zweiter entry.
+		//wieder laden, ein entry laden -> ging nicht
 	}
 }

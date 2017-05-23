@@ -74,6 +74,16 @@ public class CrudRepositoryImpl<T extends Storable> implements CrudRepository<T>
 		sessionFactory.close();
 	}
 	
+	/**
+	 * Flushes and clears the entity manager.
+	 * This empties the cache and sends all remaining
+	 * queries to the DB. Can be used for unit tests.
+	 */
+	public static void flush() {
+		entityManager.flush();
+		entityManager.clear();
+	}
+	
     @Override
     public List<T> getAll(Class<T> clazz) {
 		Session session = sessionFactory.openSession();

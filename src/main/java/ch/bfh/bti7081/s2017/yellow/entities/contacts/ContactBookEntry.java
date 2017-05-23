@@ -24,6 +24,9 @@ public class ContactBookEntry implements Storable {
 
     @Column(name="PHONE_NR")
     private String phoneNr;
+    
+    @ManyToOne(cascade=CascadeType.PERSIST)
+    private ContactBook contactBook;
 
     public ContactBookEntry(){ }
 
@@ -57,4 +60,13 @@ public class ContactBookEntry implements Storable {
     public void setPhoneNr(String phoneNr){
         this.phoneNr = phoneNr;
     }
+
+	public ContactBook getContactBook() {
+		return contactBook;
+	}
+
+	public void setContactBook(ContactBook contactBook) {
+		this.contactBook = contactBook;
+	}
+    
 }

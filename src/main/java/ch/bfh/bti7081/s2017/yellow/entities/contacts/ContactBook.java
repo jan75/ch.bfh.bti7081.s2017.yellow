@@ -24,7 +24,7 @@ public class ContactBook implements Storable{
     @Column(name="ID")
     private Long id;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="contactBook")
     @Cascade({ CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH})
     private List<ContactBookEntry> entries;
 

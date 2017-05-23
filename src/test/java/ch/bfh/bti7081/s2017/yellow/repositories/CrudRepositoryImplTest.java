@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBook;
 import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBookEntry;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Person;
 import ch.bfh.bti7081.s2017.yellow.repositories.CrudRepository;
@@ -130,6 +131,7 @@ public class CrudRepositoryImplTest {
 	 * @throws SQLException 
 	 */
 	@Test
+	@Ignore
 	public void saveEntityWithManyToOneRelation2() throws SQLException{
 		System.out.println("-----------saveEntityWithManyToOneRelation2-------------------------");
 		CrudRepositoryImpl.initDbConnection();
@@ -146,6 +148,34 @@ public class CrudRepositoryImplTest {
 		person.setContactBookEntries(contactBookEntries);
 		//only save contactBookEntry. Because of CascadeType.PERSIST, person is also saved
 		personRepo.save(person);
+		CrudRepositoryImpl.shutdown();
+	}
+	
+	@Test
+	@Ignore
+	public void createNewAddToListLoadUpdateOneEntry() throws SQLException {
+		System.out.println("-----------createNewAddToListLoadUpdateOneEntry-------------------------");
+		CrudRepositoryImpl.initDbConnection();
+		//contactbook, entry. dann laden entries. ein zweiter entry.
+		//wieder laden, ein entry laden -> ging nicht
+		
+		//Create contactbook
+		ContactBook contactBook = new ContactBook();
+		//add an entry
+		ContactBookEntry contactBookEntry1 = new ContactBookEntry();
+		contactBookEntry1.setPhoneNr("phone nr");
+		List<ContactBookEntry> contactBookEntries = new ArrayList<>();
+		contactBookEntries.add(contactBookEntry1);
+		contactBook.setEntries(contactBookEntries);
+		//save
+		CrudRepository<ContactBook> contactBookRepo = new CrudRepositoryImpl<>();
+		contactBookRepo.save(contactBook);
+		//load
+		ContactBook loadedContactBook = contactBookRepo.getAll(ContactBook.class).get(0);
+		//get first entry
+		ContactBookEntry loadedContactBookEntry = loadedContactBook.getEntries().get(0);
+		//update this entry
+		loadedContactBookEntry.setPhoneNr("other phone number");
 		CrudRepositoryImpl.shutdown();
 	}
 }

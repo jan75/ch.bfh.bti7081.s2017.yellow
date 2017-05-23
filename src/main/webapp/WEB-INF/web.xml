@@ -25,6 +25,11 @@
             <param-name>UI</param-name>
             <param-value>ch.bfh.bti7081.s2017.yellow.views.MainView</param-value>
         </init-param>
+        <init-param>
+            <param-name>widgetset</param-name>
+            <param-value>ch.bfh.bti7081.s2017.yellow.components.WidgetSet</param-value>
+        </init-param>
+
     </servlet>
 
     <servlet-mapping>

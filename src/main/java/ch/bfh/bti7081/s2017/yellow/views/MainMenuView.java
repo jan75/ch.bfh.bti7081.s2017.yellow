@@ -1,10 +1,13 @@
 package ch.bfh.bti7081.s2017.yellow.views;
 
 import ch.bfh.bti7081.s2017.yellow.components.MenuButton;
+import ch.bfh.bti7081.s2017.yellow.components.Test;
 import ch.bfh.bti7081.s2017.yellow.util.NavigatorController;
 import ch.bfh.bti7081.s2017.yellow.views.listeners.MenuViewListener;
-import com.vaadin.ui.*;
-
+import com.vaadin.ui.Button;
+import com.vaadin.ui.CustomComponent;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +43,9 @@ public class MainMenuView extends CustomComponent implements MenuView, Button.Cl
                 //NavigatorController.getInstance().navigateTo("wikiView");
             }
         }));
+
+        Test test = new Test();
+        menuLayout.addComponent(test);
 
         setCompositionRoot(menuLayout);
     }

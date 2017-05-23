@@ -72,7 +72,7 @@ public class CrudRepositoryImpl<T extends Storable> implements CrudRepository<T>
 		sessionFactory.close();
 		entityManager.close();
 	}
-	
+
     @Override
     public List<T> getAll(Class<T> clazz) {
 		Session session = sessionFactory.openSession();

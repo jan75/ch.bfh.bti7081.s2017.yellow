@@ -7,7 +7,6 @@ import ch.bfh.bti7081.s2017.yellow.entities.Storable;
  */
 public class BaseBean<E extends Storable> {
     private Long id;
-
     public void setId(Long id) {
         this.id = id;
     }

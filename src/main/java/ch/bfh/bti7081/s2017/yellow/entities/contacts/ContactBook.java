@@ -22,7 +22,7 @@ public class ContactBook implements Storable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID")
-    private Long id = new Long(0);
+    private Long id;
 
     @OneToMany(fetch = FetchType.EAGER)
     @Cascade({ CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH})

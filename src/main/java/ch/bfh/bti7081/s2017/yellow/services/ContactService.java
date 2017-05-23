@@ -1,20 +1,11 @@
 package ch.bfh.bti7081.s2017.yellow.services;
 
-import ch.bfh.bti7081.s2017.yellow.beans.ContactBookBean;
+import ch.bfh.bti7081.s2017.yellow.beans.*;
 import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBook;
-import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBookEntry;
-import ch.bfh.bti7081.s2017.yellow.entities.person.Person;
-import ch.bfh.bti7081.s2017.yellow.beans.ContactBookEntryBean;
-import ch.bfh.bti7081.s2017.yellow.util.BeanMapper;
-import ch.bfh.bti7081.s2017.yellow.util.BeanMapperImpl;
+import ch.bfh.bti7081.s2017.yellow.entities.person.Employee;
 import com.vaadin.data.provider.DataProvider;
-import ma.glasnost.orika.MapperFacade;
-import ma.glasnost.orika.MapperFactory;
-import ma.glasnost.orika.MappingContext;
-import ma.glasnost.orika.impl.DefaultMapperFactory;
-import org.hibernate.Criteria;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -34,11 +25,27 @@ public class ContactService extends SimpleServiceImpl<ContactBook, ContactBookBe
 
         if (init == false) {
             ContactBookBean contactBookBean = new ContactBookBean();
-            ContactBookEntryBean entryBean = new ContactBookEntryBean();
-            entryBean.setFirstName("Hugo");
-            entryBean.setLastName("Habicht");
-            entryBean.setPhoneNr("999999");
-            contactBookBean.addEntry(entryBean);
+            ContactBookEntryBean<PatientBean> entryPatientBean = new ContactBookEntryBean<>();
+            ContactBookEntryBean<EmployeeBean> entryEmployeeBean = new ContactBookEntryBean<>();
+
+            PatientBean patient = new PatientBean();
+            EmployeeBean employee = new EmployeeBean();
+            patient.setFirstName("jöggu");
+            patient.setLastName("hugo");
+            LocalDate localDate = LocalDate.now();
+            patient.setCheckInDate(localDate);
+            patient.setCheckOutDate(localDate);
+            entryPatientBean.setPerson(patient);
+            entryPatientBean.setPhoneNr("000000");
+
+            employee.setFirstName("sdg");
+            employee.setLastName("g");
+            employee.setSince(localDate);
+            entryEmployeeBean.setPerson(employee);
+            entryEmployeeBean.setPhoneNr("999999");
+
+            contactBookBean.addEntry(entryEmployeeBean);
+            contactBookBean.addEntry(entryPatientBean);
             saveEntity(contactBookBean);
             init = true;
         }
@@ -85,13 +92,4 @@ public class ContactService extends SimpleServiceImpl<ContactBook, ContactBookBe
             // Second callback fetches the number of items for a query
             query ->getContactBookEntries().size()
     );
-
-    @Override
-    public void mapEntityToBean(ContactBook contactEntity, ContactBookBean contactBookBean) {
-        // Add all entity references to the beans
-        /*contactBookBean.setEntity(contactEntity);
-        for (int i = 0; i < contactBookBean.getEntries().size(); i++) {
-            contactBookBean.getEntries().get(i).setEntity(contactEntity.getEntries().get(i));
-        }*/
-    }
 }

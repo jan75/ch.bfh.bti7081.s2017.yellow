@@ -1,14 +1,14 @@
 package ch.bfh.bti7081.s2017.yellow.presenters;
 
+import ch.bfh.bti7081.s2017.yellow.beans.EmployeeBean;
+import ch.bfh.bti7081.s2017.yellow.beans.PatientBean;
 import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBook;
 import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBookEntry;
 import ch.bfh.bti7081.s2017.yellow.services.ContactService;
 import ch.bfh.bti7081.s2017.yellow.services.SimpleService;
 import ch.bfh.bti7081.s2017.yellow.util.NavigatorController;
 import ch.bfh.bti7081.s2017.yellow.beans.ContactBookEntryBean;
-import ch.bfh.bti7081.s2017.yellow.views.contact.ContactDetailView;
-import ch.bfh.bti7081.s2017.yellow.views.contact.ContactDetailViewImpl;
-import ch.bfh.bti7081.s2017.yellow.views.contact.ContactView;
+import ch.bfh.bti7081.s2017.yellow.views.contact.*;
 import com.vaadin.navigator.ViewChangeListener;
 
 /**
@@ -17,7 +17,9 @@ import com.vaadin.navigator.ViewChangeListener;
  */
 public class ContactPresenter implements ContactView.ContactViewListener {
     private ContactView view;
-    private ContactDetailPresenter contactDetailPresenter;
+    private ContactDetailPresenter activeDetailView;
+    private ContactDetailPresenter contactPatientPresenter;
+    private ContactDetailPresenter contactEmployeePresenter;
 
     // Service to access contact data
     private ContactService service = new ContactService();
@@ -32,17 +34,20 @@ public class ContactPresenter implements ContactView.ContactViewListener {
         this.view = view;
 
         // SubView items
-        ContactDetailView contactDetailView = new ContactDetailViewImpl();
-        contactDetailPresenter = new ContactDetailPresenter(contactDetailView);
+        ContactDetailView contactPatientView = new PatientViewImpl();
+        ContactDetailView contactEmployeeView = new EmployeeViewImpl();
+        contactPatientPresenter = new ContactDetailPresenter<ContactDetailView>(contactPatientView);
+        contactEmployeePresenter = new ContactDetailPresenter<ContactDetailView>(contactEmployeeView);
 
         // View listeners (add contact, change view)
         view.addListener(this);
 
         // Adding List of ContactBookEntryBeans to a data provider
-        view.setDataProvider(service.getContactBookDataProvider());
+        view.setDataProvider(service.getContactBookEntries());
 
         // View Navigator for detailed contact form
-        NavigatorController.getInstance().addView("contactDetailView", contactDetailView);
+        NavigatorController.getInstance().addView(contactEmployeeView.getClass().getName(), contactEmployeeView);
+        NavigatorController.getInstance().addView(contactPatientView.getClass().getName(), contactPatientView);
     }
 
     /**
@@ -65,8 +70,13 @@ public class ContactPresenter implements ContactView.ContactViewListener {
      */
     public void selectionChange(ContactBookEntryBean selection) {
         if (selection != null) {
-            contactDetailPresenter.setContact(selection);
-            NavigatorController.getInstance().navigateTo("contactDetailView");
+            if (selection.getType().getName().equals(PatientBean.class.getName())) {
+                activeDetailView = contactPatientPresenter;
+            }else if (selection.getType().getName().equals(EmployeeBean.class.getName())) {
+                activeDetailView = contactEmployeePresenter;
+            }
+            activeDetailView.setContact(selection);
+            NavigatorController.getInstance().navigateTo(activeDetailView.getView().getClass().getName());
         }
     }
 
@@ -74,8 +84,8 @@ public class ContactPresenter implements ContactView.ContactViewListener {
     public void addContact() {
         ContactBookEntryBean bean = new ContactBookEntryBean();
         //bean.setEntity(new ContactBookEntry());
-        contactDetailPresenter.setContact(new ContactBookEntryBean());
-        NavigatorController.getInstance().navigateTo("contactDetailView");
+        activeDetailView.setContact(new ContactBookEntryBean());
+        NavigatorController.getInstance().navigateTo(activeDetailView.getView().getClass().getName());
     }
 
     @Override

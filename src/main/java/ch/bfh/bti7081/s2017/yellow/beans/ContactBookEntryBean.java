@@ -1,27 +1,26 @@
 package ch.bfh.bti7081.s2017.yellow.beans;
 
-import ch.bfh.bti7081.s2017.yellow.entities.Storable;
 import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBookEntry;
-import ch.bfh.bti7081.s2017.yellow.entities.person.Person;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by simon on 16.05.17.
  */
-public class ContactBookEntryBean extends BaseBean<ContactBookEntry> {
+public class ContactBookEntryBean<TBean extends PersonBean> extends BaseBean<ContactBookEntry> {
 
+    private Class<TBean> clazz;
+    private ContactEntryType contactEntryType = ContactEntryType.Person;
     @NotBlank
     private String phoneNr = "";
-    @NotBlank
-    private String firstName = "";
-    @NotBlank
-    private String lastName = "";
-
     @NotNull
-    private PersonBean person = new PersonBean();
+    private TBean person;
+
+    public Class getType(){
+        return person.getClass();
+    }
 
     public ContactBookEntryBean() { }
 
@@ -29,31 +28,14 @@ public class ContactBookEntryBean extends BaseBean<ContactBookEntry> {
         this.phoneNr = phoneNr;
     }
 
-    public PersonBean getPerson(){
+    public TBean getPerson(){
         return this.person;
     }
 
-    public void setPerson(PersonBean person){
+    public void setPerson(TBean person){
         this.person = person;
     }
-
-    public String getFirstName() {
-        return person.getFirstName();
-    }
-
-    public void setFirstName(String firstName) {
-        this.person.setFirstName(firstName);
-        this.firstName = firstName;
-    }
-    public String getLastName() {
-        return person.getLastName();
-    }
-
-    public void setLastName(String lastName) {
-        this.person.setLastName(lastName);
-        this.lastName = lastName;
-    }
-
+    
     public String getPhoneNr() {
         return phoneNr;
     }

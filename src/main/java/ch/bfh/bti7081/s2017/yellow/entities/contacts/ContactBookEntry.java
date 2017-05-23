@@ -17,13 +17,12 @@ import javax.persistence.Table;
 public class ContactBookEntry implements Storable {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="ID")
     private Long id;
-
-    @OneToOne
-    @Cascade(CascadeType.ALL)
-    private Person person = new Person();
+    
+    @ManyToOne(cascade= {CascadeType.PERSIST})
+    private Person person;
 
     @Column(name="PHONE_NR")
     private String phoneNr;

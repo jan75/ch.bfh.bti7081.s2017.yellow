@@ -31,6 +31,11 @@ public abstract class ContactDetailViewImpl<TBean extends PersonBean> extends Fo
         btnSave.setStyleName(ValoTheme.BUTTON_PRIMARY);
         btnDelete.setClickShortcut(ShortcutAction.KeyCode.ENTER);
         btnCancel.setClickShortcut(ShortcutAction.KeyCode.ESCAPE);
+       
+        state = new InvalidState();
+        firstName.addValueChangeListener(event->{
+        	state.inputChanged();
+        });
     }
 
     @Override

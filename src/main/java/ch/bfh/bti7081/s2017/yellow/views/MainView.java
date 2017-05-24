@@ -37,5 +37,6 @@ public class MainView extends UI {
         rootLayout.addComponent(estimateResourceView);
 
         setContent(rootLayout);
+        NavigatorController.getInstance().navigateTo("contactView");
     }
 }

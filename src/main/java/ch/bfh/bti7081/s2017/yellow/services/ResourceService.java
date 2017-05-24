@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  */
 public class ResourceService {
 
-    private SimpleService<WeekResource> service;
+    //private SimpleService<WeekResource> service;
 
     private WeekResource currentWeek;
 

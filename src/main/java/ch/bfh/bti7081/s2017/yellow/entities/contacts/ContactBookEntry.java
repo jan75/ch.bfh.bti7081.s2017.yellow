@@ -4,6 +4,8 @@ import ch.bfh.bti7081.s2017.yellow.entities.Storable;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Person;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * Created by dario on 09.05.2017.
@@ -13,15 +15,18 @@ import javax.persistence.*;
 public class ContactBookEntry implements Storable {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="ID")
     private Long id;
     
-    @OneToOne
+    @ManyToOne(cascade= {CascadeType.PERSIST})
     private Person person;
 
     @Column(name="PHONE_NR")
     private String phoneNr;
+    
+    @ManyToOne(cascade=CascadeType.PERSIST)
+    private ContactBook contactBook;
 
     public ContactBookEntry(){ }
 
@@ -55,4 +60,13 @@ public class ContactBookEntry implements Storable {
     public void setPhoneNr(String phoneNr){
         this.phoneNr = phoneNr;
     }
+
+	public ContactBook getContactBook() {
+		return contactBook;
+	}
+
+	public void setContactBook(ContactBook contactBook) {
+		this.contactBook = contactBook;
+	}
+    
 }

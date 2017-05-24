@@ -1,54 +1,38 @@
 package ch.bfh.bti7081.s2017.yellow.views.contact;
 
 import ch.bfh.bti7081.s2017.yellow.beans.ContactBookEntryBean;
+import ch.bfh.bti7081.s2017.yellow.beans.ContactEntryType;
+import ch.bfh.bti7081.s2017.yellow.beans.PersonBean;
+import com.sun.org.apache.xml.internal.utils.DefaultErrorHandler;
 import com.vaadin.data.BeanValidationBinder;
+import com.vaadin.data.ValueProvider;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.ErrorHandler;
+import com.vaadin.server.ErrorMessage;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 
 /**
  * Created by simon on 15.05.17.
  */
-public class ContactDetailViewImpl extends FormLayout implements ContactDetailView {
+public abstract class ContactDetailViewImpl<TBean extends PersonBean> extends FormLayout implements ContactDetailView<TBean> {
 
-    private ContactDetailViewListener listener;
-    private TextField firstName = new TextField("First name");
-    private TextField lastName = new TextField("Last name");
-    private TextField phoneNr = new TextField("Phone number");
-    private Button btnSave = new Button("Save");
-    private Button btnDelete = new Button("Delete");
-    private Button btnCancel = new Button("Cancel");
-    private BeanValidationBinder<ContactBookEntryBean> beanValidationBinder = new BeanValidationBinder(ContactBookEntryBean.class);
+    protected ContactDetailViewListener listener;
+    protected Button btnSave = new Button("Save");
+    protected Button btnDelete = new Button("Delete");
+    protected Button btnCancel = new Button("Cancel");
 
-    public ContactDetailViewImpl() {
+    protected void createLayout() {
         setSizeUndefined();
         HorizontalLayout buttons = new HorizontalLayout(btnSave, btnDelete, btnCancel);
-        VerticalLayout textBoxes = new VerticalLayout(firstName, lastName, phoneNr);
-        addComponents(textBoxes, buttons);
-
-        beanValidationBinder.bindInstanceFields(this);
+        addComponents(buttons);
 
         btnSave.setStyleName(ValoTheme.BUTTON_PRIMARY);
         btnDelete.setClickShortcut(ShortcutAction.KeyCode.ENTER);
         btnCancel.setClickShortcut(ShortcutAction.KeyCode.ESCAPE);
     }
 
-    @Override
-    public void setContact(ContactBookEntryBean contactBookEntryBean) {
-        beanValidationBinder.setBean(contactBookEntryBean);
-    }
-
-    @Override
-    public ContactBookEntryBean getContact() {
-        return beanValidationBinder.getBean();
-    }
-
-    @Override
-    public boolean validate() {
-        beanValidationBinder.validate();
-        return beanValidationBinder.isValid();
-    }
     @Override
     public void addListener(ContactDetailViewListener listener) {
         this.listener = listener;
@@ -63,6 +47,12 @@ public class ContactDetailViewImpl extends FormLayout implements ContactDetailVi
             listener.changeView(viewChangeEvent);
         }
     }
+
+    public abstract void setContact(ContactBookEntryBean<TBean>  contactBookEntryBean);
+
+
+    public abstract ContactBookEntryBean<TBean> getContact();
+
 }
 
 

@@ -1,8 +1,13 @@
 package ch.bfh.bti7081.s2017.yellow.entities.contacts;
 
 import ch.bfh.bti7081.s2017.yellow.entities.Storable;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
+import org.springframework.context.annotation.Lazy;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +24,9 @@ public class ContactBook implements Storable{
     @Column(name="ID")
     private Long id;
 
-    @OneToMany
-    private List<ContactBookEntry> entries = new ArrayList<>();
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="contactBook")
+    @Cascade({ CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH})
+    private List<ContactBookEntry> entries;
 
     public ContactBook() {
 
@@ -44,7 +50,11 @@ public class ContactBook implements Storable{
         return this.entries;
     }
 
-    public void setEntries(ContactBookEntry entry){
+    public void setEntries(List<ContactBookEntry> entries){
+        this.entries = entries;
+    }
+
+    public void addEntry(ContactBookEntry entry){
         entries.add(entry);
     }
 }

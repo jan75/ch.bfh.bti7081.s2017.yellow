@@ -15,8 +15,7 @@ public class BeanMapper<T extends Storable, R extends BaseBean> {
      *
      * @param entity
      * @param bean
-     * @param <R>
-     * @return
+     * @return R
      */
     public R getEntityBean(T entity, R bean) {
         mapperFactory = new DefaultMapperFactory.Builder().build();

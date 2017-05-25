@@ -34,5 +34,8 @@
 @mixin mytheme {
   @include valo;
 
+  .backgroundColorRed {
+    background-color: red;
+  }
   // Insert your own theme rules here
 }

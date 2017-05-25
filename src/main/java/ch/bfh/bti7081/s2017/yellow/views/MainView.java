@@ -11,10 +11,12 @@ import ch.bfh.bti7081.s2017.yellow.views.contact.ContactView;
 import ch.bfh.bti7081.s2017.yellow.views.contact.ContactViewImpl;
 import ch.bfh.bti7081.s2017.yellow.views.wiki.WikiView;
 import ch.bfh.bti7081.s2017.yellow.views.wiki.WikiViewImpl;
+import com.vaadin.annotations.Theme;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
+@Theme("mytheme")
 public class MainView extends UI {
 
     @Override
@@ -25,7 +27,6 @@ public class MainView extends UI {
 			System.out.println("Could not start db connection");
 			throw new RuntimeException(e);
 		}
-
 
 		NavigatorController.getInstance().setUiContainer(this);
         VerticalLayout rootLayout = new VerticalLayout();
@@ -51,9 +52,5 @@ public class MainView extends UI {
 		NavigatorController.getInstance().addView("wikiView", wikiView);
 		setContent(rootLayout);
 		NavigatorController.getInstance().navigateTo("wikiView");
-
-
-		//myWikiContent.setComponentAlignment(contPanel, Alignment.MIDDLE_CENTER);
-
     }
 }

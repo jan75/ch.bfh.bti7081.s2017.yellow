@@ -1,18 +1,17 @@
 package ch.bfh.bti7081.s2017.yellow.services;
 
 import ch.bfh.bti7081.s2017.yellow.beans.BaseBean;
-import ch.bfh.bti7081.s2017.yellow.beans.ContactBookBean;
 import ch.bfh.bti7081.s2017.yellow.entities.Storable;
-import org.hibernate.Criteria;
 
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
-public interface SimpleService<T extends BaseBean<? extends Storable>> {
+public interface SimpleService<E extends Storable, B extends BaseBean<? extends Storable>> {
 
-    List<T> getALlEntities();
+    List<B> getAllEntities();
 
-    List<T> findEntities(Criteria criteria);
+    List<B> findEntities(CriteriaQuery<E> criteria);
 
-    void saveEntities(List<T> entity);
-    void saveEntity(T entity);
+    void saveEntities(List<B> entity);
+    void saveEntity(B entity);
 }

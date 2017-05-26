@@ -1,42 +1,20 @@
 package ch.bfh.bti7081.s2017.yellow.repositories;
 
 import ch.bfh.bti7081.s2017.yellow.entities.Storable;
-import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBook;
-import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBookEntry;
-import ch.bfh.bti7081.s2017.yellow.entities.person.Employee;
-import ch.bfh.bti7081.s2017.yellow.entities.person.NaturalPerson;
-import ch.bfh.bti7081.s2017.yellow.entities.person.Patient;
-import ch.bfh.bti7081.s2017.yellow.entities.person.Person;
-import ch.bfh.bti7081.s2017.yellow.entities.person.User;
-import ch.bfh.bti7081.s2017.yellow.entities.schedule.Schedule;
-import ch.bfh.bti7081.s2017.yellow.entities.schedule.ScheduleEntry;
-import ch.bfh.bti7081.s2017.yellow.entities.wiki.Wiki;
-import ch.bfh.bti7081.s2017.yellow.entities.wiki.WikiEntry;
 
-import org.h2.tools.Console;
-import org.hibernate.Criteria;
+import ch.bfh.bti7081.s2017.yellow.util.HibernateUtil;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
-import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaQuery;
 
 public class CrudRepositoryImpl<T extends Storable> implements CrudRepository<T> {
-	private static StandardServiceRegistry registry;
-	private static SessionFactory sessionFactory;
-	private static EntityManager entityManager;
 	static boolean isDbInitialized = false;
-	private static Console console;
 	
 	public static void initDbConnection() throws SQLException {
-		if(isDbInitialized) return;
+		/*if(isDbInitialized) return;
 		isDbInitialized = true;
 		Console.main("-tcp", "-pg");
 		
@@ -64,14 +42,15 @@ public class CrudRepositoryImpl<T extends Storable> implements CrudRepository<T>
 				.addAnnotatedClass(ScheduleEntry.class)
 				.addAnnotatedClass(Wiki.class)
 				.addAnnotatedClass(WikiEntry.class)
+				.addAnnotatedClass(PatientEstimation.class)
+				.addAnnotatedClass(DailyEstimation.class)
 				.buildMetadata()
 				.buildSessionFactory();
-		entityManager = sessionFactory.createEntityManager();
+		entityManager = sessionFactory.createEntityManager();*/
 	}
 	
 	public static void shutdown() {
-		entityManager.close();
-		sessionFactory.close();
+		HibernateUtil.getSessionFactory().getCurrentSession().close();
 	}
 	
 	/**
@@ -80,13 +59,14 @@ public class CrudRepositoryImpl<T extends Storable> implements CrudRepository<T>
 	 * queries to the DB. Can be used for unit tests.
 	 */
 	public static void flush() {
-		entityManager.flush();
-		entityManager.clear();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.flush();
+		session.close();
 	}
 
     @Override
     public List<T> getAll(Class<T> clazz) {
-		Session session = sessionFactory.openSession();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		List<T> result = session.createQuery("from " + clazz.getName(), clazz).list();
 		session.getTransaction().commit();
@@ -95,26 +75,37 @@ public class CrudRepositoryImpl<T extends Storable> implements CrudRepository<T>
     }
 
     @Override
-    public List<T> find(Criteria criteria) {
-        return null;
+    public List<T> find(CriteriaQuery<T> criteria) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		List<T> result = session.createQuery(criteria).getResultList();
+		session.getTransaction().commit();
+		session.close();
+
+		return result;
     }
 
     @Override
     public void save(T entity) {
-    	entityManager.getTransaction().begin();
-        entityManager.persist( entity );
-        entityManager.getTransaction().commit();
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		session.save(entity);
+		session.flush();
+		session.getTransaction().commit();
+		session.close();
     }
 
     @Override
     public void update(T entity) {
-		entityManager.getTransaction().begin();
-		entityManager.merge( entity );
-		entityManager.getTransaction().commit();
+		save(entity);
     }
 
     @Override
     public void delete(T entity) {
-
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		session.delete(entity);
+		session.getTransaction().commit();
+		session.close();
     }
 }

@@ -11,17 +11,14 @@ import ch.bfh.bti7081.s2017.yellow.util.BeanMapperConsumer;
 import ch.bfh.bti7081.s2017.yellow.util.BeanMapperImpl;
 import ma.glasnost.orika.*;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
-import ma.glasnost.orika.metadata.Type;
-import org.hibernate.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
-public class SimpleServiceImpl<A extends Storable, B extends BaseBean<A>> implements SimpleService<B>, BeanMapperConsumer<A, B> {
+public class SimpleServiceImpl<A extends Storable, B extends BaseBean<?>> implements SimpleService<A,B>, BeanMapperConsumer<A, B> {
 
     final protected MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
     BeanMapper mapper = new BeanMapperImpl<A, B>();
@@ -41,12 +38,12 @@ public class SimpleServiceImpl<A extends Storable, B extends BaseBean<A>> implem
     }
 
     @Override
-    public List<B> getALlEntities() {
+    public List<B> getAllEntities() {
         return mapperFactory.getMapperFacade().mapAsList(repo.getAll(entityClazz), beanClazz);
     }
 
     @Override
-    public List<B> findEntities(Criteria criteria) {
+    public List<B> findEntities(CriteriaQuery<A> criteria) {
         return mapperFactory.getMapperFacade().mapAsList(repo.find(criteria), beanClazz);
     }
 

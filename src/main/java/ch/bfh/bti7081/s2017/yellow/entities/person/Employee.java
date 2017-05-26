@@ -15,6 +15,9 @@ public class Employee extends Person {
     @Column(name="SINCE")
     private Date since;
 
+    public Employee() {
+    }
+
     public Employee(String firstName, String lastName) {
         super(firstName, lastName);
     }

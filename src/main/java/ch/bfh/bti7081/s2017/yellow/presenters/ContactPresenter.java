@@ -2,10 +2,7 @@ package ch.bfh.bti7081.s2017.yellow.presenters;
 
 import ch.bfh.bti7081.s2017.yellow.beans.EmployeeBean;
 import ch.bfh.bti7081.s2017.yellow.beans.PatientBean;
-import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBook;
-import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBookEntry;
 import ch.bfh.bti7081.s2017.yellow.services.ContactService;
-import ch.bfh.bti7081.s2017.yellow.services.SimpleService;
 import ch.bfh.bti7081.s2017.yellow.util.NavigatorController;
 import ch.bfh.bti7081.s2017.yellow.beans.ContactBookEntryBean;
 import ch.bfh.bti7081.s2017.yellow.views.contact.*;
@@ -43,7 +40,7 @@ public class ContactPresenter implements ContactView.ContactViewListener {
         view.addListener(this);
 
         // Adding List of ContactBookEntryBeans to a data provider
-        view.setDataProvider(service.getContactBookEntries());
+        view.setContactBookEntries(service.getContactBookEntries());
 
         // View Navigator for detailed contact form
         NavigatorController.getInstance().addView(contactEmployeeView.getClass().getName(), contactEmployeeView);
@@ -63,16 +60,16 @@ public class ContactPresenter implements ContactView.ContactViewListener {
      */
     public void setFilter(String filter) {
         service.setFilter(filter);
-        service.getContactBookDataProvider().refreshAll();
+        view.setContactBookEntries(service.getContactBookEntries());
     }
     /**
      * Displays the detail view for a single contact.
      */
     public void selectionChange(ContactBookEntryBean selection) {
         if (selection != null) {
-            if (selection.getType().getName().equals(PatientBean.class.getName())) {
+            if (selection.getPerson() instanceof PatientBean) {
                 activeDetailView = contactPatientPresenter;
-            }else if (selection.getType().getName().equals(EmployeeBean.class.getName())) {
+            }else if (selection.getPerson() instanceof EmployeeBean) {
                 activeDetailView = contactEmployeePresenter;
             }
             activeDetailView.setContact(selection);

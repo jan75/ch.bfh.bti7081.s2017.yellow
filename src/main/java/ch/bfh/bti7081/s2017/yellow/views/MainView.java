@@ -48,5 +48,6 @@ public class MainView extends UI {
         NavigatorController.getInstance().addView("planningView", planningView);
 
         setContent(rootLayout);
+        NavigatorController.getInstance().navigateTo("contactView");
     }
 }

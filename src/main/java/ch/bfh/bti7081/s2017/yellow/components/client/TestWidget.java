@@ -1,5 +1,6 @@
 package ch.bfh.bti7081.s2017.yellow.components.client;
 
+import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
@@ -8,14 +9,18 @@ import com.google.gwt.user.client.ui.Label;
  */
 public class TestWidget extends Composite {
     private final static String CLASSNAME = "v-testwidget";
-    Label label = null;
+
+    final Label label;
+
+    @UiField(provided=true)
+    final char character = 'a';
 
     public TestWidget() {
         //setStyleName(CLASSNAME);
         
         FlowPanel panel = new FlowPanel();
 		
-        label = new Label("TestWidget");
+        label = new Label("" + character);
         panel.add(label);
 
         initWidget(panel);

@@ -2,12 +2,11 @@ package ch.bfh.bti7081.s2017.yellow.views;
 
 import ch.bfh.bti7081.s2017.yellow.components.MenuButton;
 import ch.bfh.bti7081.s2017.yellow.components.Test;
+import ch.bfh.bti7081.s2017.yellow.presenters.DashboardPresenter;
 import ch.bfh.bti7081.s2017.yellow.util.NavigatorController;
 import ch.bfh.bti7081.s2017.yellow.views.listeners.MenuViewListener;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.CustomComponent;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Label;
+import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.ui.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +20,7 @@ public class MainMenuView extends CustomComponent implements MenuView, Button.Cl
     public MainMenuView() {
         title = new Label("Menu");
         listeners = new ArrayList<>();
+        VerticalLayout layout = new VerticalLayout();
         HorizontalLayout menuLayout = new HorizontalLayout();
 
         menuLayout.addComponent(new MenuButton("Planning", new Button.ClickListener() {
@@ -44,10 +44,13 @@ public class MainMenuView extends CustomComponent implements MenuView, Button.Cl
             }
         }));
 
-        Test test = new Test();
-        menuLayout.addComponent(test);
+        layout.addComponent(menuLayout);
 
-        setCompositionRoot(menuLayout);
+        DashboardView dashboardView = new DashboardViewImpl();
+        new DashboardPresenter(dashboardView);
+        layout.addComponent(dashboardView);
+
+        setCompositionRoot(layout);
     }
 
     @Override
@@ -62,8 +65,11 @@ public class MainMenuView extends CustomComponent implements MenuView, Button.Cl
 
     @Override
     public void buttonClick(Button.ClickEvent clickEvent) {
-        listeners.forEach(listener -> {
-            NavigatorController.getInstance().navigateTo("planningView");
-        });
+        //
+    }
+
+    @Override
+    public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
+        //
     }
 }

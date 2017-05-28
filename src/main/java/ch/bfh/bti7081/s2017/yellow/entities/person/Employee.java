@@ -17,12 +17,8 @@ public class Employee extends Person {
     @Column(name="SINCE")
     private Date since;
 
-    @Column(name="SCHEDULE")
-    private Schedule schedule;
-
     public Employee(String firstName, String lastName) {
         super(firstName, lastName);
-        schedule = new Schedule();
     }
 
     public Date getSince() {
@@ -33,11 +29,4 @@ public class Employee extends Person {
         this.since = since;
     }
 
-    public Schedule getSchedule() {
-        return schedule;
-    }
-
-    public void setSchedule(Schedule schedule) {
-        this.schedule = schedule;
-    }
 }

@@ -21,8 +21,6 @@ public class Schedule implements Storable{
     @OneToMany
     private List<ScheduleEntry> scheduleEntry;
 
-
-
     @Override
     public Long getId() {
         return id;

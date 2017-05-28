@@ -3,6 +3,8 @@ package ch.bfh.bti7081.s2017.yellow.entities.schedule;
 import ch.bfh.bti7081.s2017.yellow.entities.Storable;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Person;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
@@ -12,7 +14,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="SCHEDULE_ENTRY")
-public class ScheduleEntry implements Storable{
+public class ScheduleEntry implements Storable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,6 +24,9 @@ public class ScheduleEntry implements Storable{
     @Column(name="PERSON")
     @ManyToMany
     private List<Person> person;
+
+    @Column(name="DATE")
+    private Date date;
 
     @Override
     public Long getId() {
@@ -41,5 +46,11 @@ public class ScheduleEntry implements Storable{
 		this.person = person;
 	}
 
+    public Date getDate() {
+        return date;
+    }
 
+    public void setDate(Date date) {
+        this.date = date;
+    }
 }

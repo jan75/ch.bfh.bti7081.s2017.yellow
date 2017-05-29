@@ -16,7 +16,7 @@ import com.vaadin.ui.themes.ValoTheme;
 /**
  * Created by simon on 15.05.17.
  */
-public abstract class ContactDetailViewImpl<TBean extends PersonBean> extends FormLayout implements ContactDetailView<TBean> {
+public abstract class ContactDetailViewImpl extends FormLayout implements ContactDetailView {
 
     protected ContactDetailViewListener listener;
     protected Button btnSave = new Button("Save");
@@ -24,12 +24,13 @@ public abstract class ContactDetailViewImpl<TBean extends PersonBean> extends Fo
     protected Button btnCancel = new Button("Cancel");
 
     protected void createLayout() {
-        setSizeUndefined();
+        setSizeFull();
         HorizontalLayout buttons = new HorizontalLayout(btnSave, btnDelete, btnCancel);
         addComponents(buttons);
 
         btnSave.setStyleName(ValoTheme.BUTTON_PRIMARY);
-        btnDelete.setClickShortcut(ShortcutAction.KeyCode.ENTER);
+        btnDelete.setStyleName(ValoTheme.BUTTON_DANGER);
+        btnSave.setClickShortcut(ShortcutAction.KeyCode.ENTER);
         btnCancel.setClickShortcut(ShortcutAction.KeyCode.ESCAPE);
     }
 
@@ -48,10 +49,10 @@ public abstract class ContactDetailViewImpl<TBean extends PersonBean> extends Fo
         }
     }
 
-    public abstract void setContact(ContactBookEntryBean<TBean>  contactBookEntryBean);
+    public abstract void setContact(ContactBookEntryBean  contactBookEntryBean);
 
 
-    public abstract ContactBookEntryBean<TBean> getContact();
+    public abstract ContactBookEntryBean getContact();
 
 }
 

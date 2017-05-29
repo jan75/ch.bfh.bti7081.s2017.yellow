@@ -13,7 +13,7 @@ import java.util.List;
  * @see ContactViewImpl
  */
 public interface ContactView extends Component, NavigatorView  {
-    void setDataProvider(List<ContactBookEntryBean> entries);
+    void setContactBookEntries(List<ContactBookEntryBean> entries);
 
     interface ContactViewListener extends NavigatorViewListener{
         void setFilter(String filter);

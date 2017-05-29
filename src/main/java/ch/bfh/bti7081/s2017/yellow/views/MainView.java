@@ -1,21 +1,17 @@
 package ch.bfh.bti7081.s2017.yellow.views;
 
 import ch.bfh.bti7081.s2017.yellow.presenters.ContactPresenter;
-import ch.bfh.bti7081.s2017.yellow.presenters.DashboardPresenter;
 import ch.bfh.bti7081.s2017.yellow.presenters.MainMenuPresenter;
 import ch.bfh.bti7081.s2017.yellow.presenters.PlanningPresenter;
 import ch.bfh.bti7081.s2017.yellow.repositories.CrudRepositoryImpl;
 import ch.bfh.bti7081.s2017.yellow.util.NavigatorController;
-import ch.bfh.bti7081.s2017.yellow.util.NavigatorView;
 import ch.bfh.bti7081.s2017.yellow.views.contact.ContactView;
 import ch.bfh.bti7081.s2017.yellow.views.contact.ContactViewImpl;
 import ch.bfh.bti7081.s2017.yellow.views.planning.PlanningView;
 import ch.bfh.bti7081.s2017.yellow.views.planning.PlanningViewImpl;
-import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
-import elemental.html.Navigator;
 
 import java.sql.SQLException;
 

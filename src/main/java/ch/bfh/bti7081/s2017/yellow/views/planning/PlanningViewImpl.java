@@ -6,9 +6,12 @@ import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
+import org.joda.time.LocalDate;
 import org.vaadin.hezamu.canvas.Canvas;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Concrete PlanningView implementation
@@ -21,9 +24,12 @@ public class PlanningViewImpl extends CustomComponent implements PlanningView {
 
         EmployeeTest employee = new EmployeeTest("Tim", "Gerber");
         ScheduleTest schedule = employee.getSchedule();
-        List<ScheduleEntryTest> scheduleEntryList = schedule.getScheduleEntryTestList();
+        HashMap<LocalDate, ScheduleEntryTest> scheduleEntryList = schedule.getScheduleEntryTestList();
 
-        Calendar calendar = Calendar.getInstance();
+        LocalDate date = new LocalDate().withDayOfMonth(1).withMonthOfYear(1).withYear(2017);
+        layout.addComponent(new Label(date.toString()));
+
+        /*
         calendar.set(Calendar.YEAR, 2017);
         calendar.set(Calendar.MONTH, Calendar.MAY);
         calendar.set(Calendar.DAY_OF_MONTH, 28);

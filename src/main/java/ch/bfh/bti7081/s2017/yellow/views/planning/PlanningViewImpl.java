@@ -8,10 +8,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import org.vaadin.hezamu.canvas.Canvas;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Concrete PlanningView implementation
@@ -21,9 +18,6 @@ public class PlanningViewImpl extends CustomComponent implements PlanningView {
 
     public PlanningViewImpl() {
         final VerticalLayout layout = new VerticalLayout();
-
-        //Test test = new Test();
-        //layout.addComponent(test);
 
         EmployeeTest employee = new EmployeeTest("Tim", "Gerber");
         ScheduleTest schedule = employee.getSchedule();
@@ -35,17 +29,39 @@ public class PlanningViewImpl extends CustomComponent implements PlanningView {
         calendar.set(Calendar.DAY_OF_MONTH, 28);
         Date date = calendar.getTime();
 
-        ScheduleEntryTest scheduleEntryTest = new ScheduleEntryTest(date);
-        List<String> scheduleDay = scheduleEntryTest.getScheduleDay();
+        if(schedule.addScheduleEntry(date)) {
+            layout.addComponent(new Label("Success"));
+        } else {
+            layout.addComponent(new Label("Failure"));
+        }
+        /*
+        HashMap<Integer, String> scheduleDay = schedule.getScheduleEntry(date).getScheduleDay();
 
-        for(String string: scheduleDay) {
-            layout.addComponent(new Label(string));
+        int i;
+        for(i = 0; i <= 7; i++) {
+            scheduleDay.put(i, "Frei");
         }
 
-        layout.addComponent(new Label(new Integer(scheduleDay.size()).toString()));
+        for(i = 8; i <= 11; i++) {
+            scheduleDay.put(i, "Pflege Tom");
+        }
 
+        for(i = 12; i <= 13; i++) {
+            scheduleDay.put(i, "Pause");
+        }
 
+        for(i = 14; i <= 17; i++) {
+            scheduleDay.put(i, "Pflege Michael");
+        }
 
+        for(i = 18; i <= 24; i++) {
+            scheduleDay.put(i, "Frei");
+        }
+
+        for(i = 0; i < 24; i++) {
+            layout.addComponent(new Label(i + " " + scheduleDay.get(i)));
+        }
+        */
         //layout.addComponent(horizontalLayout);
         setCompositionRoot(layout);
         setVisible(false);

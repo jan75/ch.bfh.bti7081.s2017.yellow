@@ -32,11 +32,6 @@ public abstract class ContactDetailViewImpl extends FormLayout implements Contac
         btnDelete.setStyleName(ValoTheme.BUTTON_DANGER);
         btnSave.setClickShortcut(ShortcutAction.KeyCode.ENTER);
         btnCancel.setClickShortcut(ShortcutAction.KeyCode.ESCAPE);
-       
-        state = new InvalidState();
-        firstName.addValueChangeListener(event->{
-        	state.inputChanged();
-        });
     }
 
     @Override

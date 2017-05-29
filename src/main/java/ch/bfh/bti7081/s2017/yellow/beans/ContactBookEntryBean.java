@@ -6,6 +6,8 @@ import ma.glasnost.orika.metadata.NestedProperty;
 import ma.glasnost.orika.metadata.Property;
 import ma.glasnost.orika.property.PropertyResolverStrategy;
 import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -17,14 +19,13 @@ import ma.glasnost.orika.*;
 /**
  * Created by simon on 16.05.17.
  */
-public class ContactBookEntryBean extends BaseBean<ContactBookEntry> implements PropertyResolverStrategy {
+public class ContactBookEntryBean extends BaseBean<ContactBookEntry>  {
 
-    private ContactEntryType contactEntryType = ContactEntryType.Person;
     @NotBlank
     private String phoneNr = "";
-    @NotNull
+    @Valid
     private PersonBean person;
-    @NotNull
+
     private ContactBookBean contactBook;
 
     public Class getType(){
@@ -59,28 +60,4 @@ public class ContactBookEntryBean extends BaseBean<ContactBookEntry> implements 
         return contactBook;
     }
 
-    @Override
-    public Map<String, Property> getProperties(Type type) {
-        return null;
-    }
-
-    @Override
-    public NestedProperty getNestedProperty(Type type, String s) {
-        return null;
-    }
-
-    @Override
-    public Property getProperty(Type type, String s) {
-        return null;
-    }
-
-    @Override
-    public boolean existsProperty(Type type, String s) {
-        return false;
-    }
-
-    @Override
-    public Property getProperty(Property property, String s) {
-        return null;
-    }
 }

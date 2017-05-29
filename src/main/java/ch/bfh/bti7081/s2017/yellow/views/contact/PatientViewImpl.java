@@ -1,6 +1,7 @@
 package ch.bfh.bti7081.s2017.yellow.views.contact;
 
 import ch.bfh.bti7081.s2017.yellow.beans.*;
+import com.vaadin.annotations.PropertyId;
 import com.vaadin.data.BeanValidationBinder;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.navigator.ViewChangeListener;
@@ -11,7 +12,7 @@ import com.vaadin.ui.themes.ValoTheme;
  * Created by simon on 15.05.17.
  */
 public class PatientViewImpl extends ContactDetailViewImpl {
-
+    
     private TextField firstName = new TextField("First name");
     private TextField lastName = new TextField("Last name");
     private TextField phoneNr = new TextField("Phone number");
@@ -30,11 +31,12 @@ public class PatientViewImpl extends ContactDetailViewImpl {
         addComponents(textBoxes);
 
         beanValidationBinder.bindInstanceFields(this);
+
+        //beanValidationBinder.bind(lastName, "person.lastName");
         beanValidationBinder.bind(firstName, a->a.getPerson().getFirstName(), (a, b)->a.getPerson().setFirstName(b));
         beanValidationBinder.bind(lastName, a->a.getPerson().getLastName(), (a, b)->a.getPerson().setLastName(b));
         beanValidationBinder.bind(checkInDate, a->((PatientBean)a.getPerson()).getLdCheckInDate(), (a, b)->((PatientBean)a.getPerson()).setLdCheckInDate(b));
         beanValidationBinder.bind(checkOutDate, a->((PatientBean)a.getPerson()).getLdCheckOutDate(), (a, b)->((PatientBean)a.getPerson()).setLdCheckOutDate(b));
-
         super.createLayout();
     }
 

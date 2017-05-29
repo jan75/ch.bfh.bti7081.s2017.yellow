@@ -23,6 +23,8 @@ public class ContactBookBean extends BaseBean<ContactBook> {
     }
 
     public void addEntry(ContactBookEntryBean entry){
+        entry.setContactBook(this);
         entries.add(entry);
+
     }
 }

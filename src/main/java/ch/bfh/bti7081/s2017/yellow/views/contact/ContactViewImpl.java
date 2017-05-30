@@ -41,7 +41,7 @@ public class ContactViewImpl extends CustomComponent implements ContactView {
         Button addCustomerBtn = new Button("Add new");
         addCustomerBtn.addClickListener(clickEvent -> listener.addContact());
 
-        HorizontalLayout toolbar = new HorizontalLayout(filtering, addCustomerBtn);
+        HorizontalLayout toolbar = new HorizontalLayout(filtering);
 
         grid.setDataProvider(dataProvider);
         grid.addColumn(a->a.getPerson().getFirstName()).setCaption("First name");
@@ -58,6 +58,7 @@ public class ContactViewImpl extends CustomComponent implements ContactView {
         grid.asSingleSelect().addValueChangeListener(event -> listener.selectionChange(event.getValue()));
         // Split and allow resizing
         setCompositionRoot(layout);
+        setSizeFull();
         setVisible(false);
     }
 
@@ -70,7 +71,7 @@ public class ContactViewImpl extends CustomComponent implements ContactView {
     );
 
     @Override
-    public void setDataProvider(List<ContactBookEntryBean> entries) {
+    public void setContactBookEntries(List<ContactBookEntryBean> entries) {
         this.entries = entries;
         dataProvider.refreshAll();
     }

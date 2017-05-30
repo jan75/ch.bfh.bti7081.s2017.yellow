@@ -41,7 +41,7 @@ public class ContactDetailPresenter<TView extends ContactDetailView> implements 
     /**
      *
      */
-    public <TBean extends PersonBean> void setContact(ContactBookEntryBean<TBean> contactBookEntryBean) {
+    public void setContact(ContactBookEntryBean contactBookEntryBean) {
         view.setContact(contactBookEntryBean);
     }
 

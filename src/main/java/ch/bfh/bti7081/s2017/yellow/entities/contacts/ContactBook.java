@@ -20,12 +20,12 @@ import java.util.List;
 public class ContactBook implements Storable{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="ID")
     private Long id;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy="contactBook")
-    @Cascade({ CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH})
+    @OneToMany(mappedBy="contactBook")
+    @Cascade({ CascadeType.PERSIST})
     private List<ContactBookEntry> entries;
 
     public ContactBook() {

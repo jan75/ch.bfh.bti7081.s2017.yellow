@@ -53,6 +53,10 @@ public class ScheduleTest {
         }
     }
 
+    public void setEntryForDay(LocalDate date, ScheduleEntryTest scheduleEntryTest) {
+        scheduleDayMap.put(date, scheduleEntryTest);
+    }
+
     public boolean deleteScheduleEntryDay(LocalDate date) {
         if(scheduleDayMap.containsKey(date)) {
             scheduleDayMap.remove(date);

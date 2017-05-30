@@ -1,17 +1,13 @@
 package ch.bfh.bti7081.s2017.yellow.views.planning;
 
-import ch.bfh.bti7081.s2017.yellow.beans.EmployeeBean;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import org.joda.time.LocalDate;
-import org.vaadin.hezamu.canvas.Canvas;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Concrete PlanningView implementation
@@ -27,27 +23,17 @@ public class PlanningViewImpl extends CustomComponent implements PlanningView {
         HashMap<LocalDate, ScheduleEntryTest> scheduleEntryList = schedule.getScheduleEntryTestList();
 
         LocalDate date = new LocalDate().withDayOfMonth(1).withMonthOfYear(1).withYear(2017);
-        layout.addComponent(new Label(date.toString()));
-
-        /*
-        calendar.set(Calendar.YEAR, 2017);
-        calendar.set(Calendar.MONTH, Calendar.MAY);
-        calendar.set(Calendar.DAY_OF_MONTH, 28);
-        Date date = calendar.getTime();
+        //layout.addComponent(new Label(date.toString()));
 
         if(schedule.addScheduleEntry(date)) {
             layout.addComponent(new Label("Success"));
         } else {
             layout.addComponent(new Label("Failure"));
         }
-        /*
-        HashMap<Integer, String> scheduleDay = schedule.getScheduleEntry(date).getScheduleDay();
+        ScheduleEntryTest scheduleEntryTest = schedule.getEntryForDay(date);
+        HashMap<Integer, String> scheduleDay = scheduleEntryTest.getScheduleDay();
 
         int i;
-        for(i = 0; i <= 7; i++) {
-            scheduleDay.put(i, "Frei");
-        }
-
         for(i = 8; i <= 11; i++) {
             scheduleDay.put(i, "Pflege Tom");
         }
@@ -60,50 +46,96 @@ public class PlanningViewImpl extends CustomComponent implements PlanningView {
             scheduleDay.put(i, "Pflege Michael");
         }
 
-        for(i = 18; i <= 24; i++) {
-            scheduleDay.put(i, "Frei");
-        }
+        scheduleEntryTest.setScheduleDay(scheduleDay);
+        schedule.setEntryForDay(date, scheduleEntryTest);
 
+        layout.addComponent(drawEmployee(employee, date));
+
+        /*
         for(i = 0; i < 24; i++) {
             layout.addComponent(new Label(i + " " + scheduleDay.get(i)));
         }
         */
+
         //layout.addComponent(horizontalLayout);
         setCompositionRoot(layout);
         setVisible(false);
     }
 
+    private HorizontalLayout drawEmployee(EmployeeTest employee, LocalDate date) {
+        HorizontalLayout horizontalLayout = new HorizontalLayout();
+        VerticalLayout verticalLayout = new VerticalLayout();
+
+        Label name = new Label(employee.getFullName());
+        verticalLayout.addComponent(name);
+
+        HashMap<Integer, String> scheduleDay = employee.getSchedule().getEntryForDay(date).getScheduleDay();
+
+        String tmpString = scheduleDay.get(0);
+        String tmpBeginTime = timeStringBuilder(0);
+        String tmpEndTime;
+        for(int i = 0; i < scheduleDay.size(); i++) {
+            /*
+            if(scheduleDay.get(i) == tmpString || scheduleDay.get(i) == null) {
+                continue;
+            } else if(scheduleDay.get(i) != tmpString && tmpString == null) {
+                tmpBeginTime = timeStringBuilder(i);
+                tmpString = scheduleDay.get(i);
+                tmpEndTime = timeStringBuilder(i + 1);
+            } else if(i == scheduleDay.size() - 1 && tmpString != null) {
+                tmpEndTime = timeStringBuilder(i + 1);
+                verticalLayout.addComponent(new Label(tmpBeginTime + " - " + tmpEndTime + "   " + tmpString));
+            } else {
+                tmpEndTime = timeStringBuilder(i);
+                verticalLayout.addComponent(new Label(tmpBeginTime + " - " + tmpEndTime + "   " + tmpString));
+                tmpBeginTime = timeStringBuilder(i);
+                tmpString = scheduleDay.get(i);
+            }
+            */
+            if(scheduleDay.get(i) == tmpString) {
+                continue;
+            } else {
+                if(tmpString == null) {
+                    tmpBeginTime = timeStringBuilder(i);
+                    tmpString = scheduleDay.get(i);
+                } else if(scheduleDay.get(i) == null) {
+                    tmpEndTime = timeStringBuilder(i);
+                    verticalLayout.addComponent(new Label(tmpBeginTime + " - " + tmpEndTime + "   " + tmpString));
+                    tmpBeginTime = timeStringBuilder(i);
+                    tmpString = scheduleDay.get(i);
+                } else if(scheduleDay.size() -1 == i && scheduleDay.get(i) != null) {
+                    if(tmpString == null) {
+                        tmpString = scheduleDay.get(i);
+                    }
+                    tmpEndTime = timeStringBuilder(i + 1);
+                    tmpString = scheduleDay.get(i);
+                    verticalLayout.addComponent(new Label(tmpBeginTime + " - " + tmpEndTime + "   " + tmpString));
+                } else {
+                    tmpEndTime = timeStringBuilder(i);
+                    verticalLayout.addComponent(new Label(tmpBeginTime + " - " + tmpEndTime + "   " + tmpString));
+                    tmpBeginTime = timeStringBuilder(i);
+                    tmpString = scheduleDay.get(i);
+                }
+            }
+        }
+
+        horizontalLayout.addComponent(verticalLayout);
+
+        return horizontalLayout;
+    }
+
+    private String timeStringBuilder(Integer timeShort) {
+        StringBuilder stringBuilder = new StringBuilder();
+        if(timeShort < 10) {
+            stringBuilder.append("0");
+        }
+        stringBuilder.append(timeShort + ":00");
+        return new String(stringBuilder);
+    }
+
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
         setVisible(true);
-    }
-
-    private HorizontalLayout drawEmployee(EmployeeBean employee) {
-        HorizontalLayout horizontalLayout = new HorizontalLayout();
-        horizontalLayout.setSpacing(false);
-
-        List<Canvas> canvasList = new ArrayList<Canvas>();
-        String color = "red";
-
-        for(int i = 0; i < 24; i++) {
-            if(color == "red") {
-                color = "blue";
-            } else {
-                color = "red";
-            }
-            canvasList.add(new Canvas());
-            Canvas currentCanvas = canvasList.get(canvasList.size() -1);
-            currentCanvas.setFillStyle(color);
-            currentCanvas.fillRect(0,0,10,20);
-            currentCanvas.setWidth("12px");
-            currentCanvas.setHeight("20px");
-        }
-
-        for(Canvas canvas: canvasList) {
-            horizontalLayout.addComponent(canvas);
-        }
-
-        return horizontalLayout;
     }
 
 }

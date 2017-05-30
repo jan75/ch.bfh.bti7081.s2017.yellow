@@ -12,7 +12,6 @@ import javax.persistence.*;
 @Entity
 @Table(name="SCHEDULE")
 public class Schedule implements Storable{
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="ID")
@@ -38,6 +37,4 @@ public class Schedule implements Storable{
 	public void setScheduleEntry(List<ScheduleEntry> scheduleEntry) {
 		this.scheduleEntry = scheduleEntry;
 	}
-
-
 }

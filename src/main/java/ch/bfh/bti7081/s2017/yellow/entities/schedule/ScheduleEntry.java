@@ -3,11 +3,9 @@ package ch.bfh.bti7081.s2017.yellow.entities.schedule;
 import ch.bfh.bti7081.s2017.yellow.entities.Storable;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Person;
 
-import java.util.ArrayList;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.*;
 
 /**
  * Created by dario on 09.05.2017.

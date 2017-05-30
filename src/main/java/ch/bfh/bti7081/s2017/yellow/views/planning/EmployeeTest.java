@@ -23,4 +23,8 @@ public class EmployeeTest {
     public void setSchedule(ScheduleTest schedule) {
         this.schedule = schedule;
     }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
 }

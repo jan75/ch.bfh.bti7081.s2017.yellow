@@ -15,7 +15,7 @@ public class ScheduleEntryTest {
         this.date = date;
         scheduleDay = new HashMap<>();
         for(int i = 1; i <= 24; i++) {
-            scheduleDay.put(i, "null");
+            scheduleDay.put(i, null);
         }
     }
 

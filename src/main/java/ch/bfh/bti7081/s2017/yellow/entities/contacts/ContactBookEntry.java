@@ -1,11 +1,20 @@
 package ch.bfh.bti7081.s2017.yellow.entities.contacts;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+
 import ch.bfh.bti7081.s2017.yellow.entities.Storable;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Person;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
-import javax.persistence.*;
 
 /**
  * Created by dario on 09.05.2017.
@@ -20,13 +29,12 @@ public class ContactBookEntry implements Storable {
     private Long id;
 
     @OneToOne()
-    @Cascade(CascadeType.ALL)
     private Person person;
 
     @Column(name="PHONE_NR")
     private String phoneNr;
     
-    @ManyToOne(cascade=CascadeType.PERSIST)
+    @ManyToOne(cascade={CascadeType.PERSIST})
     private ContactBook contactBook;
 
     public ContactBookEntry(){ }

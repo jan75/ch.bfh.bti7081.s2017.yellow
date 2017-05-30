@@ -3,20 +3,16 @@ package ch.bfh.bti7081.s2017.yellow.repositories;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.OneToMany;
-
 import org.hibernate.Session;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-
 import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBook;
 import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBookEntry;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Person;
 import ch.bfh.bti7081.s2017.yellow.repositories.DbConnector;
+import ch.bfh.bti7081.s2017.yellow.repositories.DbConnector.DbTask;
 
 public class CrudRepositoryImplTest {
 	@Before
@@ -38,17 +34,17 @@ public class CrudRepositoryImplTest {
 	@Test
 	public void saveAnEntityWithoutRelations() throws SQLException {
 		System.out.println("-----------saveAnEntityWithoutRelations-------------------------");
-		//Get a session
-		Session session = DbConnector.openSession();
+		//Start new Db Task
+		DbTask dbTask = new DbTask();
 		
 		//create the entity
 		Person person = new Person("Name1", "Name2");
 		
 		//save entity
-		session.save(person);
+		dbTask.save(person);
 		
 		//close session. It is only now that the sql statements are sent to the DB
-		session.close();
+		dbTask.end();
 	}
 	
 	/**
@@ -72,7 +68,7 @@ public class CrudRepositoryImplTest {
 	public void saveEntityWithManyToOneRelation1() throws SQLException {
 		System.out.println("-----------saveEntityWithManyToOneRelation1-------------------------");
 		//Get a session
-		Session session = DbConnector.openSession();
+		DbTask dbTask = new DbTask();
 		
 		//create the MANY entity
 		ContactBookEntry contactBookEntry = new ContactBookEntry();
@@ -84,10 +80,10 @@ public class CrudRepositoryImplTest {
 		contactBookEntry.setPerson(person);
 		
 		//only save contactBookEntry. Because of CascadeType.PERSIST, person is also saved
-		session.save(contactBookEntry);
+		dbTask.save(contactBookEntry);
 		
 		//don't forget to close the session!
-		session.close();
+		dbTask.end();
 	}
 	
 	/**
@@ -105,19 +101,19 @@ public class CrudRepositoryImplTest {
 	public void updateEntity() throws SQLException {
 		System.out.println("-----------updateEntity-------------------------");
 		//open a session
-		Session session = DbConnector.openSession();
+		DbTask dbTask = new DbTask();
 		
 		//create entity
 		Person person = new Person("name", "name2");
 		
 		//save entity
-		session.save(person);
+		dbTask.save(person);
 		
 		//use same instance to change data in DB
 		person.setFirstName("other first name");
-		session.save(person);
+		dbTask.getSession().save(person);
 		
-		session.close();
+		dbTask.end();
 	}
 	
 	/**
@@ -144,7 +140,7 @@ public class CrudRepositoryImplTest {
 	public void saveEntityWithManyToOneRelation2() throws SQLException{
 		System.out.println("-----------saveEntityWithManyToOneRelation2-------------------------");
 		//Get an instance of a repo
-		Session session = DbConnector.openSession();
+		DbTask dbTask = new DbTask();
 		
 		//create the MANY entity
 		ContactBookEntry contactBookEntry = new ContactBookEntry();
@@ -159,9 +155,9 @@ public class CrudRepositoryImplTest {
 		person.setContactBookEntries(contactBookEntries);
 		
 		//only save contactBookEntry. Because of CascadeType.PERSIST, person is also saved
-		session.save(person);
+		dbTask.save(person);
 		
-		session.close();
+		dbTask.end();
 	}
 	
 	@Test
@@ -178,8 +174,16 @@ public class CrudRepositoryImplTest {
 		contactBook.setEntries(contactBookEntries);
 		
 		//save
-		Session session = DbConnector.openSession();
+		DbTask dbTask = new DbTask();
 		
-		session.save(contactBook);
+		dbTask.save(contactBook);
+		
+		dbTask.end();
+		
+		//Suppose we load the first entry of the contactBook at a later time
+		DbTask dbTask2 = new DbTask();
+		ContactBookEntry loadedContactBookEntry = dbTask2.getSession().find(ContactBookEntry.class, contactBookEntry1.getId());
+		Assert.assertEquals(contactBookEntry1.getPhoneNr(), loadedContactBookEntry.getPhoneNr());
+		dbTask2.end();
 	}
 }

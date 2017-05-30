@@ -28,13 +28,13 @@ public class ContactBookEntry implements Storable {
     @Column(name="ID")
     private Long id;
 
-    @OneToOne()
+    @OneToOne(cascade=CascadeType.ALL)
     private Person person;
 
     @Column(name="PHONE_NR")
     private String phoneNr;
     
-    @ManyToOne(cascade={CascadeType.PERSIST})
+    @ManyToOne()
     private ContactBook contactBook;
 
     public ContactBookEntry(){ }

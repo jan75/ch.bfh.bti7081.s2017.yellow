@@ -5,6 +5,7 @@ import ch.bfh.bti7081.s2017.yellow.beans.ContactBookBean;
 import ch.bfh.bti7081.s2017.yellow.entities.Storable;
 import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBook;
 import ch.bfh.bti7081.s2017.yellow.repositories.DbConnector;
+import ch.bfh.bti7081.s2017.yellow.repositories.DbConnector.DbTask;
 import ch.bfh.bti7081.s2017.yellow.util.BeanMapper;
 import ch.bfh.bti7081.s2017.yellow.util.BeanMapperConsumer;
 import ch.bfh.bti7081.s2017.yellow.util.BeanMapperImpl;
@@ -41,8 +42,10 @@ public class SimpleServiceImpl<A extends Storable, B extends BaseBean<A>> implem
 
     @Override
     public List<B> getALlEntities() {
-    	Session s = DbConnector.openSession();
-        return mapperFactory.getMapperFacade().mapAsList(DbConnector.findAll(s, entityClazz), beanClazz);
+    	DbTask d = new DbTask();
+    	List l = d.findAll(entityClazz);
+    	d.end();
+        return mapperFactory.getMapperFacade().mapAsList(l, beanClazz);
     }
 
     @Override
@@ -52,24 +55,18 @@ public class SimpleServiceImpl<A extends Storable, B extends BaseBean<A>> implem
 
     @Override
     public void saveEntities(List<B> beans) {
-    	Session s = DbConnector.openSession();
+    	DbTask d = new DbTask();
         for (B b : beans) {
-            if (b.getId() == null) {
-                s.save(mapperFactory.getMapperFacade().map(beanClazz, entityClazz));
-            } else {
-                s.update(mapperFactory.getMapperFacade().map(beanClazz, entityClazz));
-            }
+            d.save(mapperFactory.getMapperFacade().map(beanClazz, entityClazz));
         }
+        d.end();
     }
 
     @Override
     public void saveEntity(B bean) {
-    	Session s = DbConnector.openSession();
-        if (bean.getId() == null) {
-            s.save(mapperFactory.getMapperFacade().map(bean, entityClazz));
-        } else {
-            s.update(mapperFactory.getMapperFacade().map(bean, entityClazz));
-        }
+    	DbTask d = new DbTask();
+    	d.save(mapperFactory.getMapperFacade().map(beanClazz, entityClazz));
+    	d.end();
     }
 
     @Override

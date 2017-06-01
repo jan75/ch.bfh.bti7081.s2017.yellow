@@ -33,6 +33,10 @@ public class WikiEntry implements Storable{
     @Column(name="CREATEDAT")
     private Date createdAt;
 
+    @Column(name="UPDATEDAT")
+    private Date updatedAt;
+
+
     @ManyToOne
     private User user;
     
@@ -42,6 +46,8 @@ public class WikiEntry implements Storable{
         this.entry = entry;
         this.category = category;
         this.createdAt = new Date();
+        this.updatedAt = this.createdAt;
+
     }
 
     @Override
@@ -86,6 +92,14 @@ public class WikiEntry implements Storable{
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
 
     public User getUser(){
         return this.user;

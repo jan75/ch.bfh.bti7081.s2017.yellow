@@ -1,5 +1,7 @@
 package ch.bfh.bti7081.s2017.yellow.views.wiki;
 
+import ch.bfh.bti7081.s2017.yellow.entities.wiki.Wiki;
+import ch.bfh.bti7081.s2017.yellow.entities.wiki.WikiEntry;
 import com.vaadin.annotations.Theme;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.event.ShortcutListener;
@@ -7,7 +9,10 @@ import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.ui.*;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -33,8 +38,15 @@ public class WikiViewImpl extends CustomComponent implements WikiView   {
         wikiSearch.addShortcutListener(new ShortcutListener("Shortcut Name", ShortcutAction.KeyCode.ENTER, null) {
             @Override
             public void handleAction(Object sender, Object target) {
-                TextField wikiSearchBar = (TextField)target;
-                search(wikiSearchBar.getValue());
+                if (target instanceof TextField) {
+                    TextField wikiSearchBar = (TextField) target;
+                    search(wikiSearchBar.getValue());
+
+                    if (wikiSearchBar.getValue().equals("Hello")){
+                        Notification.show("haha you said hello to a wiki. noob, you are",
+                                Notification.Type.HUMANIZED_MESSAGE);
+                    }
+                }
             }
         });
 
@@ -44,11 +56,21 @@ public class WikiViewImpl extends CustomComponent implements WikiView   {
         content.addComponent(wikiTitle);
         content.addComponent(wikiSearch);
 
-        for (int i = 0; i<20; i++) {
+       /* for (int i = 0; i<20; i++) {
             Panel p = createWikiEntryPanel(i);
             wikiEntries.add(p);
             content.addComponent(p);
+        }*/
+
+        Wiki wiki = WikiDataFactory.getWiki();
+        List<WikiEntry> wikiEntryData = wiki.getWikiEntry();
+
+        for (WikiEntry wikiEntry : wikiEntryData ) {
+            Panel p = createWikiEntryPanel(wikiEntry);
+            wikiEntries.add(p);
+            content.addComponent(p);
         }
+
 
         layout.addComponent(content);
         layout.setComponentAlignment(content, Alignment.MIDDLE_CENTER);
@@ -68,8 +90,10 @@ public class WikiViewImpl extends CustomComponent implements WikiView   {
         }
     }
 
-    private Panel createWikiEntryPanel(int i){
-        Panel panel = new Panel("Kopfschmerzen" + i);
+    private Panel createWikiEntryPanel(WikiEntry wikiEntry){
+
+        Panel panel = new Panel(wikiEntry.getCaption()); //"Kopfschmerzen");
+
 
         GridLayout grid = new GridLayout(2, 1);
         grid.setWidth("100%");
@@ -79,16 +103,14 @@ public class WikiViewImpl extends CustomComponent implements WikiView   {
         panel.addStyleName("wikiPanel");
 
         Label wikiEntryContent = new Label(
-                "Kopfschmerzen" + i + " gehören neben Rückenschmerzen zu den häufigsten gesundheitlichen Beeinträchtigungen: Etwa vier bis fünf Prozent der deutschen Bevölkerung leiden unter täglichen und ca. 70 Prozent leiden unter anfallsweisen oder chronischen (immer wiederkehrenden) Kopfschmerzen. In einer großen deutschen Studie über 14 Jahre gaben etwa 60 % der Befragten an, Kopfschmerzen gehabt zu haben. Dabei zeigte sich, dass gehäuft Frauen und Bewohner von Städten über 50.000 Einwohner an Kopfschmerzen leiden.[1]\n" +
-                        "Dabei entfallen über 90 Prozent der Kopfschmerzerkrankungen auf die beiden primären Kopfschmerzformen Migräne und Spannungskopfschmerzen, die auch kombiniert auftreten können. Zu den primären Kopfschmerzen gehört auch der Cluster-Kopfschmerz und der medikamentenassoziierte Kopfschmerz. Gemeinsam haben sie, dass bei bildgebender Diagnostik kein sichtbares Korrelat gefunden werden kann.\n" +
-                        "Bei den primären Kopfschmerzen ist der Schmerz selbst die Erkrankung. Ihre Ursache ist immer noch nicht genau bekannt und kann deshalb auch nicht immer beseitigt werden. Die Vorbeugung zielt darauf hin, bekannte Auslöser und Faktoren für die Entstehung zu vermeiden. Die Behandlung besteht in einer schnellen und anhaltenden Schmerzlinderung.\n", ContentMode.HTML);
+                wikiEntry.getEntry(), ContentMode.HTML);
 
         wikiEntryContent.setStyleName("wikiEntryContentLabel");
 
-        String category = "Allgemeinmedizin";
-        String createdFrom = "Michi Jackson";
-        String createdAt = "18.02.2017";
-        String updatedAt = "30.05.2017";
+        String category = wikiEntry.getCategory();
+        String createdFrom = wikiEntry.getUser().getFirstName() + " " + wikiEntry.getUser().getLastName(); // "Michi Jackson";
+        String createdAt = convertDateToString(wikiEntry.getCreatedAt()); //"18.02.2017";
+        String updatedAt = convertDateToString(wikiEntry.getUpdatedAt()); //"30.05.2017";
 
         VerticalLayout wikiEntryInformationContent = new VerticalLayout();
         wikiEntryInformationContent.setStyleName("wikiEntryInformationContent");
@@ -134,6 +156,10 @@ public class WikiViewImpl extends CustomComponent implements WikiView   {
         panel.setContent(grid);
 
         return panel;
+    }
+
+    private String convertDateToString(Date date) {
+        return new SimpleDateFormat("yyyy-MM-dd").format(date);
     }
 
     @Override

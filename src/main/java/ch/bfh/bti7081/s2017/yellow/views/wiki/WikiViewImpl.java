@@ -17,8 +17,19 @@ public class WikiViewImpl extends CustomComponent implements WikiView   {
     public WikiViewImpl() {
         final VerticalLayout layout = new VerticalLayout();
 
+        Label wikiTitle =  new Label("This is our awesome wiki, say hello!");
+        wikiTitle.setStyleName("wikiTitleLabel");
+
+        TextField wikiSearch = new TextField();
+        wikiSearch.setStyleName("wikiSearch");
+        wikiSearch.setWidth("100%");
+        wikiSearch.setValue("Search...");
+
         VerticalLayout content = new VerticalLayout();
         content.setWidth("80%");
+
+        content.addComponent(wikiTitle);
+        content.addComponent(wikiSearch);
 
         for (int i = 0; i<20; i++) {
             content.addComponent(createWikiEntryPanel());
@@ -39,7 +50,7 @@ public class WikiViewImpl extends CustomComponent implements WikiView   {
 
         VerticalLayout panelContent = new VerticalLayout();
         panel.setWidth("100%");
-        panel.addStyleName("backgroundColorRed");
+        panel.addStyleName("wikiPanel");
 
         Label wikiEntryContent = new Label(
                 "Kopfschmerzen gehören neben Rückenschmerzen zu den häufigsten gesundheitlichen Beeinträchtigungen: Etwa vier bis fünf Prozent der deutschen Bevölkerung leiden unter täglichen und ca. 70 Prozent leiden unter anfallsweisen oder chronischen (immer wiederkehrenden) Kopfschmerzen. In einer großen deutschen Studie über 14 Jahre gaben etwa 60 % der Befragten an, Kopfschmerzen gehabt zu haben. Dabei zeigte sich, dass gehäuft Frauen und Bewohner von Städten über 50.000 Einwohner an Kopfschmerzen leiden.[1]\n" +

@@ -140,11 +140,11 @@ public class WikiViewImpl extends CustomComponent implements WikiView   {
         Button editEntry = new Button("Edit");
         Button uploadEntry = new Button("Delete");
         wikiEntryInformationButtonContent.addComponents(editEntry, uploadEntry);
-
+        wikiEntryInformationButtonContent.setDefaultComponentAlignment(Alignment.MIDDLE_RIGHT);
         wikiEntryInformationContent.addComponents(wikiEntryInformation, wikiEntryInformationButtonContent);
 
         wikiEntryInformationContent.setComponentAlignment(wikiEntryInformation, Alignment.TOP_RIGHT);
-        wikiEntryInformationContent.setComponentAlignment(wikiEntryInformationButtonContent, Alignment.TOP_CENTER);
+        wikiEntryInformationContent.setComponentAlignment(wikiEntryInformationButtonContent, Alignment.MIDDLE_RIGHT);
 
         panelContent.addComponent(wikiEntryContent);
         wikiEntryContent.setWidth("100%");

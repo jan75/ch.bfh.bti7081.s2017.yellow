@@ -9,7 +9,6 @@ import ch.bfh.bti7081.s2017.yellow.entities.person.Patient;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Person;
 import ch.bfh.bti7081.s2017.yellow.entities.person.User;
 import ch.bfh.bti7081.s2017.yellow.entities.schedule.Schedule;
-import ch.bfh.bti7081.s2017.yellow.entities.schedule.ScheduleEntry;
 import ch.bfh.bti7081.s2017.yellow.entities.wiki.Wiki;
 import ch.bfh.bti7081.s2017.yellow.entities.wiki.WikiEntry;
 
@@ -22,9 +21,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import javax.persistence.EntityManager;
 
@@ -61,7 +58,6 @@ public class CrudRepositoryImpl<T extends Storable> implements CrudRepository<T>
 				.addAnnotatedClass(Person.class)
 				.addAnnotatedClass(User.class)
 				.addAnnotatedClass(Schedule.class)
-				.addAnnotatedClass(ScheduleEntry.class)
 				.addAnnotatedClass(Wiki.class)
 				.addAnnotatedClass(WikiEntry.class)
 				.buildMetadata()

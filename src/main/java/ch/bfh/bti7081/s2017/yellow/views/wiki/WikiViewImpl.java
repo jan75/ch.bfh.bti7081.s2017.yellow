@@ -1,9 +1,13 @@
 package ch.bfh.bti7081.s2017.yellow.views.wiki;
 
 import com.vaadin.annotations.Theme;
+import com.vaadin.event.ShortcutAction;
+import com.vaadin.event.ShortcutListener;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.ui.*;
+
+import java.util.ArrayList;
 
 
 /**
@@ -13,6 +17,7 @@ import com.vaadin.ui.*;
 public class WikiViewImpl extends CustomComponent implements WikiView   {
 
     private WikiViewListener listener;
+    private ArrayList<Panel> wikiEntries = new ArrayList<Panel>();
 
     public WikiViewImpl() {
         final VerticalLayout layout = new VerticalLayout();
@@ -23,7 +28,15 @@ public class WikiViewImpl extends CustomComponent implements WikiView   {
         TextField wikiSearch = new TextField();
         wikiSearch.setStyleName("wikiSearch");
         wikiSearch.setWidth("100%");
-        wikiSearch.setValue("Search...");
+        wikiSearch.setValue("Search title...");
+
+        wikiSearch.addShortcutListener(new ShortcutListener("Shortcut Name", ShortcutAction.KeyCode.ENTER, null) {
+            @Override
+            public void handleAction(Object sender, Object target) {
+                TextField wikiSearchBar = (TextField)target;
+                search(wikiSearchBar.getValue());
+            }
+        });
 
         VerticalLayout content = new VerticalLayout();
         content.setWidth("80%");
@@ -32,7 +45,9 @@ public class WikiViewImpl extends CustomComponent implements WikiView   {
         content.addComponent(wikiSearch);
 
         for (int i = 0; i<20; i++) {
-            content.addComponent(createWikiEntryPanel());
+            Panel p = createWikiEntryPanel(i);
+            wikiEntries.add(p);
+            content.addComponent(p);
         }
 
         layout.addComponent(content);
@@ -42,8 +57,19 @@ public class WikiViewImpl extends CustomComponent implements WikiView   {
         setVisible(false);
     }
 
-    private Panel createWikiEntryPanel(){
-        Panel panel = new Panel("Kopfwehbehandlung");
+    private void search(String textToFind) {
+        for (Panel p : wikiEntries) {
+            if (p.getCaption().toLowerCase().contains(textToFind.toLowerCase())) {
+                p.setVisible(true);
+            }
+            else {
+                p.setVisible(false);
+            }
+        }
+    }
+
+    private Panel createWikiEntryPanel(int i){
+        Panel panel = new Panel("Kopfschmerzen" + i);
 
         GridLayout grid = new GridLayout(2, 1);
         grid.setWidth("100%");
@@ -53,7 +79,7 @@ public class WikiViewImpl extends CustomComponent implements WikiView   {
         panel.addStyleName("wikiPanel");
 
         Label wikiEntryContent = new Label(
-                "Kopfschmerzen gehören neben Rückenschmerzen zu den häufigsten gesundheitlichen Beeinträchtigungen: Etwa vier bis fünf Prozent der deutschen Bevölkerung leiden unter täglichen und ca. 70 Prozent leiden unter anfallsweisen oder chronischen (immer wiederkehrenden) Kopfschmerzen. In einer großen deutschen Studie über 14 Jahre gaben etwa 60 % der Befragten an, Kopfschmerzen gehabt zu haben. Dabei zeigte sich, dass gehäuft Frauen und Bewohner von Städten über 50.000 Einwohner an Kopfschmerzen leiden.[1]\n" +
+                "Kopfschmerzen" + i + " gehören neben Rückenschmerzen zu den häufigsten gesundheitlichen Beeinträchtigungen: Etwa vier bis fünf Prozent der deutschen Bevölkerung leiden unter täglichen und ca. 70 Prozent leiden unter anfallsweisen oder chronischen (immer wiederkehrenden) Kopfschmerzen. In einer großen deutschen Studie über 14 Jahre gaben etwa 60 % der Befragten an, Kopfschmerzen gehabt zu haben. Dabei zeigte sich, dass gehäuft Frauen und Bewohner von Städten über 50.000 Einwohner an Kopfschmerzen leiden.[1]\n" +
                         "Dabei entfallen über 90 Prozent der Kopfschmerzerkrankungen auf die beiden primären Kopfschmerzformen Migräne und Spannungskopfschmerzen, die auch kombiniert auftreten können. Zu den primären Kopfschmerzen gehört auch der Cluster-Kopfschmerz und der medikamentenassoziierte Kopfschmerz. Gemeinsam haben sie, dass bei bildgebender Diagnostik kein sichtbares Korrelat gefunden werden kann.\n" +
                         "Bei den primären Kopfschmerzen ist der Schmerz selbst die Erkrankung. Ihre Ursache ist immer noch nicht genau bekannt und kann deshalb auch nicht immer beseitigt werden. Die Vorbeugung zielt darauf hin, bekannte Auslöser und Faktoren für die Entstehung zu vermeiden. Die Behandlung besteht in einer schnellen und anhaltenden Schmerzlinderung.\n", ContentMode.HTML);
 

@@ -3,6 +3,7 @@ package ch.bfh.bti7081.s2017.yellow.views;
 import ch.bfh.bti7081.s2017.yellow.presenters.ContactPresenter;
 import ch.bfh.bti7081.s2017.yellow.presenters.DashboardPresenter;
 import ch.bfh.bti7081.s2017.yellow.presenters.MainMenuPresenter;
+import ch.bfh.bti7081.s2017.yellow.presenters.WikiPresenter;
 import ch.bfh.bti7081.s2017.yellow.repositories.DbConnector;
 
 import java.sql.SQLException;
@@ -47,7 +48,7 @@ public class MainView extends UI {
         NavigatorController.getInstance().navigateTo("contactView");*/
 
 		WikiView wikiView = new WikiViewImpl();
-		new WikiPresenter(wikiView);
+		WikiPresenter wikiPresenter =  new WikiPresenter(wikiView);
 		rootLayout.addComponent(wikiView);
 		NavigatorController.getInstance().addView("wikiView", wikiView);
 		setContent(rootLayout);

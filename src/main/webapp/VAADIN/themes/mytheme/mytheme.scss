@@ -34,8 +34,18 @@
 @mixin mytheme {
   @include valo;
 
-  .backgroundColorRed {
-    background-color: red;
+  .backgroundColorRed table td {
+    text-align: right;
+  //  background-color: green;
+  }
+
+  .v-label-wikiEntryContentLabel{
+    margin-left:10px;
+    margin-top:10px;
+  }
+
+  .v-verticallayout-wikiEntryInformationContent {
+    padding:10px 10px 10px 10px;
   }
   // Insert your own theme rules here
 }

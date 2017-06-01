@@ -25,7 +25,7 @@ public class ContactBook implements Storable{
     private Long id;
 
     @OneToMany(mappedBy="contactBook")
-    @Cascade({ CascadeType.PERSIST})
+    @Cascade({ CascadeType.ALL})
     private List<ContactBookEntry> entries;
 
     public ContactBook() {

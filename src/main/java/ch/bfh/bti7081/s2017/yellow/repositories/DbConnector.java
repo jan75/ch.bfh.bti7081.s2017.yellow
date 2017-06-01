@@ -16,23 +16,58 @@ import ch.bfh.bti7081.s2017.yellow.entities.wiki.WikiEntry;
 import org.h2.tools.Console;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.model.naming.Identifier;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-
 public class DbConnector {
 	private static StandardServiceRegistry registry;
 	protected static SessionFactory sessionFactory;
 	static boolean isDbInitialized = false;
 	
-	public static Session openSession() {
-		return sessionFactory.openSession();
+	public static class DbTask {
+		private Session session;
+		private Transaction transaction;
+		
+		public DbTask() {
+			this.session = sessionFactory.openSession();
+			this.transaction = session.beginTransaction();
+		}
+		
+		public Session getSession() {
+			return session;
+		}
+		public void setSession(Session session) {
+			this.session = session;
+		}
+		public Transaction getTransaction() {
+			return transaction;
+		}
+		public void setTransaction(Transaction transaction) {
+			this.transaction = transaction;
+		}
+		
+		public List findAll(Class clazz) {
+			return session.createQuery("from " + clazz.getName()).list();
+		}
+		
+		public void save(Storable o) {
+			if(o.getId() == null) {
+				session.persist(o);
+			} else {
+				session.merge(o);
+			}
+		}
+		
+		public void end() {
+			this.transaction.commit();
+			this.session.close();
+		}
 	}
 	
 	public static void initDbConnection() throws SQLException {
@@ -70,9 +105,5 @@ public class DbConnector {
 	
 	public static void shutdown() {
 		sessionFactory.close();
-	}
-	
-	public static List findAll(Session session, Class clazz) {
-		return session.createQuery("from " + clazz.getName()).list();
 	}
 }

@@ -3,7 +3,13 @@ package ch.bfh.bti7081.s2017.yellow.repositories;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import org.hibernate.Session;
+
+import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
+
+import ch.bfh.bti7081.s2017.yellow.entities.person.User;
+import ch.bfh.bti7081.s2017.yellow.entities.wiki.Wiki;
+import ch.bfh.bti7081.s2017.yellow.entities.wiki.WikiEntry;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -78,12 +84,10 @@ public class CrudRepositoryImplTest {
 		
 		//assign the ONE entity to the MANY entity
 		contactBookEntry.setPerson(person);
-		
+
 		//only save contactBookEntry. Because of CascadeType.PERSIST, person is also saved
 		dbTask.save(contactBookEntry);
-		
-		//don't forget to close the session!
-		dbTask.end();
+
 	}
 	
 	/**

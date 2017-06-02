@@ -20,6 +20,10 @@ public class Employee extends Person {
     @OneToOne
     private Schedule schedule;
 
+    public Employee() {
+    }
+
+
     public Employee(String firstName, String lastName) {
         super(firstName, lastName);
         schedule = new Schedule();

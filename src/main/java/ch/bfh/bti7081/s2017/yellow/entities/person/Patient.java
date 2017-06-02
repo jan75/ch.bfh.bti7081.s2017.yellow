@@ -23,6 +23,9 @@ public class Patient extends Person implements Storable {
     @Column(name="REMAKRS")
     private String remakrs;
 
+    public Patient() {
+    }
+
     public Patient(String firstName, String lastName) {
         super(firstName, lastName);
     }

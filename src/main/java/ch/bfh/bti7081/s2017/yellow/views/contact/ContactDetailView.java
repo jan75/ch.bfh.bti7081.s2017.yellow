@@ -9,10 +9,10 @@ import com.vaadin.ui.Component;
 /**
  * Created by simon on 16.05.17.
  */
-public interface ContactDetailView<TBean extends PersonBean> extends Component, NavigatorView {
+public interface ContactDetailView extends Component, NavigatorView {
     boolean validate();
-    void setContact(ContactBookEntryBean<TBean>  contactBookEntryBean);
-    ContactBookEntryBean<TBean>  getContact();
+    void setContact(ContactBookEntryBean  contactBookEntryBean);
+    ContactBookEntryBean getContact();
     interface ContactDetailViewListener extends NavigatorViewListener {
         void saveClicked();
         void deleteClicked();

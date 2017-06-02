@@ -13,24 +13,61 @@ import ch.bfh.bti7081.s2017.yellow.entities.wiki.Wiki;
 import ch.bfh.bti7081.s2017.yellow.entities.wiki.WikiEntry;
 
 import org.h2.tools.Console;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.model.naming.Identifier;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
-public class CrudRepositoryImpl<T extends Storable> implements CrudRepository<T> {
+public class DbConnector {
 	private static StandardServiceRegistry registry;
-	private static SessionFactory sessionFactory;
-	private static EntityManager entityManager;
+	protected static SessionFactory sessionFactory;
 	static boolean isDbInitialized = false;
-	private static Console console;
+	
+	public static class DbTask {
+		private Session session;
+		private Transaction transaction;
+		
+		public DbTask() {
+			this.session = sessionFactory.openSession();
+			this.transaction = session.beginTransaction();
+		}
+		
+		public Session getSession() {
+			return session;
+		}
+		public void setSession(Session session) {
+			this.session = session;
+		}
+		public Transaction getTransaction() {
+			return transaction;
+		}
+		public void setTransaction(Transaction transaction) {
+			this.transaction = transaction;
+		}
+		
+		public List findAll(Class clazz) {
+			return session.createQuery("from " + clazz.getName()).list();
+		}
+		
+		public void save(Storable o) {
+			if(o.getId() == null) {
+				session.persist(o);
+			} else {
+				session.merge(o);
+			}
+		}
+		
+		public void end() {
+			this.transaction.commit();
+			this.session.close();
+		}
+	}
 	
 	public static void initDbConnection() throws SQLException {
 		if(isDbInitialized) return;
@@ -62,55 +99,9 @@ public class CrudRepositoryImpl<T extends Storable> implements CrudRepository<T>
 				.addAnnotatedClass(WikiEntry.class)
 				.buildMetadata()
 				.buildSessionFactory();
-		entityManager = sessionFactory.createEntityManager();
 	}
 	
 	public static void shutdown() {
-		entityManager.close();
 		sessionFactory.close();
 	}
-	
-	/**
-	 * Flushes and clears the entity manager.
-	 * This empties the cache and sends all remaining
-	 * queries to the DB. Can be used for unit tests.
-	 */
-	public static void flush() {
-		entityManager.flush();
-		entityManager.clear();
-	}
-
-    @Override
-    public List<T> getAll(Class<T> clazz) {
-		Session session = sessionFactory.openSession();
-		session.beginTransaction();
-		List<T> result = session.createQuery("from " + clazz.getName(), clazz).list();
-		session.getTransaction().commit();
-		session.close();
-		return result;
-    }
-
-    @Override
-    public List<T> find(Criteria criteria) {
-        return null;
-    }
-
-    @Override
-    public void save(T entity) {
-    	entityManager.getTransaction().begin();
-        entityManager.persist( entity );
-        entityManager.getTransaction().commit();
-    }
-
-    @Override
-    public void update(T entity) {
-		entityManager.getTransaction().begin();
-		entityManager.merge( entity );
-		entityManager.getTransaction().commit();
-    }
-
-    @Override
-    public void delete(T entity) {
-
-    }
 }

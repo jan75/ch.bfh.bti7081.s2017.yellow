@@ -3,7 +3,7 @@ package ch.bfh.bti7081.s2017.yellow.views;
 import ch.bfh.bti7081.s2017.yellow.presenters.ContactPresenter;
 import ch.bfh.bti7081.s2017.yellow.presenters.MainMenuPresenter;
 import ch.bfh.bti7081.s2017.yellow.presenters.PlanningPresenter;
-import ch.bfh.bti7081.s2017.yellow.repositories.CrudRepositoryImpl;
+import ch.bfh.bti7081.s2017.yellow.repositories.DbConnector;
 import ch.bfh.bti7081.s2017.yellow.util.NavigatorController;
 import ch.bfh.bti7081.s2017.yellow.views.contact.ContactView;
 import ch.bfh.bti7081.s2017.yellow.views.contact.ContactViewImpl;
@@ -20,7 +20,7 @@ public class MainView extends UI {
     @Override
     protected void init(VaadinRequest vaadinRequest) {
 		try {
-			CrudRepositoryImpl.initDbConnection();
+			DbConnector.initDbConnection();
 		} catch (SQLException e) {
 			System.out.println("Could not start db connection");
 			throw new RuntimeException(e);

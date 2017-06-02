@@ -2,10 +2,15 @@ package ch.bfh.bti7081.s2017.yellow.services;
 
 import ch.bfh.bti7081.s2017.yellow.beans.*;
 import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBook;
+import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBookEntry;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Employee;
+import ch.bfh.bti7081.s2017.yellow.entities.person.Patient;
 import com.vaadin.data.provider.DataProvider;
+import ma.glasnost.orika.MapperFactory;
+import ma.glasnost.orika.impl.DefaultMapperFactory;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -25,14 +30,14 @@ public class ContactService extends SimpleServiceImpl<ContactBook, ContactBookBe
 
         if (init == false) {
             ContactBookBean contactBookBean = new ContactBookBean();
-            ContactBookEntryBean<PatientBean> entryPatientBean = new ContactBookEntryBean<>();
-            ContactBookEntryBean<EmployeeBean> entryEmployeeBean = new ContactBookEntryBean<>();
+            ContactBookEntryBean entryPatientBean = new ContactBookEntryBean();
+            ContactBookEntryBean entryEmployeeBean = new ContactBookEntryBean();
 
             PatientBean patient = new PatientBean();
             EmployeeBean employee = new EmployeeBean();
             patient.setFirstName("jöggu");
             patient.setLastName("hugo");
-            LocalDate localDate = LocalDate.now();
+            Date localDate = new Date();
             patient.setCheckInDate(localDate);
             patient.setCheckOutDate(localDate);
             entryPatientBean.setPerson(patient);
@@ -92,4 +97,38 @@ public class ContactService extends SimpleServiceImpl<ContactBook, ContactBookBe
             // Second callback fetches the number of items for a query
             query ->getContactBookEntries().size()
     );
+
+    @Override
+    public void mapEntityToBean(ContactBook entity, ContactBookBean bean) {
+        MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
+        for (int i = 0; i < entity.getEntries().size(); i++) {
+            ContactBookEntry e = entity.getEntries().get(i);
+            ContactBookEntryBean b = bean.getEntries().get(i);
+
+            if (e.getPerson() instanceof Patient){
+                b.setPerson(new PatientBean());
+            } else if (e.getPerson() instanceof Employee){
+                b.setPerson(new EmployeeBean());
+            }
+
+            mapperFactory.classMap(e.getPerson().getClass(), b.getPerson().getClass()).byDefault();
+            mapperFactory.getMapperFacade().map(e.getPerson(), b.getPerson());
+        }
+    }
+
+    @Override
+    public void mapBeanToEntity(ContactBookBean bean, ContactBook entity) {
+        MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
+        for (int i = 0; i < entity.getEntries().size(); i++) {
+            ContactBookEntry e = entity.getEntries().get(i);
+            ContactBookEntryBean b = bean.getEntries().get(i);
+            if (b.getPerson() instanceof PatientBean){
+                e.setPerson(new Patient());
+            } else if (b.getPerson() instanceof EmployeeBean){
+                e.setPerson(new Employee());
+            }
+            mapperFactory.classMap(b.getPerson().getClass(), e.getPerson().getClass()).byDefault();
+            mapperFactory.getMapperFacade().map(b.getPerson(), e.getPerson());
+        }
+    }
 }

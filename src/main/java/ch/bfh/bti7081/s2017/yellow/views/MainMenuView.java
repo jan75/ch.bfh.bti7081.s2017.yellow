@@ -1,7 +1,6 @@
 package ch.bfh.bti7081.s2017.yellow.views;
 
 import ch.bfh.bti7081.s2017.yellow.components.MenuButton;
-import ch.bfh.bti7081.s2017.yellow.components.Test;
 import ch.bfh.bti7081.s2017.yellow.presenters.DashboardPresenter;
 import ch.bfh.bti7081.s2017.yellow.util.NavigatorController;
 import ch.bfh.bti7081.s2017.yellow.views.listeners.MenuViewListener;

@@ -12502,6 +12502,27 @@ div.v-layout.v-horizontal.v-widget {
 	overflow: hidden;
 }
 
-.mytheme .backgroundColorRed {
-	background-color: red;
+.mytheme .wikiTitleLabel {
+	font-size: 60px;
+	font-weight: 900;
+}
+
+.mytheme .wikiPanel table td {
+	text-align: right;
+}
+
+.mytheme .v-label-wikiEntryContentLabel {
+	margin: 10px;
+}
+
+.mytheme .v-panel-wikiPanel {
+	margin-top: 20px;
+}
+
+.mytheme .v-panel-content-wikiPanel {
+	min-height: 200px;
+}
+
+.mytheme .v-verticallayout-wikiEntryInformationContent {
+	padding: 10px 10px 10px 10px;
 }

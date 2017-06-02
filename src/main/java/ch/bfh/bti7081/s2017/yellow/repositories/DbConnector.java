@@ -9,7 +9,6 @@ import ch.bfh.bti7081.s2017.yellow.entities.person.Patient;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Person;
 import ch.bfh.bti7081.s2017.yellow.entities.person.User;
 import ch.bfh.bti7081.s2017.yellow.entities.schedule.Schedule;
-import ch.bfh.bti7081.s2017.yellow.entities.schedule.ScheduleEntry;
 import ch.bfh.bti7081.s2017.yellow.entities.wiki.Wiki;
 import ch.bfh.bti7081.s2017.yellow.entities.wiki.WikiEntry;
 
@@ -96,7 +95,6 @@ public class DbConnector {
 				.addAnnotatedClass(Person.class)
 				.addAnnotatedClass(User.class)
 				.addAnnotatedClass(Schedule.class)
-				.addAnnotatedClass(ScheduleEntry.class)
 				.addAnnotatedClass(Wiki.class)
 				.addAnnotatedClass(WikiEntry.class)
 				.buildMetadata()

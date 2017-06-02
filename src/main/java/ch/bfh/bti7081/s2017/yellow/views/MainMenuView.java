@@ -1,7 +1,10 @@
 package ch.bfh.bti7081.s2017.yellow.views;
 
 import ch.bfh.bti7081.s2017.yellow.components.MenuButton;
+import ch.bfh.bti7081.s2017.yellow.presenters.DashboardPresenter;
+import ch.bfh.bti7081.s2017.yellow.util.NavigatorController;
 import ch.bfh.bti7081.s2017.yellow.views.listeners.MenuViewListener;
+import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.*;
 
 import java.util.ArrayList;
@@ -16,12 +19,37 @@ public class MainMenuView extends CustomComponent implements MenuView, Button.Cl
     public MainMenuView() {
         title = new Label("Menu");
         listeners = new ArrayList<>();
+        VerticalLayout layout = new VerticalLayout();
         HorizontalLayout menuLayout = new HorizontalLayout();
 
-        for(int i = 0; i <= 4; i++) {
-            menuLayout.addComponent(new MenuButton("Menu "+ i, this));
-        }
-        setCompositionRoot(menuLayout);
+        menuLayout.addComponent(new MenuButton("Planning", new Button.ClickListener() {
+            @Override
+            public void buttonClick(Button.ClickEvent clickEvent) {
+                NavigatorController.getInstance().navigateTo("planningView");
+            }
+        }));
+
+        menuLayout.addComponent(new MenuButton("Contact", new Button.ClickListener() {
+            @Override
+            public void buttonClick(Button.ClickEvent clickEvent) {
+                NavigatorController.getInstance().navigateTo("contactView");
+            }
+        }));
+
+        menuLayout.addComponent(new MenuButton("Wiki", new Button.ClickListener() {
+            @Override
+            public void buttonClick(Button.ClickEvent clickEvent) {
+                NavigatorController.getInstance().navigateTo("wikiView");
+            }
+        }));
+
+        layout.addComponent(menuLayout);
+
+        DashboardView dashboardView = new DashboardViewImpl();
+        new DashboardPresenter(dashboardView);
+        layout.addComponent(dashboardView);
+
+        setCompositionRoot(layout);
     }
 
     @Override
@@ -36,8 +64,11 @@ public class MainMenuView extends CustomComponent implements MenuView, Button.Cl
 
     @Override
     public void buttonClick(Button.ClickEvent clickEvent) {
-        listeners.forEach(listener -> {
-            listener.navigate("a");
-        });
+        //
+    }
+
+    @Override
+    public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
+        //
     }
 }

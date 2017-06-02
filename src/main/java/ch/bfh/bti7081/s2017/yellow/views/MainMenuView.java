@@ -39,7 +39,7 @@ public class MainMenuView extends CustomComponent implements MenuView, Button.Cl
         menuLayout.addComponent(new MenuButton("Wiki", new Button.ClickListener() {
             @Override
             public void buttonClick(Button.ClickEvent clickEvent) {
-                //NavigatorController.getInstance().navigateTo("wikiView");
+                NavigatorController.getInstance().navigateTo("wikiView");
             }
         }));
 

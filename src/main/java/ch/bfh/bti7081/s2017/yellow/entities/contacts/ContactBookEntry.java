@@ -15,6 +15,7 @@ import org.hibernate.annotations.Cascade;
 import ch.bfh.bti7081.s2017.yellow.entities.Storable;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Person;
 
+import javax.persistence.*;
 
 /**
  * Created by dario on 09.05.2017.
@@ -28,7 +29,8 @@ public class ContactBookEntry implements Storable {
     @Column(name="ID")
     private Long id;
 
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne()
+  //  @Cascade(CascadeType.ALL)
     private Person person;
 
     @Column(name="PHONE_NR")

@@ -40,8 +40,8 @@ public class SimpleServiceImpl<A extends Storable, B extends BaseBean<A>> implem
     public List<B> getALlEntities() {
     	DbTask d = new DbTask();
     	List l = d.findAll(entityClazz);
-        List list = mapperFactory.getMapperFacade().mapAsList(l, beanClazz);
-        d.end();
+    	List<B> list = mapperFactory.getMapperFacade().mapAsList(l, beanClazz);
+    	d.end();
         return list;
     }
 

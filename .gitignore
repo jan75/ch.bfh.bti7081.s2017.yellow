@@ -1,0 +1,10 @@
+.gitignore
+*.iml
+.idea
+target
+.classpath
+.project
+.settings
+# ...
+doc/CS1/Task7/media/feh_004157_000001_filelist
+addons.scss

@@ -1,0 +1,68 @@
+Interview:
+
+20.03.2017 Ergebnisse des Interviews einarbeiten.
+
+Theoder 1.5h 
+
+Hauptaufgaben: Planung mit Mitarbeiter, Präsenzzeit, tagesverantwrotlicher
+
+Ferien anwesenheits zeit. koordinationsstelle. fragen klären während dem tag. auch patientenkontakt, übers Telefon.
+Mitarbeiter führung. rekrutierung. mitarbeiter gespräch. bedarf abdecken. HR. mitarbeiter fordern, austreten.
+
+Kontrolle von Prozessen, neu definieren. seite mitarbeiter, behandlung patienten.
+
+austausch mit kooperationspartner, spital, andere Institutionen. Psychisch kranken, vertrauensbasis aufbauen.
+Hospitalisierung, patient bessert, kann heim. Kontakt fängt schon früher an. fachführend -> obhut patient. fäden zusammen. hat kontakt zu verwandten. eine person , welche weiss was läuft . SPOC (single point of contact)
+
+team leiter. effektive aufgaben angeschaut. 
+aufgaben weichen ab von richtigem Spital. erzählt von sich. 
+
+Welche aufgaben meiste Zeit: planen von mitarbeiter. kommen viele änderungen rein. wochenplanung. wer wann da.
+dauernd ändert. wenn patient eingeliefert wird, wenn mitarbeiter ausfällt.
+
+patient schliesst sich ein. polizeit, schlüssel dienst. ständig umplanen und reorganisieren.
+mitarbeiter führung nimmt zeit in anspruch, immer im büro, ist immer ansprechsperson. vor allem für neue mitarbeiter. 
+
+kommunikation vor allem über sms und telefon. alle haben firmentelefon. mit externen: mail.
+Tool: ASEBIS. Patientenverwaltung, dossier, Zeit und Leistung. Rundumtool. Nicht zufrieden mit einsatzplanung.
+
+Arbeitszeitsaldo gleich sehen. Sieht das aber erst ende monat im bisherigen. nicht verknüpft mit zeiterfassung.
+Korrektur also erst monatsweise möglich statt sofort anpassen. jahresarbeitszeiten.
+
+resourcenkalkulation: excel. sehr unübersichtlich. ausrechnen so und so viel patienten. wie viele stunden pro monat nötig sind. schaut pro woche mit mitarbeiter.
+
+word: mitarbeiter dossier. file system based. Muss er viel fachlich auskunft geben? es haltet sich in gleichgewicht: organisatorisch, patienten. In projekten tätig, welche kantonal sind.
+
+was neue standards um erkrankungen zu handhaben. bei psychischen krankheiten ist das genesen nicht möglich. bzw. auftauchen ist schnell wieder möglich. also wie vorbeugen und abschwächen wenn es auftritt.
+
+borderline: (lachte), zieht sehr vieles auf sich aber schiebt schuld jemand anderem. Man muss objektiv bleiben. aggresionen: nicht sagen dass schlecht gemacht, sondern , du bist für dich selbst verantwortlich. Skill Skover. Druck, schlitzen, ambulanz. gibt nur verbandszeug. 
+
+sie können sich erst wieder beruhigen, wenn sie sich selber spüren (weh machen). Sie spüren nicht.
+
+Klassische Musik abspielen. Scharfe Chilli essen lassen. Gummeli aufziehen. "geheilt" nichts ins maul nehmen.
+
+vergangene eindrücke, missbrauch, sexuell, geschlagen, krasser fall: tochter missbraucht und mit hammer geschlagen. wie ist es mit angehörigen: grosses umfeld oder auch fast niemand mehr.
+
+sie führen auch gespräche mit verwandten aber in erster linie mit patient selber. involviert in personalplanung? ja
+
+management tool für auswertungen. nichts spezifisches was jetzt wichtig wäre.
+
+zwei kombinationen:
+
+wizard: die und die mitarbeiter, monat, endprodukt report. 
+vorkonfiguriert: anzahl geleistete stunden pro monate, schnelle die er immer wieder braucht.
+Arbeitszeiten 
+Leistungscode: z.B. grundpflege, ..weitere . 
+
+In haushalt helfen, sitzungen, ..
+
+wieviel arbeitszeit, ferien gebraucht.
+
+Wikiseite: schnell informationen. artikel bearbeiten und mitarbeiter sehen es. Mobile. Behandlungsart eines Patienten. andere krankheiten, demenz, prozessordner auf share. meiste wissen gar nicht das es den gibt. 
+
+sehr einfach gestalten, wiki einfach abgebildet, 
+
+scope präsentieren, hansli muster irgendöppis. was ist er, auf person eingehen, 
+eine iteration anhand einer folie beschreiben, mit wolken, storyboard (präsentation), so viele teammeetings haben sie gar nicht, kommunikation passiert eher über sms und telefon. neues storyboard. nun finale version mit UI design.
+
+out of scope: managing patients, defining of demand

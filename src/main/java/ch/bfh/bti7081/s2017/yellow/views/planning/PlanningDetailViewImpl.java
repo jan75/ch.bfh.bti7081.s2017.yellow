@@ -1,10 +1,10 @@
 package ch.bfh.bti7081.s2017.yellow.views.planning;
 
+import ch.bfh.bti7081.s2017.yellow.beans.EmployeePlanningBean;
+import ch.bfh.bti7081.s2017.yellow.beans.ScheduleBean;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Employee;
 import ch.bfh.bti7081.s2017.yellow.entities.schedule.Schedule;
-import ch.bfh.bti7081.s2017.yellow.util.NavigatorController;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
@@ -17,8 +17,8 @@ import java.util.HashMap;
  * @author iSorp
  */
 public class PlanningDetailViewImpl extends CustomComponent implements PlanningDetailView {
-    private Employee employee = null;
-    private Schedule schedule = null;
+    private EmployeePlanningBean employee = null;
+    private ScheduleBean schedule = null;
     private LocalDate date = null;
     private VerticalLayout layout = new VerticalLayout();
 
@@ -32,7 +32,7 @@ public class PlanningDetailViewImpl extends CustomComponent implements PlanningD
     }
 
     @Override
-    public void updateView(Employee employee, LocalDate date) {
+    public void updateView(EmployeePlanningBean employee, LocalDate date) {
         this.employee = employee;
         this.date = date;
         //this.schedule = schedule;

@@ -1,5 +1,7 @@
 package ch.bfh.bti7081.s2017.yellow.presenters;
 
+import ch.bfh.bti7081.s2017.yellow.beans.EmployeeBean;
+import ch.bfh.bti7081.s2017.yellow.beans.EmployeePlanningBean;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Employee;
 import ch.bfh.bti7081.s2017.yellow.util.NavigatorController;
 import ch.bfh.bti7081.s2017.yellow.views.planning.PlanningDetailView;
@@ -24,7 +26,7 @@ public class PlanningDetailPresenter {
         return view;
     }
 
-    public void updateView(Employee employee, LocalDate date) {
+    public void updateView(EmployeePlanningBean employee, LocalDate date) {
         view.updateView(employee, date);
     }
 }

@@ -1,16 +1,16 @@
 package ch.bfh.bti7081.s2017.yellow.views.planning;
 
-import ch.bfh.bti7081.s2017.yellow.entities.person.Employee;
-import ch.bfh.bti7081.s2017.yellow.entities.schedule.Schedule;
+import ch.bfh.bti7081.s2017.yellow.beans.EmployeePlanningBean;
+import ch.bfh.bti7081.s2017.yellow.beans.ScheduleBean;
 import ch.bfh.bti7081.s2017.yellow.presenters.PlanningDetailPresenter;
-import ch.bfh.bti7081.s2017.yellow.util.H2Starter;
+import ch.bfh.bti7081.s2017.yellow.services.PlanningService;
 import ch.bfh.bti7081.s2017.yellow.util.NavigatorController;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.*;
-import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Concrete PlanningView implementation
@@ -23,13 +23,18 @@ public class PlanningViewImpl extends CustomComponent implements PlanningView {
     public PlanningViewImpl() {
         final VerticalLayout layout = new VerticalLayout();
 
-        Employee tim = new Employee("Tim", "Gerber");
-        Schedule scheduleTim = tim.getSchedule();
+        PlanningService planningService = new PlanningService();
+        List<EmployeePlanningBean> employeePlanningBeanList = planningService.getEmployees();
+        for(EmployeePlanningBean employeePlanningBean: employeePlanningBeanList) {
+            layout.addComponent(drawScheduleDaysForEmployee(employeePlanningBean));
+        }
+        /*
+        ScheduleBean scheduleTim = tim.getSchedule();
         scheduleTim.addScheduleEntry(new LocalDate().withDayOfMonth(2).withMonthOfYear(1).withYear(2017));
         scheduleTim.addScheduleEntry(new LocalDate().withDayOfMonth(3).withMonthOfYear(1).withYear(2017));
         scheduleTim.addScheduleEntry(new LocalDate().withDayOfMonth(4).withMonthOfYear(1).withYear(2017));
 
-        HashMap<LocalDate, HashMap<Integer, String>> scheduleDaysMap = scheduleTim.getScheduleEntryTestList();
+        HashMap<LocalDate, HashMap<Integer, String>> scheduleDaysMap = scheduleTim.getScheduleDayMap();
 
         LocalDate date = new LocalDate().withDayOfMonth(1).withMonthOfYear(1).withYear(2017);
         if(scheduleTim.addScheduleEntry(date)) {
@@ -50,14 +55,13 @@ public class PlanningViewImpl extends CustomComponent implements PlanningView {
 
         scheduleTim.setScheduleForDay(date, scheduleDay);
         tim.setSchedule(scheduleTim);
-
-        layout.addComponent(drawScheduleDaysForEmployee(tim));
+        */
         setCompositionRoot(layout);
         setVisible(false);
     }
 
-    private HorizontalLayout drawScheduleDaysForEmployee(Employee employee) {
-        Schedule schedule = employee.getSchedule();
+    private HorizontalLayout drawScheduleDaysForEmployee(EmployeePlanningBean employee) {
+        ScheduleBean schedule = employee.getSchedule();
         LocalDate dateTime = new LocalDate();
 
         HorizontalLayout horizontalLayout = new HorizontalLayout();

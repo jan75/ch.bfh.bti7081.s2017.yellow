@@ -6,7 +6,7 @@
 	<groupId>ch.bfh.bti7081.s2017.yellow</groupId>
 	<artifactId>yellow</artifactId>
 	<packaging>war</packaging>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1.0-RELEASE</version>
 	<name>yellow</name>
 
 	<prerequisites>

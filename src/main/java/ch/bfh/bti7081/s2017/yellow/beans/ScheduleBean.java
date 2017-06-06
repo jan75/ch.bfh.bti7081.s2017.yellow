@@ -7,10 +7,10 @@ import java.util.HashMap;
 
 public class ScheduleBean extends BaseBean<Schedule> {
     private Long id;
-    private HashMap<LocalDate, HashMap<Integer, String>> scheduleDayMap;
+    private HashMap<LocalDate, HashMap<Integer, String>> scheduleDayMap = new HashMap<>();
 
     public ScheduleBean () {
-        scheduleDayMap = new HashMap<>();
+
     }
 
     /**

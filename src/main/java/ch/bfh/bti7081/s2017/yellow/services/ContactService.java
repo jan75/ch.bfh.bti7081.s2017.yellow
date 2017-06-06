@@ -1,6 +1,9 @@
 package ch.bfh.bti7081.s2017.yellow.services;
 
-import ch.bfh.bti7081.s2017.yellow.beans.*;
+import ch.bfh.bti7081.s2017.yellow.beans.ContactBookBean;
+import ch.bfh.bti7081.s2017.yellow.beans.ContactBookEntryBean;
+import ch.bfh.bti7081.s2017.yellow.beans.EmployeeBean;
+import ch.bfh.bti7081.s2017.yellow.beans.PatientBean;
 import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBook;
 import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBookEntry;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Employee;
@@ -9,8 +12,6 @@ import com.vaadin.data.provider.DataProvider;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -28,6 +29,7 @@ public class ContactService extends SimpleServiceImpl<ContactBook, ContactBookBe
     public ContactService() {
         super(ContactBook.class, ContactBookBean.class);
 
+        /*
         if (init == false) {
             ContactBookBean contactBookBean = new ContactBookBean();
             ContactBookEntryBean entryPatientBean = new ContactBookEntryBean();
@@ -54,6 +56,7 @@ public class ContactService extends SimpleServiceImpl<ContactBook, ContactBookBe
             saveEntity(contactBookBean);
             init = true;
         }
+        */
     }
 
     /**

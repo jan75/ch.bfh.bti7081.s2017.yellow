@@ -19,43 +19,25 @@ import java.util.List;
 public class PlanningViewImpl extends CustomComponent implements PlanningView {
     PlanningDetailView planningDetailView = new PlanningDetailViewImpl();
     PlanningDetailPresenter planningDetailPresenter= new PlanningDetailPresenter(planningDetailView);
+    PlanningService planningService;
+
+    // LocalDate from Java 8
 
     public PlanningViewImpl() {
         final VerticalLayout layout = new VerticalLayout();
 
-        PlanningService planningService = new PlanningService();
+        planningService = new PlanningService();
         List<EmployeePlanningBean> employeePlanningBeanList = planningService.getEmployees();
         for(EmployeePlanningBean employeePlanningBean: employeePlanningBeanList) {
+            ScheduleBean scheduleBean = employeePlanningBean.getSchedule();
+            scheduleBean.addScheduleEntry(new LocalDate().withDayOfMonth(2).withMonthOfYear(1).withYear(2017));
+            scheduleBean.addScheduleEntry(new LocalDate().withDayOfMonth(3).withMonthOfYear(1).withYear(2017));
+            scheduleBean.addScheduleEntry(new LocalDate().withDayOfMonth(4).withMonthOfYear(1).withYear(2017));
+            employeePlanningBean.setSchedule(scheduleBean);
+            //
             layout.addComponent(drawScheduleDaysForEmployee(employeePlanningBean));
         }
-        /*
-        ScheduleBean scheduleTim = tim.getSchedule();
-        scheduleTim.addScheduleEntry(new LocalDate().withDayOfMonth(2).withMonthOfYear(1).withYear(2017));
-        scheduleTim.addScheduleEntry(new LocalDate().withDayOfMonth(3).withMonthOfYear(1).withYear(2017));
-        scheduleTim.addScheduleEntry(new LocalDate().withDayOfMonth(4).withMonthOfYear(1).withYear(2017));
 
-        HashMap<LocalDate, HashMap<Integer, String>> scheduleDaysMap = scheduleTim.getScheduleDayMap();
-
-        LocalDate date = new LocalDate().withDayOfMonth(1).withMonthOfYear(1).withYear(2017);
-        if(scheduleTim.addScheduleEntry(date)) {
-            //layout.addComponent(new Label("Success"));
-        } else {
-            //layout.addComponent(new Label("Failure"));
-        }
-        HashMap<Integer, String> scheduleDay = scheduleTim.getEntryForDay(date);
-
-        int i;
-        for(i = 8; i <= 11; i++) {
-            scheduleDay.put(i, "Pflege Tom");
-        }
-
-        for(i = 14; i <= 17; i++) {
-            scheduleDay.put(i, "Pflege Michael");
-        }
-
-        scheduleTim.setScheduleForDay(date, scheduleDay);
-        tim.setSchedule(scheduleTim);
-        */
         setCompositionRoot(layout);
         setVisible(false);
     }
@@ -75,8 +57,9 @@ public class PlanningViewImpl extends CustomComponent implements PlanningView {
             dateTime.parse(date);
             //System.out.println(dateTime);
             schedule.addScheduleEntry(dateTime);
-
             employee.setSchedule(schedule);
+            planningService.saveEntity(employee);
+
             planningDetailPresenter.updateView(employee, dateTime);
             NavigatorController.getInstance().navigateTo("planningDetailView");
         });

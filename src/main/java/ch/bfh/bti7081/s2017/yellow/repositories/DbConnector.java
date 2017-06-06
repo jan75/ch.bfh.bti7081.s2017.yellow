@@ -3,21 +3,15 @@ package ch.bfh.bti7081.s2017.yellow.repositories;
 import ch.bfh.bti7081.s2017.yellow.entities.Storable;
 import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBook;
 import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBookEntry;
-import ch.bfh.bti7081.s2017.yellow.entities.person.Employee;
-import ch.bfh.bti7081.s2017.yellow.entities.person.NaturalPerson;
-import ch.bfh.bti7081.s2017.yellow.entities.person.Patient;
-import ch.bfh.bti7081.s2017.yellow.entities.person.Person;
-import ch.bfh.bti7081.s2017.yellow.entities.person.User;
+import ch.bfh.bti7081.s2017.yellow.entities.person.*;
 import ch.bfh.bti7081.s2017.yellow.entities.schedule.Schedule;
 import ch.bfh.bti7081.s2017.yellow.entities.wiki.Wiki;
 import ch.bfh.bti7081.s2017.yellow.entities.wiki.WikiEntry;
-
 import org.h2.tools.Console;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.model.naming.Identifier;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
@@ -80,7 +74,7 @@ public class DbConnector {
 				.applySetting("hibernate.connection.url", "jdbc:h2:tcp://localhost/mem:db1")
 				.applySetting("hibernate.connection.username", "sa")
 				.applySetting("hibernate.connection.password", "")
-				.applySetting("hibernate.connection.pool_size", "1")
+				.applySetting("hibernate.connection.pool_size", "100")
 				.applySetting("hibernate.dialect", "org.hibernate.dialect.H2Dialect")
 				.applySetting("hibernate.show_sql", "true")
 				.applySetting("hibernate.hbm2ddl.auto", "create")

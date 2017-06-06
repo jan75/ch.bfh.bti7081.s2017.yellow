@@ -2,10 +2,7 @@ package ch.bfh.bti7081.s2017.yellow.entities.person;
 
 import ch.bfh.bti7081.s2017.yellow.entities.schedule.Schedule;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -17,7 +14,7 @@ public class Employee extends Person {
     @Column(name="SINCE")
     private Date since;
 
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     private Schedule schedule;
 
     public Employee() {

@@ -54,7 +54,7 @@ public class SimpleServiceImpl<A extends Storable, B extends BaseBean<A>> implem
     public void saveEntities(List<B> beans) {
     	DbTask d = new DbTask();
         for (B b : beans) {
-            d.save(mapperFactory.getMapperFacade().map(beanClazz, entityClazz));
+            d.save(mapperFactory.getMapperFacade().map(b, entityClazz));
         }
         d.end();
     }
@@ -62,7 +62,7 @@ public class SimpleServiceImpl<A extends Storable, B extends BaseBean<A>> implem
     @Override
     public void saveEntity(B bean) {
     	DbTask d = new DbTask();
-    	d.save(mapperFactory.getMapperFacade().map(beanClazz, entityClazz));
+    	d.save(mapperFactory.getMapperFacade().map(bean, entityClazz));
     	d.end();
     }
 

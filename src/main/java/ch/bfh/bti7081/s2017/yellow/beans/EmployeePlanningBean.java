@@ -1,14 +1,8 @@
 package ch.bfh.bti7081.s2017.yellow.beans;
 
-import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBook;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Employee;
-import ch.bfh.bti7081.s2017.yellow.entities.schedule.Schedule;
 
-import javax.persistence.Column;
-import javax.persistence.OneToOne;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created by simon on 21.05.17.
@@ -20,7 +14,7 @@ public class EmployeePlanningBean extends BaseBean<Employee> {
     private String lastName;
 
     public EmployeePlanningBean() {
-        schedule = new ScheduleBean();
+
     }
 
     public Date getSince() {

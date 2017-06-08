@@ -2,7 +2,7 @@ package ch.bfh.bti7081.s2017.yellow.entities.schedule;
 
 import ch.bfh.bti7081.s2017.yellow.entities.Storable;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Person;
-import org.joda.time.LocalDate;
+import java.time.LocalDate;
 
 import javax.persistence.*;
 import java.util.HashMap;
@@ -19,6 +19,7 @@ public class Schedule implements Storable {
     private Long id;
 
     @Column(name="SCHEDULE_LIST")
+    @Lob
     private HashMap<LocalDate, HashMap<Integer, String>> scheduleDayMap;
 
     public Schedule () {

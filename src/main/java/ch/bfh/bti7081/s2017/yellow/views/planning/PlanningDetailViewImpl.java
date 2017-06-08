@@ -2,14 +2,10 @@ package ch.bfh.bti7081.s2017.yellow.views.planning;
 
 import ch.bfh.bti7081.s2017.yellow.beans.EmployeePlanningBean;
 import ch.bfh.bti7081.s2017.yellow.beans.ScheduleBean;
-import ch.bfh.bti7081.s2017.yellow.entities.person.Employee;
-import ch.bfh.bti7081.s2017.yellow.entities.schedule.Schedule;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.ui.CustomComponent;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.VerticalLayout;
-import org.joda.time.LocalDate;
+import com.vaadin.ui.*;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 
 /**
@@ -20,14 +16,33 @@ public class PlanningDetailViewImpl extends CustomComponent implements PlanningD
     private EmployeePlanningBean employee = null;
     private ScheduleBean schedule = null;
     private LocalDate date = null;
-    private VerticalLayout layout = new VerticalLayout();
+    private HorizontalLayout layout = new HorizontalLayout();
+    private VerticalLayout currentPlanLayout = new VerticalLayout();
+    VerticalLayout addEntryLayout = new VerticalLayout();
 
     public PlanningDetailViewImpl() {
         layout.addComponent(new Label("planningDetailView"));
-        layout = new VerticalLayout();
+        layout = new HorizontalLayout();
+        currentPlanLayout = new VerticalLayout();
+        layout.addComponent(currentPlanLayout);
 
+
+        addEntryLayout.addComponent(new Label("Add Planning Entry. Warning: Old entries will be overwritten!"));
+        ComboBox<Integer> beginningComboBox = new ComboBox<>();
+        ComboBox<Integer> endingComboBox = new ComboBox<>();
+        Integer[] hoursArray = new Integer[24];
+        for(int i = 0; i < hoursArray.length; i++) {
+            hoursArray[i] = i;
+        }
+        beginningComboBox.setItems(hoursArray);
+        endingComboBox.setItems(hoursArray);
+        TextField activityTextArea = new TextField();
+        activityTextArea.setPlaceholder("Activity...");
+        Button addPlanningEntry = new Button("Add");
+        addEntryLayout.addComponents(beginningComboBox, endingComboBox, activityTextArea, addPlanningEntry);
+
+        layout.addComponent(addEntryLayout);
         setCompositionRoot(layout);
-
         setVisible(false);
     }
 
@@ -35,10 +50,10 @@ public class PlanningDetailViewImpl extends CustomComponent implements PlanningD
     public void updateView(EmployeePlanningBean employee, LocalDate date) {
         this.employee = employee;
         this.date = date;
-        //this.schedule = schedule;
+        this.schedule = schedule;
 
-        layout.removeAllComponents();
-        layout.addComponent(drawDaySchedule());
+        currentPlanLayout.removeAllComponents();
+        currentPlanLayout.addComponent(drawDaySchedule());
     }
 
     private VerticalLayout drawDaySchedule() {

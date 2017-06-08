@@ -7,8 +7,9 @@ import ch.bfh.bti7081.s2017.yellow.services.PlanningService;
 import ch.bfh.bti7081.s2017.yellow.util.NavigatorController;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.*;
-import org.joda.time.LocalDate;
+import java.time.LocalDate;
 
+import java.time.Month;
 import java.util.HashMap;
 import java.util.List;
 
@@ -30,9 +31,17 @@ public class PlanningViewImpl extends CustomComponent implements PlanningView {
         List<EmployeePlanningBean> employeePlanningBeanList = planningService.getEmployees();
         for(EmployeePlanningBean employeePlanningBean: employeePlanningBeanList) {
             ScheduleBean scheduleBean = employeePlanningBean.getSchedule();
-            scheduleBean.addScheduleEntry(new LocalDate().withDayOfMonth(2).withMonthOfYear(1).withYear(2017));
-            scheduleBean.addScheduleEntry(new LocalDate().withDayOfMonth(3).withMonthOfYear(1).withYear(2017));
-            scheduleBean.addScheduleEntry(new LocalDate().withDayOfMonth(4).withMonthOfYear(1).withYear(2017));
+
+            LocalDate localDate = LocalDate.now();
+            scheduleBean.addScheduleEntry(localDate);
+            scheduleBean.getEntryForDay(localDate).put(8, "Thomas");
+            scheduleBean.getEntryForDay(localDate).put(9, "Thomas");
+            scheduleBean.getEntryForDay(localDate).put(10, "Thomas");
+            scheduleBean.getEntryForDay(localDate).put(11, "Thomas");
+            scheduleBean.getEntryForDay(localDate).put(13, "Markus");
+            scheduleBean.getEntryForDay(localDate).put(14, "Markus");
+            scheduleBean.getEntryForDay(localDate).put(15, "Markus");
+            scheduleBean.getEntryForDay(localDate).put(16, "Markus");
             employeePlanningBean.setSchedule(scheduleBean);
             //
             layout.addComponent(drawScheduleDaysForEmployee(employeePlanningBean));
@@ -44,7 +53,6 @@ public class PlanningViewImpl extends CustomComponent implements PlanningView {
 
     private HorizontalLayout drawScheduleDaysForEmployee(EmployeePlanningBean employee) {
         ScheduleBean schedule = employee.getSchedule();
-        LocalDate dateTime = new LocalDate();
 
         HorizontalLayout horizontalLayout = new HorizontalLayout();
         horizontalLayout.addComponent(new Label(employee.getFirstName() + " " + employee.getLastName()));
@@ -54,7 +62,7 @@ public class PlanningViewImpl extends CustomComponent implements PlanningView {
 
         Button addSchedule = new Button("Add Schedule", (Button.ClickListener) clickEvent -> {
             String date = dateField.getValue().toString();
-            dateTime.parse(date);
+            LocalDate dateTime = LocalDate.parse(date);
             //System.out.println(dateTime);
             schedule.addScheduleEntry(dateTime);
             employee.setSchedule(schedule);

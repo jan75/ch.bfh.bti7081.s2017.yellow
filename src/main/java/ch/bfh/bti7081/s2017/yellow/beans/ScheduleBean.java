@@ -1,7 +1,7 @@
 package ch.bfh.bti7081.s2017.yellow.beans;
 
 import ch.bfh.bti7081.s2017.yellow.entities.schedule.Schedule;
-import org.joda.time.LocalDate;
+import java.time.LocalDate;
 
 import java.util.HashMap;
 

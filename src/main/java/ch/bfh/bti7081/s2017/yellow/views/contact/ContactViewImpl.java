@@ -23,7 +23,18 @@ public class ContactViewImpl extends CustomComponent implements ContactView {
     private List<ContactBookEntryBean> entries = new ArrayList<>();
     private TextField filterText = new TextField();
 
+    /**
+     * Default ContactViewImpl Constructor.
+     *
+     */
     public ContactViewImpl() {
+        this.createLayout();
+    }
+
+    /**
+     * Creates the Layout and the view components.
+     */
+    protected void createLayout() {
         final VerticalLayout layout = new VerticalLayout();
 
         filterText.setPlaceholder("filter by name...");
@@ -37,9 +48,6 @@ public class ContactViewImpl extends CustomComponent implements ContactView {
         CssLayout filtering = new CssLayout();
         filtering.addComponents(filterText, clearFilterTextBtn);
         filtering.setStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
-
-        Button addCustomerBtn = new Button("Add new");
-        addCustomerBtn.addClickListener(clickEvent -> listener.addContact());
 
         HorizontalLayout toolbar = new HorizontalLayout(filtering);
 
@@ -62,6 +70,10 @@ public class ContactViewImpl extends CustomComponent implements ContactView {
         setVisible(false);
     }
 
+
+    /**
+     * GridView dataProvider for all contactBook entries.
+     */
     DataProvider<ContactBookEntryBean, String> dataProvider = DataProvider.fromFilteringCallbacks(
             // First callback fetches items based on a query
             query -> entries.stream(),

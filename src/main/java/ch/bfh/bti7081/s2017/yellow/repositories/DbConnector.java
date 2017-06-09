@@ -80,7 +80,7 @@ public class DbConnector {
 				.applySetting("hibernate.connection.url", "jdbc:h2:tcp://localhost/mem:db1")
 				.applySetting("hibernate.connection.username", "sa")
 				.applySetting("hibernate.connection.password", "")
-				.applySetting("hibernate.connection.pool_size", "1")
+				.applySetting("hibernate.connection.pool_size", "100")
 				.applySetting("hibernate.dialect", "org.hibernate.dialect.H2Dialect")
 				.applySetting("hibernate.show_sql", "true")
 				.applySetting("hibernate.hbm2ddl.auto", "create")

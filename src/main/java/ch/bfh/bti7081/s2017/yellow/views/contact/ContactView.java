@@ -18,7 +18,6 @@ public interface ContactView extends Component, NavigatorView  {
     interface ContactViewListener extends NavigatorViewListener{
         void setFilter(String filter);
         void selectionChange(ContactBookEntryBean selection);
-        void addContact();
     }
     void addListener(ContactViewListener listener);
 }

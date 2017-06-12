@@ -26,7 +26,7 @@ public class ContactBook implements Storable{
 
     @OneToMany(mappedBy="contactBook")
     @Cascade({ CascadeType.ALL})
-    private List<ContactBookEntry> entries;
+    private List<ContactBookEntry> entries = new ArrayList<>();
 
     public ContactBook() {
 
@@ -55,6 +55,7 @@ public class ContactBook implements Storable{
     }
 
     public void addEntry(ContactBookEntry entry){
+        entry.setContactBook(this);
         entries.add(entry);
     }
 }

@@ -40,6 +40,10 @@ public class DbConnector {
 	private static SessionFactory sessionFactory;
 	private static boolean isDbInitialized = false;
 	
+	public DbTask createDbTask() {
+		return new DbTask();
+	}
+	
 	/**
 	 * Every operation on the database can be done
 	 * with an instance of this class. It hides
@@ -60,7 +64,7 @@ public class DbConnector {
 		 * Creating an instance directly opens 
 		 * a Hibernate session and transaction.
 		 */
-		public DbTask() {
+		private DbTask() {
 			this.session = sessionFactory.openSession();
 			this.transaction = session.beginTransaction();
 		}

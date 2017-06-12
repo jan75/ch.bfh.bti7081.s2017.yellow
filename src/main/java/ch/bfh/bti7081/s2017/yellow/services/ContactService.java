@@ -29,14 +29,14 @@ public class ContactService extends SimpleServiceImpl<ContactBook, ContactBookBe
     //public List<ContactBookEntryBean> contactList = new ArrayList<>();
     private static ContactService instance;
     private ContactBookBean contactBookBean;
-    private SimpleService contactEntryService = new SimpleServiceImpl<ContactBookEntry, ContactBookEntryBean>(ContactBookEntry.class, ContactBookEntryBean.class);
+    private SimpleService contactEntryService = new SimpleServiceImpl<ContactBookEntry, ContactBookEntryBean>(ContactBookEntry.class, ContactBookEntryBean.class, new DbConnector());
     private String filter;
 
     /**
      * Default ContactService Constructor.
      */
     public ContactService() {
-        super(ContactBook.class, ContactBookBean.class);
+        super(ContactBook.class, ContactBookBean.class, new DbConnector());
 
         if (instance == null) {
             createDummyContactBook();
@@ -48,7 +48,7 @@ public class ContactService extends SimpleServiceImpl<ContactBook, ContactBookBe
      * Creates dummy data for a ContactBook.
      */
     private static void createDummyContactBook() {
-        DbConnector.DbTask task = new DbConnector.DbTask();
+        DbConnector.DbTask task = new DbConnector().createDbTask();
         try {
             Session session = task.getSession();
 

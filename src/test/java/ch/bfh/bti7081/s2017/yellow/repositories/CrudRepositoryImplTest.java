@@ -4,6 +4,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
+
+import ch.bfh.bti7081.s2017.yellow.entities.person.User;
+import ch.bfh.bti7081.s2017.yellow.entities.wiki.Wiki;
+import ch.bfh.bti7081.s2017.yellow.entities.wiki.WikiEntry;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -34,8 +40,7 @@ public class CrudRepositoryImplTest {
 	public void saveAnEntityWithoutRelations() throws SQLException {
 		System.out.println("-----------saveAnEntityWithoutRelations-------------------------");
 		//Start new Db Task
-		DbConnector dbConnector = new DbConnector();
-		DbTask dbTask = dbConnector.createDbTask();
+		DbTask dbTask = new DbTask();
 		
 		//create the entity
 		Person person = new Person("Name1", "Name2");
@@ -68,8 +73,7 @@ public class CrudRepositoryImplTest {
 	public void saveEntityWithManyToOneRelation1() throws SQLException {
 		System.out.println("-----------saveEntityWithManyToOneRelation1-------------------------");
 		//Get a session
-		DbConnector dbConnector = new DbConnector();
-		DbTask dbTask = dbConnector.createDbTask();
+		DbTask dbTask = new DbTask();
 		
 		//create the MANY entity
 		ContactBookEntry contactBookEntry = new ContactBookEntry();
@@ -100,8 +104,7 @@ public class CrudRepositoryImplTest {
 	public void updateEntity() throws SQLException {
 		System.out.println("-----------updateEntity-------------------------");
 		//open a session
-		DbConnector dbConnector = new DbConnector();
-		DbTask dbTask = dbConnector.createDbTask();
+		DbTask dbTask = new DbTask();
 		
 		//create entity
 		Person person = new Person("name", "name2");
@@ -140,8 +143,7 @@ public class CrudRepositoryImplTest {
 	public void saveEntityWithManyToOneRelation2() throws SQLException{
 		System.out.println("-----------saveEntityWithManyToOneRelation2-------------------------");
 		//Get an instance of a repo
-		DbConnector dbConnector = new DbConnector();
-		DbTask dbTask = dbConnector.createDbTask();
+		DbTask dbTask = new DbTask();
 		
 		//create the MANY entity
 		ContactBookEntry contactBookEntry = new ContactBookEntry();
@@ -163,7 +165,6 @@ public class CrudRepositoryImplTest {
 	
 	@Test
 	public void createNewAddToListLoadUpdateOneEntry() throws SQLException {
-		DbConnector dbConnector = new DbConnector();
 		System.out.println("-----------createNewAddToListLoadUpdateOneEntry-------------------------");
 		//Create contactbook
 		ContactBook contactBook = new ContactBook();
@@ -176,14 +177,14 @@ public class CrudRepositoryImplTest {
 		contactBook.setEntries(contactBookEntries);
 		
 		//save
-		DbTask dbTask = dbConnector.createDbTask();
+		DbTask dbTask = new DbTask();
 		
 		dbTask.save(contactBook);
 		
 		dbTask.end();
 		
 		//Suppose we load the first entry of the contactBook at a later time
-		DbTask dbTask2 = dbConnector.createDbTask();
+		DbTask dbTask2 = new DbTask();
 		ContactBookEntry loadedContactBookEntry = dbTask2.getSession().find(ContactBookEntry.class, contactBookEntry1.getId());
 		Assert.assertEquals(contactBookEntry1.getPhoneNr(), loadedContactBookEntry.getPhoneNr());
 		dbTask2.end();

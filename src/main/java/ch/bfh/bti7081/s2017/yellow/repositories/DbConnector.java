@@ -103,5 +103,6 @@ public class DbConnector {
 	
 	public static void shutdown() {
 		sessionFactory.close();
+		isDbInitialized = false;
 	}
 }

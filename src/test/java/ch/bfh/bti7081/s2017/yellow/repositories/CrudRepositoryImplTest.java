@@ -23,7 +23,6 @@ import ch.bfh.bti7081.s2017.yellow.repositories.DbConnector.DbTask;
 public class CrudRepositoryImplTest {
 	@Before
 	public void before() throws SQLException {
-		DbConnector.isDbInitialized = false;
 		DbConnector.initDbConnection();
 	}
 	

@@ -1,6 +1,9 @@
 package ch.bfh.bti7081.s2017.yellow.presenters;
 
 
+import ch.bfh.bti7081.s2017.yellow.entities.wiki.Wiki;
+import ch.bfh.bti7081.s2017.yellow.entities.wiki.WikiEntry;
+import ch.bfh.bti7081.s2017.yellow.views.wiki.WikiDataFactory;
 import ch.bfh.bti7081.s2017.yellow.views.wiki.WikiView;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
@@ -12,7 +15,7 @@ import java.util.List;
 /**
  * Created by taahuem2 on 25.05.17.
  */
-public class WikiPresenter  implements WikiView.WikiViewListener {
+public class WikiPresenter implements WikiView.WikiViewListener {
 
 
     private class WikiEntry {
@@ -37,13 +40,13 @@ public class WikiPresenter  implements WikiView.WikiViewListener {
 
     }
 
-
     private WikiView view;
 
     public WikiPresenter(WikiView wikiView) {
-
+        Wiki wiki = WikiDataFactory.getWiki();
         this.view = wikiView;
-        view.addListener(this);
+        wikiView.addListener(this);
+        wikiView.updateWiki(wiki);
     }
 
     public List<WikiEntry> sampleWikiEntries() {
@@ -57,9 +60,17 @@ public class WikiPresenter  implements WikiView.WikiViewListener {
 
     @Override
     public void changeView(ViewChangeListener.ViewChangeEvent event) {
-
         System.out.println("Change View");
     }
 
 
+    @Override
+    public void save(ch.bfh.bti7081.s2017.yellow.entities.wiki.WikiEntry entry) {
+        System.out.println("Save " + entry.getCaption());
+    }
+
+    @Override
+    public void update(ch.bfh.bti7081.s2017.yellow.entities.wiki.WikiEntry entry) {
+        System.out.println("Update " + entry.getCaption());
+    }
 }

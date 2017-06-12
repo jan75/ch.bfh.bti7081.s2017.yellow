@@ -47,7 +47,7 @@ public class MainView extends UI {
 		rootLayout.addComponent(planningView);
 
 		WikiView wikiView = new WikiViewImpl();
-		WikiPresenter wikiPresenter =  new WikiPresenter(wikiView);
+		new WikiPresenter(wikiView);
 		rootLayout.addComponent(wikiView);
 
 		NavigatorController.getInstance().addView("", view);

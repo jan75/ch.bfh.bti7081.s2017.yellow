@@ -53,7 +53,7 @@ public class PlanningDetailViewImpl extends CustomComponent implements PlanningD
         String tmpBeginTime = timeStringBuilder(0);
         String tmpEndTime;
         for(int i = 0; i < scheduleDay.size(); i++) {
-            if(scheduleDay.get(i) == tmpString) {
+            if(scheduleDay.get(i).equals(tmpString)) {
                 continue;
             } else {
                 tmpEndTime = timeStringBuilder(i);

@@ -63,7 +63,7 @@ public class ContactDetailPresenter<TView extends ContactDetailView> implements 
             navigateBack();
         }
     }
-
+    
     @Override
     public void cancelClicked() {
         navigateBack();

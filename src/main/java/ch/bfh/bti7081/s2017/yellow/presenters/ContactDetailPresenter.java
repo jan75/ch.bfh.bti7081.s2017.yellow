@@ -65,11 +65,6 @@ public class ContactDetailPresenter<TView extends ContactDetailView> implements 
     }
 
     @Override
-    public void deleteClicked() {
-        navigateBack();
-    }
-
-    @Override
     public void cancelClicked() {
         navigateBack();
     }

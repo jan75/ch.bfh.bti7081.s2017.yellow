@@ -33,6 +33,7 @@ public class PlanningViewImpl extends CustomComponent implements PlanningView {
             ScheduleBean scheduleBean = employeePlanningBean.getSchedule();
 
             LocalDate localDate = LocalDate.now();
+
             scheduleBean.addScheduleEntry(localDate);
             scheduleBean.getEntryForDay(localDate).put(8, "Thomas");
             scheduleBean.getEntryForDay(localDate).put(9, "Thomas");
@@ -42,8 +43,9 @@ public class PlanningViewImpl extends CustomComponent implements PlanningView {
             scheduleBean.getEntryForDay(localDate).put(14, "Markus");
             scheduleBean.getEntryForDay(localDate).put(15, "Markus");
             scheduleBean.getEntryForDay(localDate).put(16, "Markus");
+
             employeePlanningBean.setSchedule(scheduleBean);
-            //
+
             layout.addComponent(drawScheduleDaysForEmployee(employeePlanningBean));
         }
 

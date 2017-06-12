@@ -30,7 +30,7 @@ public class ScheduleBean extends BaseBean<Schedule> {
     private HashMap<Integer, String> initializeDaySchedule() {
         HashMap<Integer, String> dayMap = new HashMap<>();
         for(int i = 0; i <= 23; i++) {
-            dayMap.put(i, null);
+            dayMap.put(i, "");
         }
         return dayMap;
     }

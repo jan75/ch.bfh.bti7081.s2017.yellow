@@ -11,7 +11,8 @@ import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 
 /**
- * Created by simon on 15.05.17.
+ * Concrete EmployeeView implementation contains components to display data of one employee
+ * @author iSorp
  */
 public class EmployeeViewImpl extends ContactDetailViewImpl {
 
@@ -39,16 +40,28 @@ public class EmployeeViewImpl extends ContactDetailViewImpl {
         super.createLayout();
     }
 
+    /**
+     * Binds a contactBookEntryBean to the view and displays the data.
+     * @param contactBookEntryBean
+     */
     @Override
     public void setContact(ContactBookEntryBean contactBookEntryBean) {
         beanValidationBinder.setBean(contactBookEntryBean);
     }
 
+    /**
+     * Returns the current contactBookEntryBean
+     * @return contactBookEntryBean
+     */
     @Override
     public ContactBookEntryBean getContact() {
         return beanValidationBinder.getBean();
     }
 
+    /**
+     * Validates the content of all textFields
+     * @return
+     */
     @Override
     public boolean validate() {
         beanValidationBinder.validate();

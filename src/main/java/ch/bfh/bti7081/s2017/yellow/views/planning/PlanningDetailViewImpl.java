@@ -2,6 +2,8 @@ package ch.bfh.bti7081.s2017.yellow.views.planning;
 
 import ch.bfh.bti7081.s2017.yellow.beans.EmployeePlanningBean;
 import ch.bfh.bti7081.s2017.yellow.beans.ScheduleBean;
+import ch.bfh.bti7081.s2017.yellow.services.PlanningService;
+import ch.bfh.bti7081.s2017.yellow.util.NavigatorController;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.*;
 
@@ -38,7 +40,24 @@ public class PlanningDetailViewImpl extends CustomComponent implements PlanningD
         endingComboBox.setItems(hoursArray);
         TextField activityTextArea = new TextField();
         activityTextArea.setPlaceholder("Activity...");
-        Button addPlanningEntry = new Button("Add");
+
+        Button addPlanningEntry = new Button("Add", (Button.ClickListener) clickEvent -> {
+            Integer beginningTime = beginningComboBox.getValue();
+            Integer endingTime = endingComboBox.getValue();
+            String activity = activityTextArea.getValue();
+
+            if(beginningTime <= endingTime && beginningTime != null && endingTime != null && activity != null && activity != "") {
+                HashMap<Integer, String> scheduleDay = employee.getSchedule().getEntryForDay(date);
+                for(int i = beginningTime.intValue(); i < endingTime; i++) {
+                    scheduleDay.put(i, activity);
+                }
+                schedule.setScheduleForDay(date, scheduleDay);
+                employee.setSchedule(schedule);
+
+                PlanningService planningService = new PlanningService();
+                planningService.saveEntity(employee);
+            }
+        });
         addEntryLayout.addComponents(beginningComboBox, endingComboBox, activityTextArea, addPlanningEntry);
 
         layout.addComponent(addEntryLayout);
@@ -50,7 +69,7 @@ public class PlanningDetailViewImpl extends CustomComponent implements PlanningD
     public void updateView(EmployeePlanningBean employee, LocalDate date) {
         this.employee = employee;
         this.date = date;
-        this.schedule = schedule;
+        this.schedule = employee.getSchedule();
 
         currentPlanLayout.removeAllComponents();
         currentPlanLayout.addComponent(drawDaySchedule());
@@ -68,18 +87,18 @@ public class PlanningDetailViewImpl extends CustomComponent implements PlanningD
         String tmpBeginTime = timeStringBuilder(0);
         String tmpEndTime;
         for(int i = 0; i < scheduleDay.size(); i++) {
-            if(scheduleDay.get(i) == tmpString) {
+            if(scheduleDay.get(i).equals(tmpString)) {
                 continue;
             } else {
                 tmpEndTime = timeStringBuilder(i);
-                if(tmpString != null) {
+                if(tmpString != "") {
                     verticalLayout.addComponent(new Label(tmpBeginTime + " - " + tmpEndTime + "   " + tmpString));
                 }
                 tmpBeginTime = timeStringBuilder(i);
                 tmpString = scheduleDay.get(i);
             }
         }
-        if(tmpString != null) {
+        if(tmpString != "") {
             verticalLayout.addComponent(new Label(tmpBeginTime + " - 00:00   " + tmpString));
         }
 
@@ -97,6 +116,10 @@ public class PlanningDetailViewImpl extends CustomComponent implements PlanningD
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
-        setVisible(true);
+        if (this.employee == null) {
+            NavigatorController.getInstance().navigateTo("planningView");
+        } else {
+            setVisible(true);
+        }
     }
 }

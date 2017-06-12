@@ -92,7 +92,7 @@ public class DbConnector {
 		 * updates existing ones depending on whether the ID
 		 * is set or not. Use the annotation attribute cascade=CascadeType.ALL
 		 * to cascade CRUD operations to related entities.
-		 * @param o Object to syncronize with database
+		 * @param o Object to synchronize with database
 		 */
 		public void save(Storable o) {
 			if(o.getId() == null) {

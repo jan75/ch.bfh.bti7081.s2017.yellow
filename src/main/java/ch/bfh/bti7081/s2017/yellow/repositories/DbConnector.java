@@ -40,6 +40,13 @@ public class DbConnector {
 	private static SessionFactory sessionFactory;
 	private static boolean isDbInitialized = false;
 
+	/**
+	 * Creates new DbTasks. Can be overridden 
+	 * in sub classes to return a DbTask
+	 * that returns arbitrary dummy data
+	 * which is useful for unit tests.
+	 * @return a new DbTask
+	 */
 	public DbTask createDbTask() {
 		return new DbTask();
 	}
@@ -48,55 +55,61 @@ public class DbConnector {
 	 * Every operation on the database can be done
 	 * with an instance of this class. It hides
 	 * details of the Hibernate interface and provides
-	 * methods to easily save/update and load entity objects.
+	 * methods to easily save/update and load entity objects. 
+	 * These convenience methods open a session and transaction
+	 * if they haven't been opened already.
 	 * If more complex operations are needed, the underlying
-	 * session or transaction instances can be accessed.
+	 * session or transaction instances can be accessed or created.
 	 *
-	 * Start a database task by creating an instance of DbTask
-	 * and end the task by calling end(). The operation is only
+	 * Create a database task by using the factory method
+	 * createDbTask() of the DbConnector and end the task 
+	 * by calling end() on the DbTask instance. The operation is only
 	 * committed to the database after end() was called.
+	 * 
+	 * For simplicity, the transaction and session is created together
+	 * when a convenience method or start() is called.
 	 */
 	public static class DbTask {
 		private Session session;
 		private Transaction transaction;
 		
-		/**
-		 * Creating an instance directly opens 
-		 * a Hibernate session and transaction.
-		 */
-		protected DbTask() {
-
-		}
-		
 		public Session getSession() {
-			if (this.session == null) {
-				this.session = sessionFactory.openSession();
-			}
-			if (this.transaction == null) {
-				this.transaction = session.beginTransaction();
-			}
 			return session;
 		}
-		public void setSession(Session session) {
-			this.session = session;
-		}
 		public Transaction getTransaction() {
-			if (transaction == null) {
-				this.transaction = getSession().beginTransaction();
-			}
 			return transaction;
 		}
-		public void setTransaction(Transaction transaction) {
-			this.transaction = transaction;
-		}
 		
+		/**
+		 * Also called by convenience methods.
+		 * Ensures that a transaction is opened.
+		 */
+		public void start() {
+			if(this.transaction == null) {
+				this.session = sessionFactory.openSession();
+				this.transaction = this.session.beginTransaction();
+			}
+		}
+
 		/**
 		 * Returns all entity objects of a given class.
 		 * @param clazz of the entity objects that will be retrieved from the database
 		 * @return a list of all entity objects of the given class.
 		 */
 		public List findAll(Class clazz) {
-			return getSession().createQuery("from " + clazz.getName()).list();
+			start();
+			return this.session.createQuery("from " + clazz.getName()).list();
+		}
+		
+		/**
+		 * Returns one entity by id.
+		 * @param clazz type of the entity
+		 * @param primaryKey of the entity
+		 * @return the entity
+		 */
+		public <T> T find(Class<T> clazz, Object primaryKey) {
+			start();
+			return this.session.find(clazz, primaryKey);
 		}
 		
 		/**
@@ -107,6 +120,7 @@ public class DbConnector {
 		 * @param o Object to synchronize with database
 		 */
 		public void save(Storable o) {
+			start();
 			if(o.getId() == null) {
 				getSession().persist(o);
 			} else {
@@ -115,7 +129,7 @@ public class DbConnector {
 		}
 		
 		/**
-		 * Ends the transactions and commits changes to the database.
+		 * Ends the transaction and commits changes to the database.
 		 */
 		public void end() {
 			this.getTransaction().commit();

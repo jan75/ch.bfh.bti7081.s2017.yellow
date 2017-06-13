@@ -43,8 +43,11 @@
     text-align: right;
   }
 
-  .v-label-wikiEntryContentLabel{
+  .v-textarea-wikiEntryContentTextArea{
     margin: 10px;
+    background-color: transparent;
+    border: none;
+    min-height:220px;
   }
 
   .v-panel-wikiPanel {
@@ -52,7 +55,10 @@
   }
 
   .v-panel-content-wikiPanel {
-    min-height:200px;
+    min-height:240px;
+  }
+
+  .wikiPanelGrid {
   }
 
   .v-verticallayout-wikiEntryInformationContent {

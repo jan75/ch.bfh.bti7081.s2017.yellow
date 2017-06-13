@@ -14,15 +14,21 @@ public class WikiPanel extends Panel {
 
     private WikiEntry wikiEntry;
     private TextArea wikiEntryContent;
+    private Boolean readOnly;
+
+    private Button saveEntry;
+    private Button editEntry;
 
     public WikiPanel(WikiEntry wikiEntry, WikiView.WikiViewListener listener) {
 
         super(wikiEntry.getCaption());
 
         this.wikiEntry = wikiEntry;
+        this.readOnly = true;
+        this.setSizeFull();
 
         GridLayout grid = new GridLayout(2, 1);
-        grid.setWidth("100%");
+        grid.setSizeFull();
 
         VerticalLayout panelContent = new VerticalLayout();
         this.setWidth("100%");
@@ -30,7 +36,9 @@ public class WikiPanel extends Panel {
 
         wikiEntryContent = new TextArea( ); //wikiEntry.getEntry(), ContentMode.HTML);
         wikiEntryContent.setValue(wikiEntry.getEntry());
-        wikiEntryContent.setStyleName("wikiEntryContentLabel");
+        wikiEntryContent.setStyleName("wikiEntryContentTextArea");
+        wikiEntryContent.setReadOnly(this.readOnly);
+        wikiEntryContent. setSizeFull();
 
         String category = wikiEntry.getCategory();
         String createdFrom = wikiEntry.getUser().getFirstName() + " " + wikiEntry.getUser().getLastName(); // "Michi Jackson";
@@ -62,28 +70,47 @@ public class WikiPanel extends Panel {
                 , ContentMode.HTML);
 
         HorizontalLayout wikiEntryInformationButtonContent = new HorizontalLayout();
-        Button editEntry = new Button("Edit");
-        editEntry.addClickListener(event -> listener.edit(this.wikiEntry));
 
-        Button uploadEntry = new Button("Save");
-        uploadEntry.addClickListener(event -> listener.save(this.wikiEntry));
+        editEntry = new Button("Edit");
+        editEntry.addClickListener(new Button.ClickListener() {
+            public void buttonClick(Button.ClickEvent event) {
+                listener.edit(wikiEntry);
+                toggleReadOnly();
+            }
+        });
 
-        wikiEntryInformationButtonContent.addComponents(editEntry, uploadEntry);
+        saveEntry = new Button("Save");
+        saveEntry.setVisible(false);
+        saveEntry.addClickListener(new Button.ClickListener() {
+            public void buttonClick(Button.ClickEvent event) {
+                listener.save(wikiEntry);
+                toggleReadOnly();
+            }
+        });
+
+        wikiEntryInformationButtonContent.addComponents(editEntry, saveEntry);
         wikiEntryInformationButtonContent.setDefaultComponentAlignment(Alignment.MIDDLE_RIGHT);
         wikiEntryInformationContent.addComponents(wikiEntryInformation, wikiEntryInformationButtonContent);
 
         wikiEntryInformationContent.setComponentAlignment(wikiEntryInformation, Alignment.TOP_RIGHT);
         wikiEntryInformationContent.setComponentAlignment(wikiEntryInformationButtonContent, Alignment.MIDDLE_RIGHT);
+        wikiEntryInformationContent.setWidth("280px");
 
         panelContent.addComponent(wikiEntryContent);
-        wikiEntryContent.setWidth("100%");
         grid.addComponent(wikiEntryContent, 0, 0);
         grid.addComponent(wikiEntryInformationContent, 1, 0);
-        grid.setColumnExpandRatio(0, 0.75f);
-        grid.setColumnExpandRatio(1, 0.25f);
+        grid.setColumnExpandRatio(0, 1.0f);
+        grid.setColumnExpandRatio(1, 0f);
         grid.setComponentAlignment(wikiEntryInformationContent, Alignment.TOP_CENTER);
         this.setContent(grid);
 
+    }
+
+    public void toggleReadOnly() {
+        this.readOnly = !this.readOnly;
+        editEntry.setCaption( (readOnly) ? "Edit" : "Abbrechen");
+        this.saveEntry.setVisible(!this.saveEntry.isVisible());
+        this.wikiEntryContent.setReadOnly(this.readOnly);
     }
     private String convertDateToString(Date date) {
         return new SimpleDateFormat("yyyy-MM-dd").format(date);

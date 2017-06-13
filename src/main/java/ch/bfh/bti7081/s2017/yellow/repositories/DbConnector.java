@@ -39,7 +39,7 @@ public class DbConnector {
 	private static StandardServiceRegistry registry;
 	private static SessionFactory sessionFactory;
 	private static boolean isDbInitialized = false;
-	
+
 	public DbTask createDbTask() {
 		return new DbTask();
 	}

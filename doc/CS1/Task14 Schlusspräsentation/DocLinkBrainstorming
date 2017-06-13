@@ -1,0 +1,17 @@
+Brainstorm Link:
+https://docs.google.com/document/d/18-0g7ceIZ51I3AQkPEkf-eakYGTwnsv_aD3hEonk9LM/edit
+
+Brainstorming für Vortrag am 16.06.17
+ 
+Learnings:
+ 
+Good:
+ 
+ 
+Bad:
+Probleme beim Aufsetzen von H2 und der Verbindung auf die Datenbank über Hibernate, so dass während der Runtime Einsicht auf die DB möglich ist, war nicht selbsterklärend. 
+sowohl die Dokumentation von H2 wie auch von Hibernate verhalf nicht schnell zum Finden der nötigen Informationen. Die Dok von H2 war zu spärlich und die Dok von Hibernate nicht eindeutig, da für die gleichen Anforderungen Beschreibungen zu verschiedenen Schnittstellen zu finden waren, welche z.T. nicht mehr aktuell sind.
+Beim Erstellen von Unit Tests stellte sich heraus, dass die DB Verbindung gemockt werden können muss. Das erforderte eine Umstellung der betroffenen Klassen von einem statischen zu einem dynamischen Konzept, um die dependency injection zu ermöglichen
+Einarbeitungszeit in Frameworks und Tools wie Hibernate, Git, Vaadin etc.
+ 
+ 

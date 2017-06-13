@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 /**
  * Concrete PlanningView implementation
- * @author iSorp
+ * @author Jan Ackermann
  */
 public class PlanningDetailViewImpl extends CustomComponent implements PlanningDetailView {
     private EmployeePlanningBean employee = null;
@@ -22,6 +22,9 @@ public class PlanningDetailViewImpl extends CustomComponent implements PlanningD
     private VerticalLayout currentPlanLayout = new VerticalLayout();
     VerticalLayout addEntryLayout = new VerticalLayout();
 
+    /**
+     * The constructor creates the basic layout with the static components as well as dynamically loading (over the presenter) the employees and displaying them
+     */
     public PlanningDetailViewImpl() {
         layout.addComponent(new Label("planningDetailView"));
         layout = new HorizontalLayout();
@@ -65,6 +68,10 @@ public class PlanningDetailViewImpl extends CustomComponent implements PlanningD
         setVisible(false);
     }
 
+    /**
+     * @param employee The employee which is to display
+     * @param date The date for which the schedule is to be displayed
+     */
     @Override
     public void updateView(EmployeePlanningBean employee, LocalDate date) {
         this.employee = employee;
@@ -105,6 +112,11 @@ public class PlanningDetailViewImpl extends CustomComponent implements PlanningD
         return verticalLayout;
     }
 
+    /**
+     * Helper method to build time in the format 00:00
+     * @param timeShort the one or two digit long integer with the time in 24h format
+     * @return returns a string in the format 00:00
+     */
     private String timeStringBuilder(Integer timeShort) {
         StringBuilder stringBuilder = new StringBuilder();
         if(timeShort < 10) {

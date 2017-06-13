@@ -40,7 +40,7 @@ public class NavigatorController {
 
     /**
      * Navigates to parametrized view. The view is seen in the browsers address list.
-     * @param view
+     * @param view -
      */
     public void navigateTo(String view){
         navigator.navigateTo(view);
@@ -48,8 +48,8 @@ public class NavigatorController {
 
     /**
      * Adds a navigator listener.
-     * @param name
-     * @param view
+     * @param name -
+     * @param view -
      */
     public void addView(String name, View view) {
         navigator.addView(name, view);

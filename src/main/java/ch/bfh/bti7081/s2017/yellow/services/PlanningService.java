@@ -5,17 +5,17 @@ import ch.bfh.bti7081.s2017.yellow.beans.ScheduleBean;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Employee;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by simon on 15.05.17.
+ * This service supplies the planning presenter with db logic
  */
 public class PlanningService extends SimpleServiceImpl<Employee, EmployeePlanningBean>  {
-
-    //public List<ContactBookEntryBean> contactList = new ArrayList<>();
     private static boolean init = false;
 
+    /**
+     * Creates an instance of PlanningService and fills it with some dummy entries
+     */
     public PlanningService() {
         super(Employee.class, EmployeePlanningBean.class);
 

@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * Concrete PlanningView implementation
- * @author iSorp
+ * @author Jan Ackermann
  */
 public class PlanningViewImpl extends CustomComponent implements PlanningView {
     PlanningDetailView planningDetailView = new PlanningDetailViewImpl();
@@ -24,8 +24,9 @@ public class PlanningViewImpl extends CustomComponent implements PlanningView {
     PlanningService planningService;
     VerticalLayout displayEmployeesLayout = new VerticalLayout();
 
-    // LocalDate from Java 8
-
+    /**
+     * The PlanningView constructor creates static and dynamic (via presenter) components
+     */
     public PlanningViewImpl() {
         final VerticalLayout layout = new VerticalLayout();
         HorizontalLayout addEmployeesLayout = new HorizontalLayout();
@@ -49,6 +50,9 @@ public class PlanningViewImpl extends CustomComponent implements PlanningView {
         setVisible(false);
     }
 
+    /**
+     * @param employeePlanningBeanList The list of employees to load
+     */
     public void loadEmployees(List<EmployeePlanningBean> employeePlanningBeanList) {
         displayEmployeesLayout.removeAllComponents();
         for(EmployeePlanningBean employeePlanningBean: employeePlanningBeanList) {
@@ -56,6 +60,11 @@ public class PlanningViewImpl extends CustomComponent implements PlanningView {
         }
     }
 
+    /**
+     * This method returns a view with information and a user input form for an employee
+     * @param employee The employee which to draw
+     * @return Returns a layout which gets displayed on the view
+     */
     private HorizontalLayout drawScheduleDaysForEmployee(EmployeePlanningBean employee) {
         ScheduleBean schedule = employee.getSchedule();
 
@@ -102,10 +111,5 @@ public class PlanningViewImpl extends CustomComponent implements PlanningView {
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
         setVisible(true);
         planningPresenter.loadEmployees();
-    }
-
-    @Override
-    public void addEmployee(String firstName, String lastName) {
-
     }
 }

@@ -5,7 +5,7 @@ import ch.bfh.bti7081.s2017.yellow.entities.person.Employee;
 import java.util.Date;
 
 /**
- * Created by simon on 21.05.17.
+ * Bean specific for usage in planning view and logic
  */
 public class EmployeePlanningBean extends BaseBean<Employee> {
     private Date since;
@@ -13,6 +13,9 @@ public class EmployeePlanningBean extends BaseBean<Employee> {
     private String firstName;
     private String lastName;
 
+    /**
+     * Creates an EmployeePlanningBean for usage in the planning part of the application
+     */
     public EmployeePlanningBean() {
 
     }

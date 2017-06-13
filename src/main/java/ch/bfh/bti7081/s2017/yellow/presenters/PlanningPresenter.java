@@ -1,19 +1,22 @@
 package ch.bfh.bti7081.s2017.yellow.presenters;
 
-import ch.bfh.bti7081.s2017.yellow.beans.EmployeeBean;
 import ch.bfh.bti7081.s2017.yellow.beans.EmployeePlanningBean;
 import ch.bfh.bti7081.s2017.yellow.beans.ScheduleBean;
 import ch.bfh.bti7081.s2017.yellow.services.PlanningService;
 import ch.bfh.bti7081.s2017.yellow.util.NavigatorController;
 import ch.bfh.bti7081.s2017.yellow.views.planning.PlanningView;
-import com.vaadin.ui.Component;
 
-import java.util.List;
-
+/**
+ * The presenter which supplies the planning view with logic
+ */
 public class PlanningPresenter {
     private PlanningView view;
     PlanningService planningService = new PlanningService();
 
+    /**
+     * Creates a new PlanningPresenter instance which knows its view
+     * @param view the view to link this presenter to
+     */
     public PlanningPresenter(PlanningView view) {
 
         // concrete ContactView
@@ -29,6 +32,11 @@ public class PlanningPresenter {
         return view;
     }
 
+    /**
+     * Adds an employee to the database, then updates the view accordingly
+     * @param firstName the first name of the to be added employee
+     * @param lastName the last name of the to be added employee
+     */
     public void addEmployee(String firstName, String lastName) {
         if(firstName != "" && lastName != "") {
             EmployeePlanningBean employeePlanningBean = new EmployeePlanningBean();
@@ -42,6 +50,9 @@ public class PlanningPresenter {
         }
     }
 
+    /**
+     * Loads the employees in the view
+     */
     public void loadEmployees() {
         view.loadEmployees(planningService.getEmployees());
     }

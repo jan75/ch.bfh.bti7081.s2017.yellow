@@ -83,6 +83,7 @@ public class CrudRepositoryImplTest {
 		//only save contactBookEntry. Because of CascadeType.PERSIST, person is also saved
 		dbTask.save(contactBookEntry);
 
+		dbTask.end();
 	}
 	
 	/**
@@ -184,7 +185,7 @@ public class CrudRepositoryImplTest {
 		
 		//Suppose we load the first entry of the contactBook at a later time
 		DbTask dbTask2 = dbConnector.createDbTask();
-		ContactBookEntry loadedContactBookEntry = dbTask2.getSession().find(ContactBookEntry.class, contactBookEntry1.getId());
+		ContactBookEntry loadedContactBookEntry = dbTask2.find(ContactBookEntry.class, contactBookEntry1.getId());
 		Assert.assertEquals(contactBookEntry1.getPhoneNr(), loadedContactBookEntry.getPhoneNr());
 		dbTask2.end();
 	}

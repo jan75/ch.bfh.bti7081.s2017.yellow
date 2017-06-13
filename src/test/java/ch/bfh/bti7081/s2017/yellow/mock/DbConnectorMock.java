@@ -23,14 +23,6 @@ public class DbConnectorMock extends DbConnector {
     }
 
     public class DbTaskMock extends DbConnector.DbTask {
-        /**
-         * Creating an instance directly opens
-         * a Hibernate session and transaction.
-         */
-
-        protected DbTaskMock() {
-
-        }
 
         @Override
         public Session getSession() {
@@ -38,18 +30,8 @@ public class DbConnectorMock extends DbConnector {
         }
 
         @Override
-        public void setSession(Session session) {
-
-        }
-
-        @Override
         public Transaction getTransaction() {
             return null;
-        }
-
-        @Override
-        public void setTransaction(Transaction transaction) {
-
         }
 
         @Override

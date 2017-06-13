@@ -53,7 +53,7 @@ public final class WikiDataFactory {
         for (WikiEntry wikiEntry : wikiEntries) {
             dbTask.save(wikiEntry);
         }
-
+        
         dbTask.end();
     }
 

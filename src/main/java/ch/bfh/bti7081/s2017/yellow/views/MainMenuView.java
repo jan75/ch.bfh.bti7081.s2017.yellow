@@ -1,10 +1,17 @@
 package ch.bfh.bti7081.s2017.yellow.views;
 
 import ch.bfh.bti7081.s2017.yellow.components.MenuButton;
-import ch.bfh.bti7081.s2017.yellow.presenters.DashboardPresenter;
+import ch.bfh.bti7081.s2017.yellow.presenters.*;
 import ch.bfh.bti7081.s2017.yellow.util.NavigatorController;
 import ch.bfh.bti7081.s2017.yellow.views.listeners.MenuViewListener;
+import ch.bfh.bti7081.s2017.yellow.views.planning.PlanningView;
+import ch.bfh.bti7081.s2017.yellow.views.planning.PlanningViewImpl;
+import ch.bfh.bti7081.s2017.yellow.views.wiki.WikiView;
+import ch.bfh.bti7081.s2017.yellow.views.wiki.WikiViewImpl;
+import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.Resource;
+import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.*;
 
 import java.util.ArrayList;
@@ -22,32 +29,32 @@ public class MainMenuView extends CustomComponent implements MenuView, Button.Cl
         VerticalLayout layout = new VerticalLayout();
         HorizontalLayout menuLayout = new HorizontalLayout();
 
-        menuLayout.addComponent(new MenuButton("Planning", new Button.ClickListener() {
-            @Override
-            public void buttonClick(Button.ClickEvent clickEvent) {
-                NavigatorController.getInstance().navigateTo("planningView");
-            }
-        }));
+        Image imagePlanning = new Image(null, new ThemeResource("icons/Planning.png"));
+        imagePlanning.addClickListener(e -> NavigatorController.getInstance().navigateTo("planningView"));
+        imagePlanning.setStyleName("image");
+        menuLayout.addComponent(imagePlanning);
 
-        menuLayout.addComponent(new MenuButton("Contact", new Button.ClickListener() {
-            @Override
-            public void buttonClick(Button.ClickEvent clickEvent) {
-                NavigatorController.getInstance().navigateTo("contactView");
-            }
-        }));
+        Image imageContact = new Image(null, new ThemeResource("icons/Contacts.png"));
+        imageContact.addClickListener(e -> NavigatorController.getInstance().navigateTo("contactView"));
+        imageContact.setStyleName("image");
+        menuLayout.addComponent(imageContact);
 
-        menuLayout.addComponent(new MenuButton("Wiki", new Button.ClickListener() {
-            @Override
-            public void buttonClick(Button.ClickEvent clickEvent) {
-                NavigatorController.getInstance().navigateTo("wikiView");
-            }
-        }));
+        Image imageWiki = new Image(null, new ThemeResource("icons/Wiki.png"));
+        imageWiki.addClickListener(e -> NavigatorController.getInstance().navigateTo("wikiView"));
+        imageWiki.setStyleName("image");
+        menuLayout.addComponent(imageWiki);
+
+        Image patientEstimationView = new Image(null, new ThemeResource("icons/Timer.png"));
+        patientEstimationView.addClickListener(e -> NavigatorController.getInstance().navigateTo("patientEstimationView"));
+        patientEstimationView.setStyleName("image");
+        menuLayout.addComponent(patientEstimationView);
 
         layout.addComponent(menuLayout);
 
         DashboardView dashboardView = new DashboardViewImpl();
         new DashboardPresenter(dashboardView);
         layout.addComponent(dashboardView);
+        layout.setSizeFull();
 
         setCompositionRoot(layout);
     }

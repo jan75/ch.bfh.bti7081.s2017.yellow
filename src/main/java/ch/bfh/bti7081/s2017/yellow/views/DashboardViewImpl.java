@@ -1,5 +1,7 @@
 package ch.bfh.bti7081.s2017.yellow.views;
 
+import com.vaadin.ui.Accordion;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.VerticalLayout;
 
 /**
@@ -15,6 +17,7 @@ public class DashboardViewImpl extends VerticalLayout implements DashboardView {
         super.addComponent(dashboardViewItem);
     }
 
+    public void addComponent(Accordion accordion){super.addComponent(accordion);}
 
     /*
     * TODO: Maybe some listeners are needed?

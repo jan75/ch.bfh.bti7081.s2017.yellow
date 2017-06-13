@@ -24,6 +24,7 @@ public class WikiEntry implements Storable{
     @Column(name="CAPTION")
     private String caption;
 
+    @Lob
     @Column(name="ENTRY")
     private String entry;
 
@@ -47,6 +48,9 @@ public class WikiEntry implements Storable{
         this.category = category;
         this.createdAt = new Date();
         this.updatedAt = this.createdAt;
+    }
+
+    public WikiEntry() {
 
     }
 

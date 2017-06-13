@@ -25,14 +25,13 @@ public class ContactViewImpl extends CustomComponent implements ContactView {
 
     /**
      * Default ContactViewImpl Constructor.
-     *
      */
     public ContactViewImpl() {
         this.createLayout();
     }
 
     /**
-     * Creates the Layout and the view components.
+     * Initialize the components for the layout
      */
     protected void createLayout() {
         final VerticalLayout layout = new VerticalLayout();
@@ -82,21 +81,32 @@ public class ContactViewImpl extends CustomComponent implements ContactView {
             query ->entries.size()
     );
 
+    /**
+     * Wires a ContactBookEntry to the views component
+     * @param entries
+     */
     @Override
     public void setContactBookEntries(List<ContactBookEntryBean> entries) {
         this.entries = entries;
         dataProvider.refreshAll();
     }
 
+    /**
+     * Wires a listener to the view
+     * @param listener
+     */
     @Override
     public void addListener(ContactViewListener listener) {
         this.listener = listener;
     }
 
+    /**
+     * This Method is called when the view navigator calls this view and
+     * @param viewChangeEvent
+     */
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
         listener.changeView(viewChangeEvent);
         setVisible(true);
     }
-
 }

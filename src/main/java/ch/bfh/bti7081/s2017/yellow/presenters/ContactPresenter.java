@@ -76,9 +76,9 @@ public class ContactPresenter implements ContactView.ContactViewListener {
         }
     }
 
-    /**
-     * Is called when the attached view is displayed.
-     * Loading all data from database and display it
+     /**
+     * This Method is called when the view navigator calls this view and
+     * loads all data from database and display it
      * @param event
      */
     @Override

@@ -39,6 +39,10 @@ public class DbConnector {
 	private static StandardServiceRegistry registry;
 	private static SessionFactory sessionFactory;
 	private static boolean isDbInitialized = false;
+
+	public DbTask createDbTask() {
+		return new DbTask();
+	}
 	
 	/**
 	 * Every operation on the database can be done
@@ -60,18 +64,22 @@ public class DbConnector {
 		 * Creating an instance directly opens 
 		 * a Hibernate session and transaction.
 		 */
-		public DbTask() {
-			this.session = sessionFactory.openSession();
-			this.transaction = session.beginTransaction();
+		protected DbTask() {
 		}
 		
 		public Session getSession() {
+			if (this.session == null) {
+				this.session = sessionFactory.openSession();
+			}
 			return session;
 		}
 		public void setSession(Session session) {
 			this.session = session;
 		}
 		public Transaction getTransaction() {
+			if (transaction == null) {
+				this.transaction = getSession().beginTransaction();
+			}
 			return transaction;
 		}
 		public void setTransaction(Transaction transaction) {
@@ -84,7 +92,7 @@ public class DbConnector {
 		 * @return a list of all entity objects of the given class.
 		 */
 		public List findAll(Class clazz) {
-			return session.createQuery("from " + clazz.getName()).list();
+			return getSession().createQuery("from " + clazz.getName()).list();
 		}
 		
 		/**
@@ -96,9 +104,9 @@ public class DbConnector {
 		 */
 		public void save(Storable o) {
 			if(o.getId() == null) {
-				session.persist(o);
+				getSession().persist(o);
 			} else {
-				session.merge(o);
+				getSession().merge(o);
 			}
 		}
 		
@@ -106,8 +114,8 @@ public class DbConnector {
 		 * Ends the transactions and commits changes to the database.
 		 */
 		public void end() {
-			this.transaction.commit();
-			this.session.close();
+			this.getTransaction().commit();
+			this.getSession().close();
 		}
 	}
 	

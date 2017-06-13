@@ -27,7 +27,7 @@ public final class WikiDataFactory {
 
     private static void initializeWiki() {
         //Get a session
-        DbConnector.DbTask dbTask = new DbConnector.DbTask();
+        DbConnector.DbTask dbTask = new DbConnector().createDbTask();
 
         wiki = new Wiki();
         List<WikiEntry> wikiEntries = new ArrayList<WikiEntry>();

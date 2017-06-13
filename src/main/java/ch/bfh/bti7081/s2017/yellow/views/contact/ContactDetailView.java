@@ -15,9 +15,18 @@ public interface ContactDetailView extends Component, NavigatorView {
     boolean validate();
     void setContact(ContactBookEntryBean  contactBookEntryBean);
     ContactBookEntryBean getContact();
+
+    /**
+     * Interface for the presenter, performs actions for the view
+     */
     interface ContactDetailViewListener extends NavigatorViewListener {
         void saveClicked();
         void cancelClicked();
     }
+
+    /**
+     * Adds to Presenter as a listener to the view
+     * @param listener
+     */
     void addListener(ContactDetailViewListener listener);
 }

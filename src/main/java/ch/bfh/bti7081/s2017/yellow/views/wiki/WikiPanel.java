@@ -32,7 +32,6 @@ public class WikiPanel extends Panel {
 
         VerticalLayout panelContent = new VerticalLayout();
         this.setWidth("100%");
-        this.addStyleName("wikiPanel");
 
         wikiEntryContent = new TextArea( ); //wikiEntry.getEntry(), ContentMode.HTML);
         wikiEntryContent.setValue(wikiEntry.getEntry());
@@ -83,6 +82,7 @@ public class WikiPanel extends Panel {
         saveEntry.setVisible(false);
         saveEntry.addClickListener(new Button.ClickListener() {
             public void buttonClick(Button.ClickEvent event) {
+                wikiEntry.setEntry(wikiEntryContent.getValue());
                 listener.save(wikiEntry);
                 toggleReadOnly();
             }
@@ -119,7 +119,6 @@ public class WikiPanel extends Panel {
         }
 
         this.saveEntry.setVisible(!this.saveEntry.isVisible());
-
         this.wikiEntryContent.setReadOnly(readOnly);
     }
     private String convertDateToString(Date date) {

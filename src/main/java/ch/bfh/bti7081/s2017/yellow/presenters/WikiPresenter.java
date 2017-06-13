@@ -73,4 +73,9 @@ public class WikiPresenter implements WikiView.WikiViewListener {
     public void update(ch.bfh.bti7081.s2017.yellow.entities.wiki.WikiEntry entry) {
         System.out.println("Update " + entry.getCaption());
     }
+
+    @Override
+    public void edit(ch.bfh.bti7081.s2017.yellow.entities.wiki.WikiEntry entry) {
+        System.out.println("Edit " + entry.getCaption());
+    }
 }

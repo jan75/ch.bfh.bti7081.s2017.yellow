@@ -13,6 +13,7 @@ import java.util.Date;
 public class WikiPanel extends Panel {
 
     private WikiEntry wikiEntry;
+    private TextArea wikiEntryContent;
 
     public WikiPanel(WikiEntry wikiEntry, WikiView.WikiViewListener listener) {
 
@@ -27,13 +28,14 @@ public class WikiPanel extends Panel {
         this.setWidth("100%");
         this.addStyleName("wikiPanel");
 
-        Label wikiEntryContent = new Label( wikiEntry.getEntry(), ContentMode.HTML);
+        wikiEntryContent = new TextArea( ); //wikiEntry.getEntry(), ContentMode.HTML);
+        wikiEntryContent.setValue(wikiEntry.getEntry());
         wikiEntryContent.setStyleName("wikiEntryContentLabel");
 
         String category = wikiEntry.getCategory();
         String createdFrom = wikiEntry.getUser().getFirstName() + " " + wikiEntry.getUser().getLastName(); // "Michi Jackson";
-        String createdAt = convertDateToString(wikiEntry.getCreatedAt()); //"18.02.2017";
-        String updatedAt = convertDateToString(wikiEntry.getUpdatedAt()); //"30.05.2017";
+        String createdAt = convertDateToString(wikiEntry.getCreatedAt());
+        String updatedAt = convertDateToString(wikiEntry.getUpdatedAt());
 
         VerticalLayout wikiEntryInformationContent = new VerticalLayout();
         wikiEntryInformationContent.setStyleName("wikiEntryInformationContent");
@@ -61,9 +63,9 @@ public class WikiPanel extends Panel {
 
         HorizontalLayout wikiEntryInformationButtonContent = new HorizontalLayout();
         Button editEntry = new Button("Edit");
-        editEntry.addClickListener(event -> listener.update(this.wikiEntry));
+        editEntry.addClickListener(event -> listener.edit(this.wikiEntry));
 
-        Button uploadEntry = new Button("Delete");
+        Button uploadEntry = new Button("Save");
         uploadEntry.addClickListener(event -> listener.save(this.wikiEntry));
 
         wikiEntryInformationButtonContent.addComponents(editEntry, uploadEntry);

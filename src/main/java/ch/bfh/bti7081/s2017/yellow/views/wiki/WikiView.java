@@ -13,6 +13,7 @@ public interface WikiView extends Component, NavigatorView {
     interface WikiViewListener extends NavigatorViewListener{
         void save(WikiEntry entry);
         void update(WikiEntry entry);
+        void edit(WikiEntry entry);
     }
 
     void addListener(WikiViewListener listener);

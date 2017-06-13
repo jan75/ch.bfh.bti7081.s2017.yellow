@@ -12,10 +12,9 @@ import ch.bfh.bti7081.s2017.yellow.util.BeanMapperImpl;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 @Service
@@ -27,7 +26,7 @@ public class SimpleServiceImpl<A extends Storable, B extends BaseBean<A>> implem
     private Class<A> entityClazz;
     private Class<B> beanClazz;
     private DbConnector dbConnector;
-    
+
 
     public SimpleServiceImpl(Class<A> entity, Class<B> bean, DbConnector dbConnector) {
         this.beanClazz = bean;
@@ -39,10 +38,10 @@ public class SimpleServiceImpl<A extends Storable, B extends BaseBean<A>> implem
 
     @Override
     public List<B> getALlEntities() {
-    	DbTask d = dbConnector.createDbTask();
-    	List l = d.findAll(entityClazz);
-    	List<B> list = mapperFactory.getMapperFacade().mapAsList(l, beanClazz);
-    	d.end();
+        DbTask d = dbConnector.createDbTask();
+        List l = d.findAll(entityClazz);
+        List<B> list = mapperFactory.getMapperFacade().mapAsList(l, beanClazz);
+        d.end();
         return list;
     }
 
@@ -53,7 +52,7 @@ public class SimpleServiceImpl<A extends Storable, B extends BaseBean<A>> implem
 
     @Override
     public void saveEntities(List<B> beans) {
-    	DbTask d = dbConnector.createDbTask();
+        DbTask d = dbConnector.createDbTask();
         for (B b : beans) {
             d.save(mapperFactory.getMapperFacade().map(b, entityClazz));
         }
@@ -62,9 +61,9 @@ public class SimpleServiceImpl<A extends Storable, B extends BaseBean<A>> implem
 
     @Override
     public void saveEntity(B bean) {
-    	DbTask d = dbConnector.createDbTask();
-    	d.save(mapperFactory.getMapperFacade().map(bean, entityClazz));
-    	d.end();
+        DbTask d = dbConnector.createDbTask();
+        d.save(mapperFactory.getMapperFacade().map(bean, entityClazz));
+        d.end();
     }
 
     @Override

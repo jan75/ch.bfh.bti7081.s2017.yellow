@@ -11,7 +11,7 @@ import java.util.Date;
 /**
  * Created by simon on 23.05.17.
  */
-public class PatientBean extends PersonBean {
+public class PatientBean extends PersonBean implements Comparable<PatientBean> {
 
     @NotEmpty
     private Date checkInDate;
@@ -50,4 +50,11 @@ public class PatientBean extends PersonBean {
         this.checkOutDate = Date.from(checkOutDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
 
+    @Override
+    public int compareTo(PatientBean o) {
+        if (getFirstName().equals(o.getFirstName()) && getLastName().equals(o.getLastName())) {
+            return 0;
+        }
+        return -1;
+    }
 }

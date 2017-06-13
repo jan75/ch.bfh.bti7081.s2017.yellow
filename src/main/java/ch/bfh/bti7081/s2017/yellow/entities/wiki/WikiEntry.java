@@ -38,7 +38,7 @@ public class WikiEntry implements Storable{
     private Date updatedAt;
 
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private User user;
     
     public WikiEntry(Wiki wiki, String caption, String entry, String category) {

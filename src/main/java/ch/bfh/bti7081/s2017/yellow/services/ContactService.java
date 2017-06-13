@@ -16,6 +16,7 @@ import org.hibernate.Session;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -111,7 +112,7 @@ public class ContactService extends SimpleServiceImpl<ContactBook, ContactBookBe
      * @throws NotFoundException throws an Exception if the related entity is not found in the database.
      */
     public void saveContact(ContactBookEntryBean contact) throws NotFoundException {
-        ContactBookEntryBean bean = getContactBookEntries().stream().filter(a -> a.getId() == contact.getId()).findFirst().get();
+        ContactBookEntryBean bean = getContactBookEntries().stream().filter(a -> Objects.equals(a.getId(),contact.getId())).findFirst().get();
 
         if (bean != null) {
             contactEntryService.saveEntity(contact);

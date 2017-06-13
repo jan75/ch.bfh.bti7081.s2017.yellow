@@ -1,6 +1,9 @@
 package ch.bfh.bti7081.s2017.yellow.presenters;
 
 import ch.bfh.bti7081.s2017.yellow.views.*;
+import com.vaadin.ui.Accordion;
+import com.vaadin.ui.Layout;
+import com.vaadin.ui.VerticalLayout;
 
 import java.util.ArrayList;
 
@@ -25,6 +28,28 @@ public class DashboardPresenter {
         addDashboardItem(new WikiDashboardItemPresenter(wikiDashboardItemView));
         PlanningDashboardItemView planningDashboardItemView = new PlanningDashboardItemViewImpl();
         addDashboardItem(new PlanningDashboardItemPresenter(planningDashboardItemView));
+
+        //Accordion
+        Accordion accordion = new Accordion();
+        accordion.setHeight("500");
+        accordion.setWidth("800");
+
+        //add Wiki to accordion
+        Layout wikiDashboardItemViewTab = new VerticalLayout();
+        wikiDashboardItemViewTab.addComponent(wikiDashboardItemView);
+        accordion.addTab(wikiDashboardItemViewTab, "Wiki Dashboard");
+
+        //add Contacts to accordion
+        Layout contactDashboardItemViewTab = new VerticalLayout();
+        contactDashboardItemViewTab.addComponent(contactDashboardView);
+        accordion.addTab(contactDashboardItemViewTab, "Contact Dashboard");
+
+        //add Planning to accordion
+        Layout planningDashboardItemViewTab = new VerticalLayout();
+        planningDashboardItemViewTab.addComponent(planningDashboardItemView);
+        accordion.addTab(planningDashboardItemViewTab, "Planning Dashboard");
+
+        this.view.addComponent(accordion);
     }
 
     /**

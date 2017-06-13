@@ -12507,6 +12507,10 @@ div.v-layout.v-horizontal.v-widget {
 	font-weight: 900;
 }
 
+.mytheme .MainViewVerticalLayout {
+	componentAlignment: center;
+}
+
 .mytheme .wikiPanel table td {
 	text-align: right;
 }

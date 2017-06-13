@@ -65,11 +65,15 @@ public class DbConnector {
 		 * a Hibernate session and transaction.
 		 */
 		protected DbTask() {
+
 		}
 		
 		public Session getSession() {
 			if (this.session == null) {
 				this.session = sessionFactory.openSession();
+			}
+			if (this.transaction == null) {
+				this.transaction = session.beginTransaction();
 			}
 			return session;
 		}

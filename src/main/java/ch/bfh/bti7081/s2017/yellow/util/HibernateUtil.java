@@ -6,7 +6,6 @@ import ch.bfh.bti7081.s2017.yellow.entities.person.*;
 import ch.bfh.bti7081.s2017.yellow.entities.schedule.DailyEstimation;
 import ch.bfh.bti7081.s2017.yellow.entities.schedule.PatientEstimation;
 import ch.bfh.bti7081.s2017.yellow.entities.schedule.Schedule;
-import ch.bfh.bti7081.s2017.yellow.entities.schedule.ScheduleEntry;
 import ch.bfh.bti7081.s2017.yellow.entities.wiki.Wiki;
 import ch.bfh.bti7081.s2017.yellow.entities.wiki.WikiEntry;
 import org.hibernate.cfg.Configuration;

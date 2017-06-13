@@ -18,7 +18,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
 @Service
-public class SimpleServiceImpl<A extends Storable, B extends BaseBean<?>> implements SimpleService<A,B>, BeanMapperConsumer<A, B> {
+public class SimpleServiceImpl<A extends Storable, B extends BaseBean<A>> implements SimpleService<B>, BeanMapperConsumer<A, B> {
 
     final protected MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
     BeanMapper mapper = new BeanMapperImpl<A, B>();
@@ -37,22 +37,22 @@ public class SimpleServiceImpl<A extends Storable, B extends BaseBean<?>> implem
     }
 
     @Override
-    public List<B> getAllEntities() {
-    	DbTask d = dbConnector.createDbTask();
-    	List l = d.findAll(entityClazz);
-    	List<B> list = mapperFactory.getMapperFacade().mapAsList(l, beanClazz);
-    	d.end();
+    public List<B> getALlEntities() {
+        DbTask d = dbConnector.createDbTask();
+        List l = d.findAll(entityClazz);
+        List<B> list = mapperFactory.getMapperFacade().mapAsList(l, beanClazz);
+        d.end();
         return list;
     }
 
     @Override
-    public List<B> findEntities(CriteriaQuery<A> criteria) {
+    public List<B> findEntities(Criteria criteria) {
         return mapperFactory.getMapperFacade().mapAsList(criteria.list(), beanClazz);
     }
 
     @Override
     public void saveEntities(List<B> beans) {
-    	DbTask d = dbConnector.createDbTask();
+        DbTask d = dbConnector.createDbTask();
         for (B b : beans) {
             d.save(mapperFactory.getMapperFacade().map(b, entityClazz));
         }
@@ -61,9 +61,9 @@ public class SimpleServiceImpl<A extends Storable, B extends BaseBean<?>> implem
 
     @Override
     public void saveEntity(B bean) {
-    	DbTask d = dbConnector.createDbTask();
-    	d.save(mapperFactory.getMapperFacade().map(bean, entityClazz));
-    	d.end();
+        DbTask d = dbConnector.createDbTask();
+        d.save(mapperFactory.getMapperFacade().map(bean, entityClazz));
+        d.end();
     }
 
     @Override

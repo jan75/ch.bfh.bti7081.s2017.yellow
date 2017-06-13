@@ -125,7 +125,7 @@ public class ContactService extends SimpleServiceImpl<ContactBook, ContactBookBe
      * The Methode loads all contactBook entities from the database.
      */
     public void LoadContactBook(){
-        contactBookBean = getAllEntities().get(0);
+        contactBookBean = getALlEntities().get(0);
 
         // Create empty contactBook
         if(contactBookBean == null) {

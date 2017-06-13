@@ -9,6 +9,7 @@ import ch.bfh.bti7081.s2017.yellow.entities.schedule.DailyEstimation;
 import ch.bfh.bti7081.s2017.yellow.repositories.DbConnector;
 import ch.bfh.bti7081.s2017.yellow.util.HibernateUtil;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.query.Query;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -25,21 +26,23 @@ public class EstimationService {
 
     private DailyEstimationBean selectedDay;
 
-    private SimpleService<DailyEstimation, DailyEstimationBean> estimationService;
+    private SimpleService<DailyEstimationBean> estimationService;
 
-    private SimpleService<Patient, PatientBean> patientService;
+    private SimpleService<PatientBean> patientService;
+
+    private DbConnector connector;
 
     public EstimationService() {
-        estimationService = new SimpleServiceImpl<>(DailyEstimation.class, DailyEstimationBean.class, new DbConnector());
-        patientService = new SimpleServiceImpl<>(Patient.class, PatientBean.class, new DbConnector());
+        connector = new DbConnector();
+        estimationService = new SimpleServiceImpl<>(DailyEstimation.class, DailyEstimationBean.class, connector);
+        patientService = new SimpleServiceImpl(Patient.class, PatientBean.class, connector);
     }
 
     public DailyEstimationBean getDailyEstimation(LocalDate date) {
-        CriteriaBuilder builder = HibernateUtil.getSessionFactory().getCriteriaBuilder();
-        CriteriaQuery<DailyEstimation> criteria = builder.createQuery(DailyEstimation.class);
-        criteria.where(builder.equal(criteria.from(DailyEstimation.class).get("date"), date));
+        Query q = connector.createDbTask().getSession().createQuery("select d from DailyEstimation where d.date = :date");
+        q.setParameter("date", date);
 
-        List<DailyEstimationBean> result = estimationService.findEntities(criteria);
+        List<DailyEstimationBean> result = q.getResultList();
         if (result.size() > 0) {
             selectedDay = result.get(0);
         } else {
@@ -59,7 +62,7 @@ public class EstimationService {
                 .map(PatientEstimationBean::getPatient)
                 .collect(Collectors.toList());
 
-        List<PatientBean> patients = patientService.getAllEntities();
+        List<PatientBean> patients = patientService.getALlEntities();
 
         List<PatientBean> result = new ArrayList<>(patients);
         for (PatientBean p: patients) {

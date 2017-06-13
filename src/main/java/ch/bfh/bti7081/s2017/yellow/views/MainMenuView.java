@@ -29,29 +29,25 @@ public class MainMenuView extends CustomComponent implements MenuView, Button.Cl
         VerticalLayout layout = new VerticalLayout();
         HorizontalLayout menuLayout = new HorizontalLayout();
 
+        Image imagePlanning = new Image(null, new ThemeResource("icons/Planning.png"));
+        imagePlanning.addClickListener(e -> NavigatorController.getInstance().navigateTo("planningView"));
+        imagePlanning.setStyleName("image");
+        menuLayout.addComponent(imagePlanning);
 
-        menuLayout.addComponent(new MenuButton("Planning", new Button.ClickListener() {
-            @Override
-            public void buttonClick(Button.ClickEvent clickEvent) {
-                NavigatorController.getInstance().navigateTo("planningView");
-            }
-        }));
+        Image imageContact = new Image(null, new ThemeResource("icons/Contacts.png"));
+        imageContact.addClickListener(e -> NavigatorController.getInstance().navigateTo("contactView"));
+        imageContact.setStyleName("image");
+        menuLayout.addComponent(imageContact);
 
+        Image imageWiki = new Image(null, new ThemeResource("icons/Wiki.png"));
+        imageWiki.addClickListener(e -> NavigatorController.getInstance().navigateTo("wikiView"));
+        imageWiki.setStyleName("image");
+        menuLayout.addComponent(imageWiki);
 
-        menuLayout.addComponent(new MenuButton("Contact", new Button.ClickListener() {
-            @Override
-            public void buttonClick(Button.ClickEvent clickEvent) {
-                NavigatorController.getInstance().navigateTo("contactView");
-            }
-        }));
-
-
-        menuLayout.addComponent(new MenuButton("Wiki", new Button.ClickListener() {
-            @Override
-            public void buttonClick(Button.ClickEvent clickEvent) {
-                NavigatorController.getInstance().navigateTo("wikiView");
-            }
-        }));
+        Image patientEstimationView = new Image(null, new ThemeResource("icons/Timer.png"));
+        //patientEstimationView.addClickListener(e -> NavigatorController.getInstance().navigateTo("patientEstimationView"));
+        patientEstimationView.setStyleName("image");
+        menuLayout.addComponent(patientEstimationView);
 
         layout.addComponent(menuLayout);
 

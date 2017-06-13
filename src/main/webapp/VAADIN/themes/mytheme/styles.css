@@ -12530,3 +12530,12 @@ div.v-layout.v-horizontal.v-widget {
 .mytheme .v-verticallayout-wikiEntryInformationContent {
 	padding: 10px 10px 10px 10px;
 }
+
+.mytheme .v-image-image {
+	opacity: 1;
+	padding: 0px 40px 0px 0px;
+}
+
+.mytheme .v-image-image:hover {
+	opacity: 0.3;
+}

@@ -74,6 +74,8 @@ public class ContactDashboardItemViewImpl extends HorizontalLayout implements Co
         contactArrayList.add(contact5);
 
         Grid<Contact> grid = new Grid<>();
+        grid.setWidth("100%");
+        grid.setHeight("100%");
         grid.setItems(contactArrayList);
         grid.asSingleSelect();
         grid.addColumn(Contact::getPrename).setCaption("Prename");

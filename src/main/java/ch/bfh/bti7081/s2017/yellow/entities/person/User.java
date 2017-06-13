@@ -12,6 +12,10 @@ import javax.persistence.*;
 @Table(name="USER")
 public class User extends Person {
 
+    public User() {
+
+    }
+
     @OneToOne
     private ContactBook contactBook;
 

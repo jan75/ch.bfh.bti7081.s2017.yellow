@@ -83,6 +83,7 @@ public class CrudRepositoryImplTest {
 		//only save contactBookEntry. Because of CascadeType.PERSIST, person is also saved
 		dbTask.save(contactBookEntry);
 
+		dbTask.end();
 	}
 	
 	/**

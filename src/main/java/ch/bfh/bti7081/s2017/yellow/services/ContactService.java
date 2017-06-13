@@ -67,14 +67,12 @@ public class ContactService extends SimpleServiceImpl<ContactBook, ContactBookBe
     private static void createDummyContactBook() {
         DbConnector.DbTask task = new DbConnector().createDbTask();
         try {
-            Session session = task.getSession();
-
             // dummy Employee
             Employee employee = new Employee();
             employee.setFirstName("Samuel");
             employee.setLastName("Hacker");
             employee.setSince(new Date());
-            session.persist(employee);
+            task.save(employee);
 
             // dummy Patient
             Patient patient = new Patient();
@@ -82,25 +80,25 @@ public class ContactService extends SimpleServiceImpl<ContactBook, ContactBookBe
             patient.setLastName("Malaria");
             patient.setCheckInDate(new Date());
             patient.setCheckOutDate(new Date());
-            session.persist(patient);
+            task.save(patient);
 
             // dummy ContactBookEntry
             List<Person> persList = task.findAll(Person.class);
             ContactBookEntry contactBookEntryEmployee = new ContactBookEntry();
             contactBookEntryEmployee.setPerson(persList.get(0));
-            session.persist(contactBookEntryEmployee);
+            task.save(contactBookEntryEmployee);
 
             // dummy ContactBookEntry
             ContactBookEntry contactBookEntryPatient = new ContactBookEntry();
             contactBookEntryPatient.setPerson(persList.get(1));
-            session.persist(contactBookEntryPatient);
+            task.save(contactBookEntryPatient);
 
             // dummy ContactBoo
             List<ContactBookEntry> entryList = task.findAll(ContactBookEntry.class);
             ContactBook contactBook = new ContactBook();
             contactBook.addEntry(entryList.get(0));
             contactBook.addEntry(entryList.get(1));
-            session.persist(contactBook);
+            task.save(contactBook);
         }
         finally {
             task.end();

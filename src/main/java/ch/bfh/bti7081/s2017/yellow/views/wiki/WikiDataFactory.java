@@ -50,6 +50,8 @@ public final class WikiDataFactory {
             wikiEntry.setUser(user);
             dbTask.save(wikiEntry);
         }
+        
+        dbTask.end();
     }
 
 }

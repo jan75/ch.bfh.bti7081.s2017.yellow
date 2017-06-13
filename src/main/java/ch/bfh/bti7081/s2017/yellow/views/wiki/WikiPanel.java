@@ -108,9 +108,19 @@ public class WikiPanel extends Panel {
 
     public void toggleReadOnly() {
         this.readOnly = !this.readOnly;
-        editEntry.setCaption( (readOnly) ? "Edit" : "Abbrechen");
+
+        if (readOnly) {
+            editEntry.setCaption("Edit");
+            wikiEntryContent.removeStyleName("wikiEntryContentInEditMode");
+        }
+        else {
+            editEntry.setCaption("Abbrechen");
+            wikiEntryContent.addStyleName("wikiEntryContentInEditMode");
+        }
+
         this.saveEntry.setVisible(!this.saveEntry.isVisible());
-        this.wikiEntryContent.setReadOnly(this.readOnly);
+
+        this.wikiEntryContent.setReadOnly(readOnly);
     }
     private String convertDateToString(Date date) {
         return new SimpleDateFormat("yyyy-MM-dd").format(date);

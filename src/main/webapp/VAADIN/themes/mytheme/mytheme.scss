@@ -58,7 +58,10 @@
     min-height:240px;
   }
 
-  .wikiPanelGrid {
+  .wikiEntryContentInEditMode {
+    -webkit-box-shadow: 0 0 0 2px rgba(25, 125, 225,0.5);
+    -moz-box-shadow: 0 0 0 2px rgba(25, 125, 225,0.5);
+    box-shadow: 0 0 0 2px rgba(25, 125, 225,0.5);
   }
 
   .v-verticallayout-wikiEntryInformationContent {

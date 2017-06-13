@@ -20,7 +20,7 @@ public class WikiDashboardItemViewImpl extends VerticalLayout implements WikiDas
         		+ "Ipsum passages, and more recently with desktop publishing "
         		+ "software like Aldus PageMaker including versions of "
         		+ "Lorem Ipsum.");
-        wikiEntryContent.setWidth("200px");
+        wikiEntryContent.setWidth("300px");
         addComponent(wikiEntryContent);
         Label wikiEntryAuthor = new Label("- Hans Fritz");
         addComponent(wikiEntryAuthor);

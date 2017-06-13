@@ -5,6 +5,6 @@ target
 .classpath
 .project
 .settings
-src/main/webapp/VAADIN/themes/mytheme/addons.scss
 # ...
 doc/CS1/Task7/media/feh_004157_000001_filelist
+addons.scss

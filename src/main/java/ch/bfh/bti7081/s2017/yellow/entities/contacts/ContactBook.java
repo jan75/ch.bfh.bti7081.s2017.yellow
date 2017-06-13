@@ -20,13 +20,13 @@ import java.util.List;
 public class ContactBook implements Storable{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="ID")
     private Long id;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy="contactBook")
-    @Cascade({ CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.DETACH, CascadeType.REFRESH})
-    private List<ContactBookEntry> entries;
+    @OneToMany(mappedBy="contactBook")
+    @Cascade({ CascadeType.ALL})
+    private List<ContactBookEntry> entries = new ArrayList<>();
 
     public ContactBook() {
 
@@ -55,6 +55,7 @@ public class ContactBook implements Storable{
     }
 
     public void addEntry(ContactBookEntry entry){
+        entry.setContactBook(this);
         entries.add(entry);
     }
 }

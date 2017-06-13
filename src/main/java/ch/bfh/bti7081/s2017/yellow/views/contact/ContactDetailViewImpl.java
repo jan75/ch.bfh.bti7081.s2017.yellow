@@ -14,34 +14,43 @@ import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 
 /**
- * Created by simon on 15.05.17.
+ * Concrete ContactDetailViewImpl implementation contains components for all detail views.
+ * @author iSorp
  */
 public abstract class ContactDetailViewImpl extends FormLayout implements ContactDetailView {
 
     protected ContactDetailViewListener listener;
     protected Button btnSave = new Button("Save");
-    protected Button btnDelete = new Button("Delete");
     protected Button btnCancel = new Button("Cancel");
 
+    /**
+     * Initialize the components for the layout
+     */
     protected void createLayout() {
         setSizeFull();
-        HorizontalLayout buttons = new HorizontalLayout(btnSave, btnDelete, btnCancel);
+        HorizontalLayout buttons = new HorizontalLayout(btnSave, btnCancel);
         addComponents(buttons);
 
         btnSave.setStyleName(ValoTheme.BUTTON_PRIMARY);
-        btnDelete.setStyleName(ValoTheme.BUTTON_DANGER);
         btnSave.setClickShortcut(ShortcutAction.KeyCode.ENTER);
         btnCancel.setClickShortcut(ShortcutAction.KeyCode.ESCAPE);
     }
 
+    /**
+     * Wires a listener to the view
+     * @param listener
+     */
     @Override
     public void addListener(ContactDetailViewListener listener) {
         this.listener = listener;
         btnSave.addClickListener(event ->   listener.saveClicked());
-        btnDelete.addClickListener(event -> listener.deleteClicked());
         btnCancel.addClickListener(event -> listener.cancelClicked());
     }
 
+    /**
+     * This Method is called when the view navigator calls this view and
+     * @param viewChangeEvent
+     */
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
         if (listener != null) {
@@ -49,9 +58,15 @@ public abstract class ContactDetailViewImpl extends FormLayout implements Contac
         }
     }
 
+    /**
+     * Wires a ContactBookEntry to the views component
+     * @param contactBookEntryBean
+     */
     public abstract void setContact(ContactBookEntryBean  contactBookEntryBean);
 
-
+    /**
+     * @return ContactBookEntryBean
+     */
     public abstract ContactBookEntryBean getContact();
 
 }

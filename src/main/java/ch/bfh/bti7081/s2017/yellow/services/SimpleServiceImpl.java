@@ -4,14 +4,14 @@ import ch.bfh.bti7081.s2017.yellow.beans.BaseBean;
 import ch.bfh.bti7081.s2017.yellow.beans.ContactBookBean;
 import ch.bfh.bti7081.s2017.yellow.entities.Storable;
 import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBook;
-import ch.bfh.bti7081.s2017.yellow.repositories.CrudRepository;
-import ch.bfh.bti7081.s2017.yellow.repositories.CrudRepositoryImpl;
+import ch.bfh.bti7081.s2017.yellow.repositories.DbConnector;
+import ch.bfh.bti7081.s2017.yellow.repositories.DbConnector.DbTask;
 import ch.bfh.bti7081.s2017.yellow.util.BeanMapper;
 import ch.bfh.bti7081.s2017.yellow.util.BeanMapperConsumer;
 import ch.bfh.bti7081.s2017.yellow.util.BeanMapperImpl;
-import ma.glasnost.orika.*;
+import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.Criteria;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.CriteriaQuery;
@@ -23,48 +23,47 @@ public class SimpleServiceImpl<A extends Storable, B extends BaseBean<?>> implem
     final protected MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
     BeanMapper mapper = new BeanMapperImpl<A, B>();
 
-    @Autowired
-    protected CrudRepository<A> repo;
-
     private Class<A> entityClazz;
     private Class<B> beanClazz;
+    private DbConnector dbConnector;
 
-    public SimpleServiceImpl(Class<A> entity, Class<B> bean) {
-        this.repo = new CrudRepositoryImpl<>();
+
+    public SimpleServiceImpl(Class<A> entity, Class<B> bean, DbConnector dbConnector) {
         this.beanClazz = bean;
         this.entityClazz = entity;
         mapperFactory.classMap(ContactBook.class, ContactBookBean.class).customize(mapper).register();
         mapper.setBeanMapperConsumer(this);
+        this.dbConnector = dbConnector;
     }
 
     @Override
     public List<B> getAllEntities() {
-        return mapperFactory.getMapperFacade().mapAsList(repo.getAll(entityClazz), beanClazz);
+    	DbTask d = dbConnector.createDbTask();
+    	List l = d.findAll(entityClazz);
+    	List<B> list = mapperFactory.getMapperFacade().mapAsList(l, beanClazz);
+    	d.end();
+        return list;
     }
 
     @Override
     public List<B> findEntities(CriteriaQuery<A> criteria) {
-        return mapperFactory.getMapperFacade().mapAsList(repo.find(criteria), beanClazz);
+        return mapperFactory.getMapperFacade().mapAsList(criteria.list(), beanClazz);
     }
 
     @Override
     public void saveEntities(List<B> beans) {
+    	DbTask d = dbConnector.createDbTask();
         for (B b : beans) {
-            if (b.getId() == null) {
-                repo.save(mapperFactory.getMapperFacade().map(beanClazz, entityClazz));
-            } else {
-                repo.update(mapperFactory.getMapperFacade().map(beanClazz, entityClazz));
-            }
+            d.save(mapperFactory.getMapperFacade().map(b, entityClazz));
         }
+        d.end();
     }
 
     @Override
     public void saveEntity(B bean) {
-        if (bean.getId() == null) {
-            repo.save(mapperFactory.getMapperFacade().map(bean, entityClazz));
-        } else {
-            repo.update(mapperFactory.getMapperFacade().map(bean, entityClazz));
-        }
+    	DbTask d = dbConnector.createDbTask();
+    	d.save(mapperFactory.getMapperFacade().map(bean, entityClazz));
+    	d.end();
     }
 
     @Override

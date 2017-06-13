@@ -39,9 +39,6 @@ public class ContactPresenter implements ContactView.ContactViewListener {
         // View listeners (add contact, change view)
         view.addListener(this);
 
-        // Adding List of ContactBookEntryBeans to a data provider
-        view.setContactBookEntries(service.getContactBookEntries());
-
         // View Navigator for detailed contact form
         NavigatorController.getInstance().addView(contactEmployeeView.getClass().getName(), contactEmployeeView);
         NavigatorController.getInstance().addView(contactPatientView.getClass().getName(), contactPatientView);
@@ -62,31 +59,31 @@ public class ContactPresenter implements ContactView.ContactViewListener {
         service.setFilter(filter);
         view.setContactBookEntries(service.getContactBookEntries());
     }
+
     /**
      * Displays the detail view for a single contact.
+     * @param contact selected contactBookEntry
      */
-    public void selectionChange(ContactBookEntryBean selection) {
-        if (selection != null) {
-            if (selection.getPerson() instanceof PatientBean) {
+    public void selectionChange(ContactBookEntryBean contact) {
+        if (contact != null) {
+            if (contact.getPerson() instanceof PatientBean) {
                 activeDetailView = contactPatientPresenter;
-            }else if (selection.getPerson() instanceof EmployeeBean) {
+            }else if (contact.getPerson() instanceof EmployeeBean) {
                 activeDetailView = contactEmployeePresenter;
             }
-            activeDetailView.setContact(selection);
+            activeDetailView.setContact(contact);
             NavigatorController.getInstance().navigateTo(activeDetailView.getView().getClass().getName());
         }
     }
 
-    @Override
-    public void addContact() {
-        ContactBookEntryBean bean = new ContactBookEntryBean();
-        //bean.setEntity(new ContactBookEntry());
-        activeDetailView.setContact(new ContactBookEntryBean());
-        NavigatorController.getInstance().navigateTo(activeDetailView.getView().getClass().getName());
-    }
-
+     /**
+     * This Method is called when the view navigator calls this view and
+     * loads all data from database and display it
+     * @param event
+     */
     @Override
     public void changeView(ViewChangeListener.ViewChangeEvent event) {
-        service.getContactBookDataProvider().refreshAll();
+        service.LoadContactBook();
+        view.setContactBookEntries(service.getContactBookEntries());
     }
 }

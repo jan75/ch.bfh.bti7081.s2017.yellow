@@ -7,6 +7,8 @@ import ch.bfh.bti7081.s2017.yellow.util.NavigatorController;
 import ch.bfh.bti7081.s2017.yellow.beans.ContactBookEntryBean;
 import ch.bfh.bti7081.s2017.yellow.views.contact.ContactDetailView;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.ui.Notification;
+import javassist.NotFoundException;
 
 /**
  * Presenter for a ContactDetailPresenter. Supports displaying and editing of a single contact.
@@ -39,40 +41,50 @@ public class ContactDetailPresenter<TView extends ContactDetailView> implements 
     }
 
     /**
-     *
+     * Wires a ContactBookEntry to the view
      */
     public void setContact(ContactBookEntryBean contactBookEntryBean) {
         view.setContact(contactBookEntryBean);
     }
 
-    @Override
-    public void changeView(ViewChangeListener.ViewChangeEvent event) {
-        //view.validate();
+    /**
+     * Navigates back to the parent view
+     */
+    private void navigateBack() {
+        NavigatorController.getInstance().navigateTo("contactView");
     }
 
+    /**
+     * Saves a ContactBookEntry to the database,
+     * if the entity is not found a message will be displayed.
+     */
     @Override
     public void saveClicked() {
-        // TODO: distinguish Person type
         if (view.validate()) {
-            ContactBookBean book = service.getAllEntities().get(0);
-            //book.addEntry(view.getContact());
-            service.saveEntity(book);
+            try {
+                service.saveContact(view.getContact());
+            }
+            catch (NotFoundException notFoundException){
+                Notification.show(notFoundException.getMessage());
+            }
             navigateBack();
         }
     }
 
-    @Override
-    public void deleteClicked() {
-        // TODO: Delete
-        navigateBack();
-    }
-
+    /**
+     * Cancels the editing and navigates back to to parent view
+     */
     @Override
     public void cancelClicked() {
         navigateBack();
     }
 
-    private void navigateBack() {
-        NavigatorController.getInstance().navigateTo("contactView");
+    /**
+     * This Method is called when the view navigator calls this view
+     * @param event
+     */
+    @Override
+    public void changeView(ViewChangeListener.ViewChangeEvent event) {
+        service.LoadContactBook();
     }
 }

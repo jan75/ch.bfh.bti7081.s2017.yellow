@@ -6,6 +6,7 @@ import ch.bfh.bti7081.s2017.yellow.beans.schedule.PatientEstimationBean;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Patient;
 import ch.bfh.bti7081.s2017.yellow.entities.schedule.PatientEstimation;
 import ch.bfh.bti7081.s2017.yellow.entities.schedule.DailyEstimation;
+import ch.bfh.bti7081.s2017.yellow.repositories.DbConnector;
 import ch.bfh.bti7081.s2017.yellow.util.HibernateUtil;
 import org.hibernate.criterion.Restrictions;
 
@@ -29,8 +30,8 @@ public class EstimationService {
     private SimpleService<Patient, PatientBean> patientService;
 
     public EstimationService() {
-        estimationService = new SimpleServiceImpl<>(DailyEstimation.class, DailyEstimationBean.class);
-        patientService = new SimpleServiceImpl<>(Patient.class, PatientBean.class);
+        estimationService = new SimpleServiceImpl<>(DailyEstimation.class, DailyEstimationBean.class, new DbConnector());
+        patientService = new SimpleServiceImpl<>(Patient.class, PatientBean.class, new DbConnector());
     }
 
     public DailyEstimationBean getDailyEstimation(LocalDate date) {

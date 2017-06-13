@@ -9,26 +9,32 @@ import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 
 /**
- * Created by simon on 15.05.17.
+ * Concrete PatientView implementation contains components to display data of one patient
+ * @author iSorp
  */
 public class PatientViewImpl extends ContactDetailViewImpl {
-    
+
+    // Components
     private TextField firstName = new TextField("First name");
     private TextField lastName = new TextField("Last name");
     private TextField phoneNr = new TextField("Phone number");
     private DateField checkInDate = new DateField("checkInDate");
     private DateField checkOutDate = new DateField("checkOutDate");
 
+    // Validator
     private BeanValidationBinder<ContactBookEntryBean> beanValidationBinder = new BeanValidationBinder(ContactBookEntryBean.class);
 
+    /**
+     * Default ContactViewImpl PatientViewImpl.
+     */
     public PatientViewImpl() {
         createLayout();
     }
 
     @Override
     protected void createLayout() {
-        VerticalLayout textBoxes = new VerticalLayout(firstName, lastName, phoneNr, checkInDate, checkOutDate);
-        addComponents(textBoxes);
+        VerticalLayout textFields = new VerticalLayout(firstName, lastName, phoneNr, checkInDate, checkOutDate);
+        addComponents(textFields);
 
         beanValidationBinder.bindInstanceFields(this);
 
@@ -40,22 +46,33 @@ public class PatientViewImpl extends ContactDetailViewImpl {
         super.createLayout();
     }
 
+    /**
+     * Binds a contactBookEntryBean to the view and displays the data.
+     * @param contactBookEntryBean
+     */
     @Override
     public void setContact(ContactBookEntryBean contactBookEntryBean) {
         beanValidationBinder.setBean(contactBookEntryBean);
     }
 
+    /**
+     * Returns the current contactBookEntryBean
+     * @return contactBookEntryBean
+     */
     @Override
     public ContactBookEntryBean getContact() {
         return beanValidationBinder.getBean();
     }
 
+    /**
+     * Validates the content of all textFields
+     * @return
+     */
     @Override
     public boolean validate() {
         beanValidationBinder.validate();
         return beanValidationBinder.isValid();
     }
-
 }
 
 

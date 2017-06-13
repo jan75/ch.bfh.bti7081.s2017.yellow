@@ -39,7 +39,6 @@ public class HibernateUtil {
                 .addAnnotatedClass(Person.class)
                 .addAnnotatedClass(User.class)
                 .addAnnotatedClass(Schedule.class)
-                .addAnnotatedClass(ScheduleEntry.class)
                 .addAnnotatedClass(Wiki.class)
                 .addAnnotatedClass(WikiEntry.class)
                 .addAnnotatedClass(PatientEstimation.class)

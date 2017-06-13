@@ -15,10 +15,17 @@ import java.util.List;
 public interface ContactView extends Component, NavigatorView  {
     void setContactBookEntries(List<ContactBookEntryBean> entries);
 
+    /**
+     * Interface for the presenter, performs actions for the view
+     */
     interface ContactViewListener extends NavigatorViewListener{
         void setFilter(String filter);
         void selectionChange(ContactBookEntryBean selection);
-        void addContact();
     }
+
+    /**
+     * Adds to Presenter as a listener to the view
+     * @param listener
+     */
     void addListener(ContactViewListener listener);
 }

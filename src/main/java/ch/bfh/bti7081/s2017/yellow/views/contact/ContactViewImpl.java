@@ -23,7 +23,17 @@ public class ContactViewImpl extends CustomComponent implements ContactView {
     private List<ContactBookEntryBean> entries = new ArrayList<>();
     private TextField filterText = new TextField();
 
+    /**
+     * Default ContactViewImpl Constructor.
+     */
     public ContactViewImpl() {
+        this.createLayout();
+    }
+
+    /**
+     * Initialize the components for the layout
+     */
+    protected void createLayout() {
         final VerticalLayout layout = new VerticalLayout();
 
         filterText.setPlaceholder("filter by name...");
@@ -37,9 +47,6 @@ public class ContactViewImpl extends CustomComponent implements ContactView {
         CssLayout filtering = new CssLayout();
         filtering.addComponents(filterText, clearFilterTextBtn);
         filtering.setStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
-
-        Button addCustomerBtn = new Button("Add new");
-        addCustomerBtn.addClickListener(clickEvent -> listener.addContact());
 
         HorizontalLayout toolbar = new HorizontalLayout(filtering);
 
@@ -62,6 +69,10 @@ public class ContactViewImpl extends CustomComponent implements ContactView {
         setVisible(false);
     }
 
+
+    /**
+     * GridView dataProvider for all contactBook entries.
+     */
     DataProvider<ContactBookEntryBean, String> dataProvider = DataProvider.fromFilteringCallbacks(
             // First callback fetches items based on a query
             query -> entries.stream(),
@@ -70,21 +81,32 @@ public class ContactViewImpl extends CustomComponent implements ContactView {
             query ->entries.size()
     );
 
+    /**
+     * Wires a ContactBookEntry to the views component
+     * @param entries
+     */
     @Override
     public void setContactBookEntries(List<ContactBookEntryBean> entries) {
         this.entries = entries;
         dataProvider.refreshAll();
     }
 
+    /**
+     * Wires a listener to the view
+     * @param listener
+     */
     @Override
     public void addListener(ContactViewListener listener) {
         this.listener = listener;
     }
 
+    /**
+     * This Method is called when the view navigator calls this view and
+     * @param viewChangeEvent
+     */
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
         listener.changeView(viewChangeEvent);
         setVisible(true);
     }
-
 }

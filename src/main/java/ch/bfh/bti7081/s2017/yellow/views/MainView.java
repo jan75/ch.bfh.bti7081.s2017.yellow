@@ -1,21 +1,23 @@
 package ch.bfh.bti7081.s2017.yellow.views;
 
 import ch.bfh.bti7081.s2017.yellow.presenters.ContactPresenter;
-import ch.bfh.bti7081.s2017.yellow.presenters.DashboardPresenter;
 import ch.bfh.bti7081.s2017.yellow.presenters.MainMenuPresenter;
+import ch.bfh.bti7081.s2017.yellow.presenters.PlanningPresenter;
 import ch.bfh.bti7081.s2017.yellow.presenters.WikiPresenter;
 import ch.bfh.bti7081.s2017.yellow.repositories.DbConnector;
-
-import java.sql.SQLException;
 import ch.bfh.bti7081.s2017.yellow.util.NavigatorController;
 import ch.bfh.bti7081.s2017.yellow.views.contact.ContactView;
 import ch.bfh.bti7081.s2017.yellow.views.contact.ContactViewImpl;
+import ch.bfh.bti7081.s2017.yellow.views.planning.PlanningView;
+import ch.bfh.bti7081.s2017.yellow.views.planning.PlanningViewImpl;
 import ch.bfh.bti7081.s2017.yellow.views.wiki.WikiView;
 import ch.bfh.bti7081.s2017.yellow.views.wiki.WikiViewImpl;
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
+
+import java.sql.SQLException;
 
 @Theme("mytheme")
 public class MainView extends UI {
@@ -30,28 +32,28 @@ public class MainView extends UI {
 		}
 
 		NavigatorController.getInstance().setUiContainer(this);
-        VerticalLayout rootLayout = new VerticalLayout();
+		VerticalLayout rootLayout = new VerticalLayout();
 
-		MainMenuView view = new MainMenuView();
+		MenuView view = new MainMenuView();
 		new MainMenuPresenter(view);
 		rootLayout.addComponent(view);
 
-		DashboardView dashboardView = new DashboardViewImpl();
-		new DashboardPresenter(dashboardView);
-		rootLayout.addComponent(dashboardView);
-
-       /* ContactView contactView = new ContactViewImpl();
+        ContactView contactView = new ContactViewImpl();
         new ContactPresenter(contactView);
         rootLayout.addComponent(contactView);
-        NavigatorController.getInstance().addView("contactView", contactView);
-        setContent(rootLayout);
-        NavigatorController.getInstance().navigateTo("contactView");*/
+
+        PlanningView planningView = new PlanningViewImpl();
+		new PlanningPresenter(planningView);
+		rootLayout.addComponent(planningView);
 
 		WikiView wikiView = new WikiViewImpl();
-		WikiPresenter wikiPresenter =  new WikiPresenter(wikiView);
+		new WikiPresenter(wikiView);
 		rootLayout.addComponent(wikiView);
+
+		NavigatorController.getInstance().addView("", view);
+		NavigatorController.getInstance().addView("contactView", contactView);
 		NavigatorController.getInstance().addView("wikiView", wikiView);
+		NavigatorController.getInstance().addView("planningView", planningView);
 		setContent(rootLayout);
-		NavigatorController.getInstance().navigateTo("wikiView");
     }
 }

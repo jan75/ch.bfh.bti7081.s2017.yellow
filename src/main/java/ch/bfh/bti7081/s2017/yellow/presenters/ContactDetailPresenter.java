@@ -7,6 +7,8 @@ import ch.bfh.bti7081.s2017.yellow.util.NavigatorController;
 import ch.bfh.bti7081.s2017.yellow.beans.ContactBookEntryBean;
 import ch.bfh.bti7081.s2017.yellow.views.contact.ContactDetailView;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.ui.Notification;
+import javassist.NotFoundException;
 
 /**
  * Presenter for a ContactDetailPresenter. Supports displaying and editing of a single contact.
@@ -45,34 +47,30 @@ public class ContactDetailPresenter<TView extends ContactDetailView> implements 
         view.setContact(contactBookEntryBean);
     }
 
-    @Override
-    public void changeView(ViewChangeListener.ViewChangeEvent event) {
-        //view.validate();
+    private void navigateBack() {
+        NavigatorController.getInstance().navigateTo("contactView");
     }
 
     @Override
     public void saveClicked() {
-        // TODO: distinguish Person type
         if (view.validate()) {
-            ContactBookBean book = service.getALlEntities().get(0);
-            //book.addEntry(view.getContact());
-            service.saveEntity(book);
+            try {
+                service.saveContact(view.getContact());
+            }
+            catch (NotFoundException notFoundException){
+                Notification.show(notFoundException.getMessage());
+            }
             navigateBack();
         }
     }
-
-    @Override
-    public void deleteClicked() {
-        // TODO: Delete
-        navigateBack();
-    }
-
+    
     @Override
     public void cancelClicked() {
         navigateBack();
     }
 
-    private void navigateBack() {
-        NavigatorController.getInstance().navigateTo("contactView");
+    @Override
+    public void changeView(ViewChangeListener.ViewChangeEvent event) {
+        service.LoadContactBook();
     }
 }

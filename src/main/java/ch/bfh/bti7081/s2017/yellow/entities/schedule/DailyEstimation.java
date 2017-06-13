@@ -19,7 +19,7 @@ public class DailyEstimation implements Storable {
     @Column(name="ID")
     private Long id;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<PatientEstimation> patientEstimation;
 
     @Column(name="DATE")

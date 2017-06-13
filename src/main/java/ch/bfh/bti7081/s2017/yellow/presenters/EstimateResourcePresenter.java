@@ -1,7 +1,9 @@
 package ch.bfh.bti7081.s2017.yellow.presenters;
 
-import ch.bfh.bti7081.s2017.yellow.services.ResourceService;
-import ch.bfh.bti7081.s2017.yellow.views.EstimateResourceView;
+import ch.bfh.bti7081.s2017.yellow.beans.schedule.EstimationViewBean;
+import ch.bfh.bti7081.s2017.yellow.beans.schedule.PatientEstimationBean;
+import ch.bfh.bti7081.s2017.yellow.services.EstimationService;
+import ch.bfh.bti7081.s2017.yellow.views.schedule.PatientEstimationView;
 import ch.bfh.bti7081.s2017.yellow.views.listeners.EstimateResourceListener;
 
 import java.time.LocalDate;
@@ -11,25 +13,42 @@ import java.time.LocalDate;
  */
 public class EstimateResourcePresenter implements EstimateResourceListener {
 
-    private ResourceService service;
+    private EstimationService service;
 
-    private EstimateResourceView view;
+    private PatientEstimationView view;
 
-    public EstimateResourcePresenter(EstimateResourceView view) {
-        this(view, new ResourceService());
+    private EstimationViewBean bean;
+
+    public EstimateResourcePresenter(PatientEstimationView view) {
+        this(view, new EstimationService());
     }
 
-    public EstimateResourcePresenter(EstimateResourceView view, ResourceService service) {
+    public EstimateResourcePresenter(PatientEstimationView view, EstimationService service) {
         this.view = view;
         this.service = service;
 
+        bean = new EstimationViewBean();
+        changeDate(LocalDate.now());
         view.addListener(this);
-        view.setPatientResources(service.getPatientResource());
     }
 
     @Override
     public void changeDate(LocalDate date) {
-        service.loadWeek(date);
-        view.setPatientResources(service.getPatientResource());
+        bean.setDailyEstimationBean(service.getDailyEstimation(date));
+        bean.setPatientBean(service.getPatientWhereNotAdded());
+        view.setPatientEstimation(bean);
+    }
+
+    @Override
+    public void addEstimation() {
+        service.addPatientEstimation(bean.getNewPatientEstimation());
+        bean.setPatientBean(service.getPatientWhereNotAdded());
+        bean.setNewPatientEstimation(new PatientEstimationBean());
+        view.setPatientEstimation(bean);
+    }
+
+    @Override
+    public void saveClicked() {
+        service.saveDay();
     }
 }

@@ -54,7 +54,7 @@ public class ContactDetailPresenter<TView extends ContactDetailView> implements 
     public void saveClicked() {
         // TODO: distinguish Person type
         if (view.validate()) {
-            ContactBookBean book = service.getALlEntities().get(0);
+            ContactBookBean book = service.getAllEntities().get(0);
             //book.addEntry(view.getContact());
             service.saveEntity(book);
             navigateBack();

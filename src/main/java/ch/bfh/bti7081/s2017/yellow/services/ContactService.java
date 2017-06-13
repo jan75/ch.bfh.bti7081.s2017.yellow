@@ -77,7 +77,7 @@ public class ContactService extends SimpleServiceImpl<ContactBook, ContactBookBe
             return a.getPerson().getFirstName().contains(filter) || a.getPerson().getLastName().contains(filter);
             };
         // Mapping of a ContactBook list to a list of ContactBookEntry list
-        return getALlEntities().stream()
+        return getAllEntities().stream()
                 .flatMap(a->a.getEntries().stream())
                 .filter(firstNamePredicate)
                 .collect(Collectors.toList());

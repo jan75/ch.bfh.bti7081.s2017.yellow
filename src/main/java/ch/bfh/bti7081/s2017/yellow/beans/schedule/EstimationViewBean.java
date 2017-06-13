@@ -2,6 +2,8 @@ package ch.bfh.bti7081.s2017.yellow.beans.schedule;
 
 import ch.bfh.bti7081.s2017.yellow.beans.PatientBean;
 
+import java.util.List;
+
 /**
  * Created by samuel on 26.05.17.
  */
@@ -9,7 +11,7 @@ public class EstimationViewBean {
 
     private DailyEstimationBean dailyEstimationBean;
 
-    private PatientBean patientBean;
+    private List<PatientBean> patientsBean;
 
     private PatientEstimationBean newPatientEstimation;
 
@@ -21,12 +23,12 @@ public class EstimationViewBean {
         this.dailyEstimationBean = dailyEstimationBean;
     }
 
-    public PatientBean getPatientBean() {
-        return patientBean;
+    public List<PatientBean> getPatientBean() {
+        return patientsBean;
     }
 
-    public void setPatientBean(PatientBean patientBean) {
-        this.patientBean = patientBean;
+    public void setPatientBean(List<PatientBean> patientsBean) {
+        this.patientsBean = patientsBean;
     }
 
     public PatientEstimationBean getNewPatientEstimation() {

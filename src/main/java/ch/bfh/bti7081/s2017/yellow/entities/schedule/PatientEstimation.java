@@ -21,7 +21,7 @@ public class PatientEstimation implements Storable {
     @Column(name = "TOTAL_HOUR")
     private int totalHour;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Patient patient;
 
     @Override

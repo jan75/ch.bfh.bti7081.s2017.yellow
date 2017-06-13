@@ -8,4 +8,8 @@ import java.time.LocalDate;
 public interface EstimateResourceListener {
 
     void changeDate(LocalDate date);
+
+    void addEstimation();
+
+    void saveClicked();
 }

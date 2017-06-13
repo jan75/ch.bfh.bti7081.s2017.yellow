@@ -4,6 +4,8 @@ import ch.bfh.bti7081.s2017.yellow.beans.EmployeePlanningBean;
 import ch.bfh.bti7081.s2017.yellow.beans.ScheduleBean;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Employee;
 
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -22,12 +24,14 @@ public class PlanningService extends SimpleServiceImpl<Employee, EmployeePlannin
             tim.setFirstName("Time");
             tim.setLastName("Schmid");
             ScheduleBean scheduleTim = new ScheduleBean();
+            scheduleTim.addScheduleEntry(LocalDate.now());
             tim.setSchedule(scheduleTim);
 
             EmployeePlanningBean fred = new EmployeePlanningBean();
             fred.setFirstName("Fred");
             fred.setLastName("Feuerstein");
             ScheduleBean scheduleFred = new ScheduleBean();
+            scheduleFred.addScheduleEntry(LocalDate.now());
             fred.setSchedule(scheduleFred);
 
             saveEntity(tim);

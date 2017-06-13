@@ -41,16 +41,23 @@ public class ContactDetailPresenter<TView extends ContactDetailView> implements 
     }
 
     /**
-     *
+     * Wires a ContactBookEntry to the view
      */
     public void setContact(ContactBookEntryBean contactBookEntryBean) {
         view.setContact(contactBookEntryBean);
     }
 
+    /**
+     * Navigates back to the parent view
+     */
     private void navigateBack() {
         NavigatorController.getInstance().navigateTo("contactView");
     }
 
+    /**
+     * Saves a ContactBookEntry to the database,
+     * if the entity is not found a message will be displayed.
+     */
     @Override
     public void saveClicked() {
         if (view.validate()) {
@@ -63,12 +70,19 @@ public class ContactDetailPresenter<TView extends ContactDetailView> implements 
             navigateBack();
         }
     }
-    
+
+    /**
+     * Cancels the editing and navigates back to to parent view
+     */
     @Override
     public void cancelClicked() {
         navigateBack();
     }
 
+    /**
+     * This Method is called when the view navigator calls this view
+     * @param event
+     */
     @Override
     public void changeView(ViewChangeListener.ViewChangeEvent event) {
         service.LoadContactBook();

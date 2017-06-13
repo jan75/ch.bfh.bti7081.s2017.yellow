@@ -29,17 +29,34 @@ public class ContactService extends SimpleServiceImpl<ContactBook, ContactBookBe
     //public List<ContactBookEntryBean> contactList = new ArrayList<>();
     private static ContactService instance;
     private ContactBookBean contactBookBean;
-    private SimpleService contactEntryService = new SimpleServiceImpl<ContactBookEntry, ContactBookEntryBean>(ContactBookEntry.class, ContactBookEntryBean.class);
+    private SimpleService contactEntryService;
     private String filter;
 
     /**
-     * Default ContactService Constructor.
+     * Initialize a new default ContactService instance
      */
     public ContactService() {
-        super(ContactBook.class, ContactBookBean.class);
-
+        super(ContactBook.class, ContactBookBean.class, new DbConnector());
+        contactEntryService = new SimpleServiceImpl<ContactBookEntry, ContactBookEntryBean>(ContactBookEntry.class, ContactBookEntryBean.class, new DbConnector());
         if (instance == null) {
-            createDummyContactBook();
+            try {
+                createDummyContactBook();
+            }catch (Exception excepotion) { }
+            instance = this;
+        }
+    }
+
+    /**
+     * Initialize a new ContactService instance with a certain DbConnector
+     * @param dbConnector
+     */
+    public ContactService(DbConnector dbConnector) {
+        super(ContactBook.class, ContactBookBean.class, dbConnector);
+        contactEntryService = new SimpleServiceImpl<ContactBookEntry, ContactBookEntryBean>(ContactBookEntry.class, ContactBookEntryBean.class, dbConnector);
+        if (instance == null) {
+            try {
+                createDummyContactBook();
+            }catch (Exception excepotion) { }
             instance = this;
         }
     }
@@ -48,7 +65,7 @@ public class ContactService extends SimpleServiceImpl<ContactBook, ContactBookBe
      * Creates dummy data for a ContactBook.
      */
     private static void createDummyContactBook() {
-        DbConnector.DbTask task = new DbConnector.DbTask();
+        DbConnector.DbTask task = new DbConnector().createDbTask();
         try {
             Session session = task.getSession();
 

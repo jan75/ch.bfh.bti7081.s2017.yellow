@@ -4,6 +4,7 @@ import ch.bfh.bti7081.s2017.yellow.beans.BaseBean;
 import ch.bfh.bti7081.s2017.yellow.beans.ContactBookBean;
 import ch.bfh.bti7081.s2017.yellow.entities.Storable;
 import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBook;
+import ch.bfh.bti7081.s2017.yellow.repositories.DbConnector;
 import ch.bfh.bti7081.s2017.yellow.repositories.DbConnector.DbTask;
 import ch.bfh.bti7081.s2017.yellow.util.BeanMapper;
 import ch.bfh.bti7081.s2017.yellow.util.BeanMapperConsumer;
@@ -23,22 +24,22 @@ public class SimpleServiceImpl<A extends Storable, B extends BaseBean<A>> implem
     final protected MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
     BeanMapper mapper = new BeanMapperImpl<A, B>();
 
-    @Autowired
-    protected Session session;
-
     private Class<A> entityClazz;
     private Class<B> beanClazz;
+    private DbConnector dbConnector;
+    
 
-    public SimpleServiceImpl(Class<A> entity, Class<B> bean) {
+    public SimpleServiceImpl(Class<A> entity, Class<B> bean, DbConnector dbConnector) {
         this.beanClazz = bean;
         this.entityClazz = entity;
         mapperFactory.classMap(ContactBook.class, ContactBookBean.class).customize(mapper).register();
         mapper.setBeanMapperConsumer(this);
+        this.dbConnector = dbConnector;
     }
 
     @Override
     public List<B> getALlEntities() {
-    	DbTask d = new DbTask();
+    	DbTask d = dbConnector.createDbTask();
     	List l = d.findAll(entityClazz);
     	List<B> list = mapperFactory.getMapperFacade().mapAsList(l, beanClazz);
     	d.end();
@@ -52,7 +53,7 @@ public class SimpleServiceImpl<A extends Storable, B extends BaseBean<A>> implem
 
     @Override
     public void saveEntities(List<B> beans) {
-    	DbTask d = new DbTask();
+    	DbTask d = dbConnector.createDbTask();
         for (B b : beans) {
             d.save(mapperFactory.getMapperFacade().map(b, entityClazz));
         }
@@ -61,7 +62,7 @@ public class SimpleServiceImpl<A extends Storable, B extends BaseBean<A>> implem
 
     @Override
     public void saveEntity(B bean) {
-    	DbTask d = new DbTask();
+    	DbTask d = dbConnector.createDbTask();
     	d.save(mapperFactory.getMapperFacade().map(bean, entityClazz));
     	d.end();
     }

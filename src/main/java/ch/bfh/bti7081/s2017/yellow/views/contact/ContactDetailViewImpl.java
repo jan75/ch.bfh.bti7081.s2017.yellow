@@ -23,6 +23,9 @@ public abstract class ContactDetailViewImpl extends FormLayout implements Contac
     protected Button btnSave = new Button("Save");
     protected Button btnCancel = new Button("Cancel");
 
+    /**
+     * Initialize the components for the layout
+     */
     protected void createLayout() {
         setSizeFull();
         HorizontalLayout buttons = new HorizontalLayout(btnSave, btnCancel);
@@ -33,6 +36,10 @@ public abstract class ContactDetailViewImpl extends FormLayout implements Contac
         btnCancel.setClickShortcut(ShortcutAction.KeyCode.ESCAPE);
     }
 
+    /**
+     * Wires a listener to the view
+     * @param listener
+     */
     @Override
     public void addListener(ContactDetailViewListener listener) {
         this.listener = listener;
@@ -40,6 +47,10 @@ public abstract class ContactDetailViewImpl extends FormLayout implements Contac
         btnCancel.addClickListener(event -> listener.cancelClicked());
     }
 
+    /**
+     * This Method is called when the view navigator calls this view and
+     * @param viewChangeEvent
+     */
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
         if (listener != null) {
@@ -47,9 +58,15 @@ public abstract class ContactDetailViewImpl extends FormLayout implements Contac
         }
     }
 
+    /**
+     * Wires a ContactBookEntry to the views component
+     * @param contactBookEntryBean
+     */
     public abstract void setContact(ContactBookEntryBean  contactBookEntryBean);
 
-
+    /**
+     * @return ContactBookEntryBean
+     */
     public abstract ContactBookEntryBean getContact();
 
 }

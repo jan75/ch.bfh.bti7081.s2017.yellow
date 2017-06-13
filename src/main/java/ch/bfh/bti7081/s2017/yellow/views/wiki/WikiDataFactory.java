@@ -26,13 +26,11 @@ public final class WikiDataFactory {
     }
 
     private static void initializeWiki() {
-        //Get a session
         DbConnector dbConnector = new DbConnector();
         DbConnector.DbTask dbTask = dbConnector.createDbTask();
 
         wiki = new Wiki();
         List<WikiEntry> wikiEntries = new ArrayList<WikiEntry>();
-        //create the MANY entity
         wikiEntries.add( new WikiEntry(wiki, "Bauchschmerzen", "Der Bauchschmerz (Abdominalschmerz oder abdomineller Schmerz) ist eines der häufigsten Symptome, die zur Inanspruchnahme ärztlicher Hilfe führen. Bauchschmerz kann durch eine Vielzahl von Ursachen ausgelöst werden. Zu diesen Ursachen gehören konkrete Erkrankungen von Organen des Bauchraumes, Krankheiten, die sich außerhalb des Bauchraumes abspielen, aber auch Missempfindungen, die durch psychische Erkrankungen ausgelöst werden.", "Allg. Medizin"));
         wikiEntries.add( new WikiEntry(wiki, "Ohrenschmerzen", "Als Otalgie (griech. οὦς (oōs), Gen. ὠτός (ōtos), Ohr und griech. ἄλγος (álgos) Schmerz) bezeichnet man in der Medizin Ohrenschmerzen verschiedener – auch unbekannter − Ursache. Die Otalgie ist das Leitsymptom aller entzündlichen Erkrankungen des Mittelohrs und des äußeren Ohres. Man unterscheidet zwischen primärer und sekundärer Otalgie. Ohrenschmerzen werden durch den Plexus tympanicus über den Nervus glossopharyngeus vermittelt. Auch der Nervus vagus ist in Trommelfellnähe beteiligt", "Allg. Medizin") );
         wikiEntries.add( new WikiEntry(wiki, "Kopfschmerzen", "Kopfschmerzen gehören neben Rückenschmerzen zu den häufigsten gesundheitlichen Beeinträchtigungen: Etwa vier bis fünf Prozent der deutschen Bevölkerung leiden unter täglichen und ca. 70 Prozent leiden unter anfallsweisen oder chronischen (immer wiederkehrenden) Kopfschmerzen. In einer großen deutschen Studie über 14 Jahre gaben etwa 60 % der Befragten an, Kopfschmerzen gehabt zu haben. Dabei zeigte sich, dass gehäuft Frauen und Bewohner von Städten über 50.000 Einwohner an Kopfschmerzen leiden." +
@@ -49,7 +47,6 @@ public final class WikiDataFactory {
         wikiEntries.get(3).setUser(new User("Beni", "Turnschuh"));
 
 
-        //only save wikiEntry
         for (WikiEntry wikiEntry : wikiEntries) {
             dbTask.save(wikiEntry);
         }

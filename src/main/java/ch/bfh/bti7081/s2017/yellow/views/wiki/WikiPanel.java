@@ -121,6 +121,7 @@ public class WikiPanel extends Panel {
         this.saveEntry.setVisible(!this.saveEntry.isVisible());
         this.wikiEntryContent.setReadOnly(readOnly);
     }
+
     private String convertDateToString(Date date) {
         return new SimpleDateFormat("yyyy-MM-dd").format(date);
     }

@@ -32,7 +32,7 @@ public class DashboardPresenter {
         //Accordion
         Accordion accordion = new Accordion();
         accordion.setHeight("500");
-        accordion.setWidth("800");
+        accordion.setWidth("1124");
 
         //add Wiki to accordion
         Layout wikiDashboardItemViewTab = new VerticalLayout();

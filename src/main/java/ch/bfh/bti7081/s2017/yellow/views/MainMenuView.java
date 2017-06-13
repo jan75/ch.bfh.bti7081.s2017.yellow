@@ -45,7 +45,7 @@ public class MainMenuView extends CustomComponent implements MenuView, Button.Cl
         menuLayout.addComponent(imageWiki);
 
         Image patientEstimationView = new Image(null, new ThemeResource("icons/Timer.png"));
-        //patientEstimationView.addClickListener(e -> NavigatorController.getInstance().navigateTo("patientEstimationView"));
+        patientEstimationView.addClickListener(e -> NavigatorController.getInstance().navigateTo("patientEstimationView"));
         patientEstimationView.setStyleName("image");
         menuLayout.addComponent(patientEstimationView);
 

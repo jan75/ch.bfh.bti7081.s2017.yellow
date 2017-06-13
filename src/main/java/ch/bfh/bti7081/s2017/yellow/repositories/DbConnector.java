@@ -102,6 +102,17 @@ public class DbConnector {
 		}
 		
 		/**
+		 * Returns one entity by id.
+		 * @param clazz type of the entity
+		 * @param primaryKey of the entity
+		 * @return the entity
+		 */
+		public <T> T find(Class<T> clazz, Object primaryKey) {
+			start();
+			return this.session.find(clazz, primaryKey);
+		}
+		
+		/**
 		 * Creates new database entries or 
 		 * updates existing ones depending on whether the ID
 		 * is set or not. Use the annotation attribute cascade=CascadeType.ALL

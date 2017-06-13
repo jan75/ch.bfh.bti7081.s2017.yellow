@@ -60,6 +60,6 @@ public class MainView extends UI {
 		NavigatorController.getInstance().addView("planningView", planningView);
 		setContent(rootLayout);
 
-		rootLayout.addComponent(rootLayout);
+		
     }
 }

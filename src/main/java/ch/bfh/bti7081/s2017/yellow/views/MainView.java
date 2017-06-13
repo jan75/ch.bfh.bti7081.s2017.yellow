@@ -31,11 +31,6 @@ public class MainView extends UI {
         new DashboardPresenter(dashboardView);
         rootLayout.addComponent(dashboardView);
 
-        // @Todo: Implement Navigator! Isn't the right place
-        EstimateResourceView estimateResourceView = new EstimateResourceViewImpl();
-        new EstimateResourcePresenter(estimateResourceView);
-        rootLayout.addComponent(estimateResourceView);
-
         setContent(rootLayout);
         NavigatorController.getInstance().navigateTo("contactView");
     }

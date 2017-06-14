@@ -10,6 +10,7 @@ import com.vaadin.event.ShortcutAction;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.ErrorHandler;
 import com.vaadin.server.ErrorMessage;
+import com.vaadin.server.Page;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 
@@ -17,23 +18,27 @@ import com.vaadin.ui.themes.ValoTheme;
  * Concrete ContactDetailViewImpl implementation contains components for all detail views.
  * @author iSorp
  */
-public abstract class ContactDetailViewImpl extends FormLayout implements ContactDetailView {
+public abstract class ContactDetailViewImpl extends CustomComponent implements ContactDetailView {
 
     protected ContactDetailViewListener listener;
     protected Button btnSave = new Button("Save");
     protected Button btnCancel = new Button("Cancel");
-
+    protected VerticalLayout content = new VerticalLayout();
+    protected String title = "";
     /**
      * Initialize the components for the layout
      */
     protected void createLayout() {
-        setSizeFull();
         HorizontalLayout buttons = new HorizontalLayout(btnSave, btnCancel);
-        addComponents(buttons);
 
         btnSave.setStyleName(ValoTheme.BUTTON_PRIMARY);
         btnSave.setClickShortcut(ShortcutAction.KeyCode.ENTER);
         btnCancel.setClickShortcut(ShortcutAction.KeyCode.ESCAPE);
+
+        content.addComponents(buttons);
+        content.setComponentAlignment(buttons, Alignment.BOTTOM_CENTER);
+        content.setWidth(null);
+        setCompositionRoot(content);
     }
 
     /**
@@ -53,6 +58,7 @@ public abstract class ContactDetailViewImpl extends FormLayout implements Contac
      */
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
+        Page.getCurrent().setTitle(title);
         if (listener != null) {
             listener.changeView(viewChangeEvent);
         }

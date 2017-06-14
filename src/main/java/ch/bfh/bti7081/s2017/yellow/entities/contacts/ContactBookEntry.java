@@ -29,7 +29,7 @@ public class ContactBookEntry implements Storable {
     @Column(name="ID")
     private Long id;
 
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne()
     private Person person;
 
     @Column(name="PHONE_NR")

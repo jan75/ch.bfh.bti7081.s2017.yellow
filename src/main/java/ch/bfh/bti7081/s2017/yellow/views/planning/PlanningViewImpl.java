@@ -56,7 +56,9 @@ public class PlanningViewImpl extends CustomComponent implements PlanningView {
     public void loadEmployees(List<EmployeePlanningBean> employeePlanningBeanList) {
         displayEmployeesLayout.removeAllComponents();
         for(EmployeePlanningBean employeePlanningBean: employeePlanningBeanList) {
-            displayEmployeesLayout.addComponent(drawScheduleDaysForEmployee(employeePlanningBean));
+            if (employeePlanningBean.getSchedule() != null) {
+                displayEmployeesLayout.addComponent(drawScheduleDaysForEmployee(employeePlanningBean));
+            }
         }
     }
 

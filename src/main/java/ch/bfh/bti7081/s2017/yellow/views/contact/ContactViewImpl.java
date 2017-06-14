@@ -4,6 +4,7 @@ import ch.bfh.bti7081.s2017.yellow.beans.ContactBookEntryBean;
 import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBookEntry;
 import com.vaadin.data.provider.DataProvider;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.Page;
 import com.vaadin.shared.ui.ValueChangeMode;
 import com.vaadin.ui.*;
 import com.vaadin.ui.TextField;
@@ -18,6 +19,7 @@ import java.util.List;
  */
 public class ContactViewImpl extends CustomComponent implements ContactView {
 
+    private String title = "Contacts";
     private ContactViewListener listener;
     private Grid<ContactBookEntryBean> grid = new Grid<>();
     private List<ContactBookEntryBean> entries = new ArrayList<>();
@@ -34,6 +36,8 @@ public class ContactViewImpl extends CustomComponent implements ContactView {
      * Initialize the components for the layout
      */
     protected void createLayout() {
+
+        Page.getCurrent().setTitle("Contacts");
         final VerticalLayout layout = new VerticalLayout();
 
         filterText.setPlaceholder("filter by name...");
@@ -106,7 +110,10 @@ public class ContactViewImpl extends CustomComponent implements ContactView {
      */
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
-        listener.changeView(viewChangeEvent);
+        if (listener != null) {
+            listener.changeView(viewChangeEvent);
+        }
+        Page.getCurrent().setTitle(title);
         setVisible(true);
     }
 }

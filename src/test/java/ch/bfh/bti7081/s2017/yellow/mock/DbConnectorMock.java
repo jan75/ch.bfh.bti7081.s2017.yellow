@@ -13,7 +13,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by simon on 12.06.17.
+ * Used to generate mock data for tests
+ * @author iSorp
  */
 public class DbConnectorMock extends DbConnector {
 

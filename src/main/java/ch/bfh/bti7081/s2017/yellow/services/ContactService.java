@@ -6,19 +6,20 @@ import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBookEntry;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Employee;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Patient;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Person;
+import ch.bfh.bti7081.s2017.yellow.entities.schedule.Schedule;
 import ch.bfh.bti7081.s2017.yellow.repositories.DbConnector;
 import javassist.NotFoundException;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
-import org.hibernate.Session;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
- * Service for cantactBook data access. Supplies loading, saving, mapping and filtering of contactBook data.
+ * Service for contactBook data access. Supplies loading, saving, mapping and filtering of contactBook data.
  * @author iSorp
  */
 public class ContactService extends SimpleServiceImpl<ContactBook, ContactBookBean>  {
@@ -26,17 +27,34 @@ public class ContactService extends SimpleServiceImpl<ContactBook, ContactBookBe
     //public List<ContactBookEntryBean> contactList = new ArrayList<>();
     private static ContactService instance;
     private ContactBookBean contactBookBean;
-    private SimpleService contactEntryService = new SimpleServiceImpl<ContactBookEntry, ContactBookEntryBean>(ContactBookEntry.class, ContactBookEntryBean.class);
+    private SimpleService contactEntryService;
     private String filter;
 
     /**
-     * Default ContactService Constructor.
+     * Initialize a new default ContactService instance
      */
     public ContactService() {
-        super(ContactBook.class, ContactBookBean.class);
-
+        super(ContactBook.class, ContactBookBean.class, new DbConnector());
+        contactEntryService = new SimpleServiceImpl<ContactBookEntry, ContactBookEntryBean>(ContactBookEntry.class, ContactBookEntryBean.class, new DbConnector());
         if (instance == null) {
-            createDummyContactBook();
+            try {
+                createDummyContactBook();
+            }catch (Exception excepotion) { }
+            instance = this;
+        }
+    }
+
+    /**
+     * Initialize a new ContactService instance with a certain DbConnector
+     * @param dbConnector
+     */
+    public ContactService(DbConnector dbConnector) {
+        super(ContactBook.class, ContactBookBean.class, dbConnector);
+        contactEntryService = new SimpleServiceImpl<ContactBookEntry, ContactBookEntryBean>(ContactBookEntry.class, ContactBookEntryBean.class, dbConnector);
+        if (instance == null) {
+            try {
+                createDummyContactBook();
+            }catch (Exception excepotion) { }
             instance = this;
         }
     }
@@ -45,17 +63,15 @@ public class ContactService extends SimpleServiceImpl<ContactBook, ContactBookBe
      * Creates dummy data for a ContactBook.
      */
     private static void createDummyContactBook() {
-        DbConnector.DbTask task = new DbConnector.DbTask();
+        DbConnector.DbTask task = new DbConnector().createDbTask();
         try {
-            Session session = task.getSession();
-
             // dummy Employee
-            /* commented out because of conflict with planning implementation
+            /* commented out because of conflict with planning utility
             Employee employee = new Employee();
             employee.setFirstName("Samuel");
             employee.setLastName("Hacker");
             employee.setSince(new Date());
-            session.persist(employee);
+            task.save(employee);
             */
 
             // dummy Patient
@@ -64,25 +80,25 @@ public class ContactService extends SimpleServiceImpl<ContactBook, ContactBookBe
             patient.setLastName("Malaria");
             patient.setCheckInDate(new Date());
             patient.setCheckOutDate(new Date());
-            session.persist(patient);
+            task.save(patient);
 
             // dummy ContactBookEntry
             List<Person> persList = task.findAll(Person.class);
             ContactBookEntry contactBookEntryEmployee = new ContactBookEntry();
-            contactBookEntryEmployee.setPerson(persList.get(0));
-            session.persist(contactBookEntryEmployee);
+            //contactBookEntryEmployee.setPerson(persList.get(0));
+            task.save(contactBookEntryEmployee);
 
             // dummy ContactBookEntry
             ContactBookEntry contactBookEntryPatient = new ContactBookEntry();
-            contactBookEntryPatient.setPerson(persList.get(0)); // changed to 0 to accord to changes above at dummy Employee -jan
-            session.persist(contactBookEntryPatient);
+            contactBookEntryPatient.setPerson(persList.get(0)); // changed to 0
+            task.save(contactBookEntryPatient);
 
             // dummy ContactBoo
             List<ContactBookEntry> entryList = task.findAll(ContactBookEntry.class);
             ContactBook contactBook = new ContactBook();
-            contactBook.addEntry(entryList.get(0));
-            //contactBook.addEntry(entryList.get(1)); // commented out, see comments above
-            session.persist(contactBook);
+            //contactBook.addEntry(entryList.get(0));
+            contactBook.addEntry(entryList.get(1));
+            task.save(contactBook);
         }
         finally {
             task.end();
@@ -95,7 +111,7 @@ public class ContactService extends SimpleServiceImpl<ContactBook, ContactBookBe
      * @throws NotFoundException throws an Exception if the related entity is not found in the database.
      */
     public void saveContact(ContactBookEntryBean contact) throws NotFoundException {
-        ContactBookEntryBean bean = getContactBookEntries().stream().filter(a -> a.getId() == contact.getId()).findFirst().get();
+        ContactBookEntryBean bean = getContactBookEntries().stream().filter(a -> Objects.equals(a.getId(),contact.getId())).findFirst().get();
 
         if (bean != null) {
             contactEntryService.saveEntity(contact);

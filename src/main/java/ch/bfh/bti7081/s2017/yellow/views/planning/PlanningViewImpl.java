@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class PlanningViewImpl extends CustomComponent implements PlanningView {
     PlanningDetailView planningDetailView = new PlanningDetailViewImpl();
-    PlanningDetailPresenter planningDetailPresenter= new PlanningDetailPresenter(planningDetailView);
+    PlanningDetailPresenter planningDetailPresenter = new PlanningDetailPresenter(planningDetailView);
     PlanningPresenter planningPresenter = new PlanningPresenter(this);
     PlanningService planningService;
     VerticalLayout displayEmployeesLayout = new VerticalLayout();
@@ -75,15 +75,8 @@ public class PlanningViewImpl extends CustomComponent implements PlanningView {
         horizontalLayout.addComponent(dateField);
 
         Button addSchedule = new Button("Add Schedule", (Button.ClickListener) clickEvent -> {
-            String date = dateField.getValue().toString();
-            LocalDate dateTime = LocalDate.parse(date);
-            //System.out.println(dateTime);
-            schedule.addScheduleEntry(dateTime);
-            employee.setSchedule(schedule);
-            planningService.saveEntity(employee);
+            planningPresenter.addSchedule(employee, dateField.getValue(), planningDetailPresenter);
 
-            planningDetailPresenter.updateView(employee, dateTime);
-            NavigatorController.getInstance().navigateTo("planningDetailView");
         });
         horizontalLayout.addComponent(addSchedule);
 

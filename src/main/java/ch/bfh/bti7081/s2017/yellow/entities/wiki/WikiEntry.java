@@ -18,12 +18,13 @@ public class WikiEntry implements Storable{
     @Column(name="ID")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Wiki wiki;
 
     @Column(name="CAPTION")
     private String caption;
 
+    @Lob
     @Column(name="ENTRY")
     private String entry;
 
@@ -37,7 +38,7 @@ public class WikiEntry implements Storable{
     private Date updatedAt;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private User user;
     
     public WikiEntry(Wiki wiki, String caption, String entry, String category) {
@@ -47,6 +48,9 @@ public class WikiEntry implements Storable{
         this.category = category;
         this.createdAt = new Date();
         this.updatedAt = this.createdAt;
+    }
+
+    public WikiEntry() {
 
     }
 

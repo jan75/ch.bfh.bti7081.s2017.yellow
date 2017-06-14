@@ -3,6 +3,7 @@ package ch.bfh.bti7081.s2017.yellow.services;
 import ch.bfh.bti7081.s2017.yellow.beans.EmployeePlanningBean;
 import ch.bfh.bti7081.s2017.yellow.beans.ScheduleBean;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Employee;
+import ch.bfh.bti7081.s2017.yellow.repositories.DbConnector;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,7 +18,7 @@ public class PlanningService extends SimpleServiceImpl<Employee, EmployeePlannin
      * Creates an instance of PlanningService and fills it with some dummy entries
      */
     public PlanningService() {
-        super(Employee.class, EmployeePlanningBean.class);
+        super(Employee.class, EmployeePlanningBean.class, new DbConnector());
 
         if (init == false) {
             EmployeePlanningBean tim = new EmployeePlanningBean();

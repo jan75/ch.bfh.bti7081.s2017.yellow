@@ -6,23 +6,20 @@ import ch.bfh.bti7081.s2017.yellow.entities.contacts.ContactBookEntry;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Employee;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Patient;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Person;
+import ch.bfh.bti7081.s2017.yellow.entities.schedule.Schedule;
 import ch.bfh.bti7081.s2017.yellow.repositories.DbConnector;
-import com.vaadin.data.provider.DataProvider;
 import javassist.NotFoundException;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
-import org.hibernate.Session;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
- * Service for cantactBook data access. Supplies loading, saving, mapping and filtering of contactBook data.
+ * Service for contactBook data access. Supplies loading, saving, mapping and filtering of contactBook data.
  * @author iSorp
  */
 public class ContactService extends SimpleServiceImpl<ContactBook, ContactBookBean>  {
@@ -69,11 +66,13 @@ public class ContactService extends SimpleServiceImpl<ContactBook, ContactBookBe
         DbConnector.DbTask task = new DbConnector().createDbTask();
         try {
             // dummy Employee
+            /* commented out because of conflict with planning utility
             Employee employee = new Employee();
             employee.setFirstName("Samuel");
             employee.setLastName("Hacker");
             employee.setSince(new Date());
             task.save(employee);
+            */
 
             // dummy Patient
             Patient patient = new Patient();
@@ -86,18 +85,18 @@ public class ContactService extends SimpleServiceImpl<ContactBook, ContactBookBe
             // dummy ContactBookEntry
             List<Person> persList = task.findAll(Person.class);
             ContactBookEntry contactBookEntryEmployee = new ContactBookEntry();
-            contactBookEntryEmployee.setPerson(persList.get(0));
+            //contactBookEntryEmployee.setPerson(persList.get(0));
             task.save(contactBookEntryEmployee);
 
             // dummy ContactBookEntry
             ContactBookEntry contactBookEntryPatient = new ContactBookEntry();
-            contactBookEntryPatient.setPerson(persList.get(1));
+            contactBookEntryPatient.setPerson(persList.get(0)); // changed to 0
             task.save(contactBookEntryPatient);
 
             // dummy ContactBoo
             List<ContactBookEntry> entryList = task.findAll(ContactBookEntry.class);
             ContactBook contactBook = new ContactBook();
-            contactBook.addEntry(entryList.get(0));
+            //contactBook.addEntry(entryList.get(0));
             contactBook.addEntry(entryList.get(1));
             task.save(contactBook);
         }

@@ -1,84 +1,108 @@
 package ch.bfh.bti7081.s2017.yellow.views.planning;
 
-import ch.bfh.bti7081.s2017.yellow.entities.person.Employee;
-import ch.bfh.bti7081.s2017.yellow.entities.schedule.Schedule;
+import ch.bfh.bti7081.s2017.yellow.beans.EmployeePlanningBean;
+import ch.bfh.bti7081.s2017.yellow.beans.ScheduleBean;
 import ch.bfh.bti7081.s2017.yellow.presenters.PlanningDetailPresenter;
+import ch.bfh.bti7081.s2017.yellow.presenters.PlanningPresenter;
+import ch.bfh.bti7081.s2017.yellow.services.PlanningService;
 import ch.bfh.bti7081.s2017.yellow.util.NavigatorController;
 import com.vaadin.navigator.ViewChangeListener;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.CustomComponent;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.VerticalLayout;
-import org.joda.time.LocalDate;
+import com.vaadin.ui.*;
 
+import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Concrete PlanningView implementation
- * @author iSorp
+ * @author Jan Ackermann
  */
 public class PlanningViewImpl extends CustomComponent implements PlanningView {
     PlanningDetailView planningDetailView = new PlanningDetailViewImpl();
-    PlanningDetailPresenter planningDetailPresenter= new PlanningDetailPresenter(planningDetailView);
+    PlanningDetailPresenter planningDetailPresenter = new PlanningDetailPresenter(planningDetailView);
+    PlanningPresenter planningPresenter = new PlanningPresenter(this);
+    PlanningService planningService;
+    VerticalLayout displayEmployeesLayout = new VerticalLayout();
 
+    /**
+     * The PlanningView constructor creates static and dynamic (via presenter) components
+     */
     public PlanningViewImpl() {
         final VerticalLayout layout = new VerticalLayout();
+        HorizontalLayout addEmployeesLayout = new HorizontalLayout();
+        displayEmployeesLayout = new VerticalLayout();
+        planningService = new PlanningService();
 
-        Employee tim = new Employee("Tim", "Gerber");
-        Schedule scheduleTim = tim.getSchedule();
-        scheduleTim.addScheduleEntry(new LocalDate().withDayOfMonth(2).withMonthOfYear(1).withYear(2017));
-        scheduleTim.addScheduleEntry(new LocalDate().withDayOfMonth(3).withMonthOfYear(1).withYear(2017));
-        scheduleTim.addScheduleEntry(new LocalDate().withDayOfMonth(4).withMonthOfYear(1).withYear(2017));
+        TextField firstName = new TextField();
+        TextField lastName = new TextField();
+        firstName.setPlaceholder("First Name");
+        lastName.setPlaceholder("Last Name");
+        Button addEmployee = new Button("Add Employee", (Button.ClickListener) clickEvent -> {
+            planningPresenter.addEmployee(firstName.getValue(), lastName.getValue());
+        });
+        addEmployeesLayout.addComponents(firstName, lastName, addEmployee);
 
-        HashMap<LocalDate, HashMap<Integer, String>> scheduleDaysMap = scheduleTim.getScheduleEntryTestList();
+        planningPresenter.loadEmployees();
 
-        LocalDate date = new LocalDate().withDayOfMonth(1).withMonthOfYear(1).withYear(2017);
-        if(scheduleTim.addScheduleEntry(date)) {
-            //layout.addComponent(new Label("Success"));
-        } else {
-            //layout.addComponent(new Label("Failure"));
-        }
-        HashMap<Integer, String> scheduleDay = scheduleTim.getEntryForDay(date);
-
-        int i;
-        for(i = 8; i <= 11; i++) {
-            scheduleDay.put(i, "Pflege Tom");
-        }
-
-        for(i = 14; i <= 17; i++) {
-            scheduleDay.put(i, "Pflege Michael");
-        }
-
-        scheduleTim.setScheduleForDay(date, scheduleDay);
-        tim.setSchedule(scheduleTim);
-
-        layout.addComponent(drawScheduleDaysForEmployee(tim));
+        layout.addComponent(addEmployeesLayout);
+        layout.addComponent(displayEmployeesLayout);
         setCompositionRoot(layout);
         setVisible(false);
     }
 
-    private VerticalLayout drawScheduleDaysForEmployee(Employee employee) {
-        VerticalLayout verticalLayout = new VerticalLayout();
-        verticalLayout.addComponent(new Label(employee.getFirstName() + " " + employee.getLastName()));
+    /**
+     * @param employeePlanningBeanList The list of employees to load
+     */
+    public void loadEmployees(List<EmployeePlanningBean> employeePlanningBeanList) {
+        displayEmployeesLayout.removeAllComponents();
+        for(EmployeePlanningBean employeePlanningBean: employeePlanningBeanList) {
+            displayEmployeesLayout.addComponent(drawScheduleDaysForEmployee(employeePlanningBean));
+        }
+    }
 
-        Schedule schedule = employee.getSchedule();
+    /**
+     * This method returns a view with information and a user input form for an employee
+     * @param employee The employee which to draw
+     * @return Returns a layout which gets displayed on the view
+     */
+    private HorizontalLayout drawScheduleDaysForEmployee(EmployeePlanningBean employee) {
+        ScheduleBean schedule = employee.getSchedule();
+
+        HorizontalLayout horizontalLayout = new HorizontalLayout();
+        horizontalLayout.addComponent(new Label(employee.getFirstName() + " " + employee.getLastName()));
+
+        DateField dateField = new DateField();
+        horizontalLayout.addComponent(dateField);
+
+        Button addSchedule = new Button("Add Schedule", (Button.ClickListener) clickEvent -> {
+            planningPresenter.addSchedule(employee, dateField.getValue(), planningDetailPresenter);
+
+        });
+        horizontalLayout.addComponent(addSchedule);
+
         HashMap<LocalDate, HashMap<Integer, String>> scheduleMap = schedule.getScheduleDayMap();
-        for(LocalDate date: scheduleMap.keySet()) {
-            verticalLayout.addComponent(new Button(date.toString(), new Button.ClickListener() {
+        ComboBox<LocalDate> schedulesEmployee = new ComboBox<>();
+        schedulesEmployee.setItems(scheduleMap.keySet());
+        if(scheduleMap.keySet().size() > 0) {
+            horizontalLayout.addComponent(schedulesEmployee);
+            horizontalLayout.addComponent(new Button("Go", new Button.ClickListener() {
                 @Override
                 public void buttonClick(Button.ClickEvent clickEvent) {
-                    planningDetailPresenter.updateView(employee, date);
-                    NavigatorController.getInstance().navigateTo("planningDetailView");
+                    LocalDate date = schedulesEmployee.getValue();
+                    if (date != null) {
+                        planningDetailPresenter.updateView(employee, date);
+                        NavigatorController.getInstance().navigateTo("planningDetailView");
+                    }
                 }
             }));
         }
 
-        return verticalLayout;
+        return horizontalLayout;
     }
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
         setVisible(true);
+        planningPresenter.loadEmployees();
     }
-
 }

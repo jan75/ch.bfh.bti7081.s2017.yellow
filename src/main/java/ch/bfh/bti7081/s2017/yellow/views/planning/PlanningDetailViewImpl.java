@@ -2,6 +2,7 @@ package ch.bfh.bti7081.s2017.yellow.views.planning;
 
 import ch.bfh.bti7081.s2017.yellow.beans.EmployeePlanningBean;
 import ch.bfh.bti7081.s2017.yellow.beans.ScheduleBean;
+import ch.bfh.bti7081.s2017.yellow.presenters.PlanningDetailPresenter;
 import ch.bfh.bti7081.s2017.yellow.services.PlanningService;
 import ch.bfh.bti7081.s2017.yellow.util.NavigatorController;
 import com.vaadin.navigator.ViewChangeListener;
@@ -21,11 +22,14 @@ public class PlanningDetailViewImpl extends CustomComponent implements PlanningD
     private HorizontalLayout layout = new HorizontalLayout();
     private VerticalLayout currentPlanLayout = new VerticalLayout();
     VerticalLayout addEntryLayout = new VerticalLayout();
+    PlanningDetailPresenter planningDetailPresenter;
 
     /**
      * The constructor creates the basic layout with the static components as well as dynamically loading (over the presenter) the employees and displaying them
      */
     public PlanningDetailViewImpl() {
+        planningDetailPresenter = new PlanningDetailPresenter(this);
+
         layout.addComponent(new Label("planningDetailView"));
         layout = new HorizontalLayout();
         currentPlanLayout = new VerticalLayout();
@@ -45,21 +49,7 @@ public class PlanningDetailViewImpl extends CustomComponent implements PlanningD
         activityTextArea.setPlaceholder("Activity...");
 
         Button addPlanningEntry = new Button("Add", (Button.ClickListener) clickEvent -> {
-            Integer beginningTime = beginningComboBox.getValue();
-            Integer endingTime = endingComboBox.getValue();
-            String activity = activityTextArea.getValue();
-
-            if(beginningTime <= endingTime && beginningTime != null && endingTime != null && activity != null && activity != "") {
-                HashMap<Integer, String> scheduleDay = employee.getSchedule().getEntryForDay(date);
-                for(int i = beginningTime.intValue(); i < endingTime; i++) {
-                    scheduleDay.put(i, activity);
-                }
-                schedule.setScheduleForDay(date, scheduleDay);
-                employee.setSchedule(schedule);
-
-                PlanningService planningService = new PlanningService();
-                planningService.saveEntity(employee);
-            }
+            planningDetailPresenter.addPlanningEntry(beginningComboBox.getValue(), endingComboBox.getValue(), activityTextArea.getValue(), employee, date);
         });
         addEntryLayout.addComponents(beginningComboBox, endingComboBox, activityTextArea, addPlanningEntry);
 

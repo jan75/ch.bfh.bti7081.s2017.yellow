@@ -60,7 +60,7 @@ public class MainView extends UI {
 		NavigatorController.getInstance().addView("contactView", contactView);
 		NavigatorController.getInstance().addView("wikiView", wikiView);
 		NavigatorController.getInstance().addView("planningView", planningView);
-		//NavigatorController.getInstance().addView("patientEstimationView", patientEstimationView);
+		NavigatorController.getInstance().addView("patientEstimationView", patientEstimationView);
 		setContent(rootLayout);
 
 		

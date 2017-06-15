@@ -47,7 +47,7 @@ public class WikiPresenter implements WikiView.WikiViewListener {
     /**
      * This Method is called when the view navigator calls this view and
      * Nothing done right now, just log to console
-     * @param event
+     * @param event ViewChange event
      */
     @Override
     public void changeView(ViewChangeListener.ViewChangeEvent event) {

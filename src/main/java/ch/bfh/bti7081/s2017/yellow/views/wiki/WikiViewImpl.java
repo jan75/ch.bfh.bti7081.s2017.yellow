@@ -105,7 +105,6 @@ public class WikiViewImpl extends CustomComponent implements WikiView   {
 
     /**
      * This Method is called when the view navigator calls this view and
-     * @param viewChangeEvent
      */
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {

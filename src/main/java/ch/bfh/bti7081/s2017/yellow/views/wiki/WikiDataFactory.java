@@ -11,7 +11,6 @@ import java.util.List;
 /**
  * Singleton wiki instance, provides wiki with sample data
  * @author theonlyandone
- * @return Static wiki instance
  */
 public final class WikiDataFactory {
 

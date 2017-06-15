@@ -84,6 +84,7 @@ public class WikiPanel extends Panel {
 
     /**
      * Puts wiki admin information toghether in a html table
+     * @return Content for wikiEntryInformation label as html formated table
      */
     public String getWikiEntryInformation() {
 

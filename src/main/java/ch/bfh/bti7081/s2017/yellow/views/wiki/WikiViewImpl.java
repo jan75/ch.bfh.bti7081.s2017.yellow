@@ -2,17 +2,13 @@ package ch.bfh.bti7081.s2017.yellow.views.wiki;
 
 import ch.bfh.bti7081.s2017.yellow.entities.wiki.Wiki;
 import ch.bfh.bti7081.s2017.yellow.entities.wiki.WikiEntry;
-import com.vaadin.annotations.Theme;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.event.ShortcutListener;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.Page;
-import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.ui.*;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -30,6 +26,8 @@ public class WikiViewImpl extends CustomComponent implements WikiView   {
     public WikiViewImpl() {
         final VerticalLayout layout = new VerticalLayout();
 
+        Page.getCurrent().setTitle("Wiki");
+
         Label wikiTitle =  new Label("This is our wiki, say hello!");
         wikiTitle.setStyleName("wikiTitleLabel");
 
@@ -37,9 +35,6 @@ public class WikiViewImpl extends CustomComponent implements WikiView   {
         wikiSearch.setStyleName("wikiSearch");
         wikiSearch.setWidth("100%");
         wikiSearch.setValue("Search title...");
-
-        Page.getCurrent().setTitle("Wiki");
-
         wikiSearch.addShortcutListener(new ShortcutListener("Shortcut Name", ShortcutAction.KeyCode.ENTER, null) {
             @Override
             public void handleAction(Object sender, Object target) {

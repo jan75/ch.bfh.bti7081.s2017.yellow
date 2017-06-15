@@ -1,10 +1,7 @@
 package ch.bfh.bti7081.s2017.yellow.entities.wiki;
 
 import ch.bfh.bti7081.s2017.yellow.entities.Storable;
-import ch.bfh.bti7081.s2017.yellow.entities.person.User;
-
 import java.util.List;
-
 import javax.persistence.*;
 
 /**

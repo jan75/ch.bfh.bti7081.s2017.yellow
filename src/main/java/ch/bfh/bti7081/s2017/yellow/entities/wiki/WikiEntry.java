@@ -2,7 +2,6 @@ package ch.bfh.bti7081.s2017.yellow.entities.wiki;
 
 import ch.bfh.bti7081.s2017.yellow.entities.Storable;
 import ch.bfh.bti7081.s2017.yellow.entities.person.User;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -46,7 +45,7 @@ public class WikiEntry implements Storable{
         this.caption = caption;
         this.entry = entry;
         this.category = category;
-        this.createdAt = new Date();
+        this.createdAt = new Date(System.currentTimeMillis()-7*24*60*60*1000);;
         this.updatedAt = this.createdAt;
     }
 

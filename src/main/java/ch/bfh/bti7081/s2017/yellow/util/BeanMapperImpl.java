@@ -22,7 +22,6 @@ public class BeanMapperImpl<A extends Storable, B extends BaseBean> extends Cust
      * Maps an entity to a bean
      * @param bean
      * @param entity
-     * @return
      */
     @Override
     public void mapAtoB(A entity, B bean, MappingContext context) {
@@ -36,7 +35,6 @@ public class BeanMapperImpl<A extends Storable, B extends BaseBean> extends Cust
      * Maps a bean to an entity
      * @param entity
      * @param bean
-     * @return
      */
     @Override
     public void mapBtoA(B bean, A entity, MappingContext context) {

@@ -57,7 +57,6 @@ public class DashboardPresenter {
      * TODO: DashboardItemPresenter must provide at least the method getView()
      * Adds a new DashboarItemPresenter to the Dashboard.
      * @param item A instance of an DashboardItemPresenter
-     * @throws -
      * @author iSorp
      */
     public void addDashboardItem(DashboardItemPresenter item) {

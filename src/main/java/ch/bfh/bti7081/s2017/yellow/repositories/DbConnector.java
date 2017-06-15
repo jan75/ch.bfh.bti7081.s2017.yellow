@@ -141,7 +141,6 @@ public class DbConnector {
 	/**
 	 * Initializes the database connection. 
 	 * Does nothing if it has already been initialized.
-	 * @throws SQLException
 	 */
 	public static void initDbConnection() throws SQLException {
 		if(isDbInitialized) return;

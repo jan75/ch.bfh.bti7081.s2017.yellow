@@ -7,6 +7,7 @@ import ch.bfh.bti7081.s2017.yellow.entities.person.Employee;
 import com.vaadin.data.BeanValidationBinder;
 import com.vaadin.event.ShortcutAction;
 import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.server.Page;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 
@@ -29,13 +30,19 @@ public class EmployeeViewImpl extends ContactDetailViewImpl {
 
     @Override
     protected void createLayout() {
-        VerticalLayout textBoxes = new VerticalLayout(firstName, lastName, phoneNr, since);
-        addComponents(textBoxes);
+        title = "Employee";
+
+        VerticalLayout textFields = new VerticalLayout(firstName, lastName, phoneNr, since);
+        content.addComponent(textFields);
 
         beanValidationBinder.bindInstanceFields(this);
         beanValidationBinder.bind(firstName, a->a.getPerson().getFirstName(), (a, b)->a.getPerson().setFirstName(b));
         beanValidationBinder.bind(lastName, a->a.getPerson().getLastName(), (a, b)->a.getPerson().setLastName(b));
         beanValidationBinder.bind(since, a->((EmployeeBean)a.getPerson()).getLdSince(), (a, b)->((EmployeeBean)a.getPerson()).setLdSince(b));
+
+        firstName.setReadOnly(true);
+        lastName.setReadOnly(true);
+        since.setReadOnly(true);
 
         super.createLayout();
     }

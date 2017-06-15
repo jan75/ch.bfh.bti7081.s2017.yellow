@@ -15,6 +15,8 @@ public class EmployeeBean extends PersonBean {
     @NotEmpty
     private Date since;
 
+    private ScheduleBean schedule;
+
     public Date getSince() {
         return since;
     }
@@ -29,6 +31,14 @@ public class EmployeeBean extends PersonBean {
 
     public void setLdSince(LocalDate since) {
         this.since = Date.from(since.atStartOfDay(ZoneId.systemDefault()).toInstant());
+    }
+
+    public ScheduleBean getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(ScheduleBean schedule) {
+        this.schedule = schedule;
     }
 }
 

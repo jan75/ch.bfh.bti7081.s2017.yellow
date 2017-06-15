@@ -1,5 +1,6 @@
 package ch.bfh.bti7081.s2017.yellow.views;
 
+import com.vaadin.ui.Accordion;
 import com.vaadin.ui.Component;
 
 /**
@@ -13,4 +14,6 @@ public interface DashboardView extends Component {
      * @param dashboardViewItem
      */
     void addComponent(DashboardItemView dashboardViewItem);
+
+    void addComponent(Accordion accordion);
 }

@@ -39,6 +39,10 @@
     font-weight: 900;
   }
 
+  .MainViewVerticalLayout{
+    componentAlignment: center;
+  }
+
   .wikiPanel table td {
     text-align: right;
   }
@@ -62,6 +66,15 @@
 
   .v-verticallayout-wikiEntryInformationContent {
     padding:10px 10px 10px 10px;
+  }
+
+  .v-image-image{
+    opacity: 1;
+    padding: 0px 40px 0px 0px;
+  }
+
+  .v-image-image:hover{
+    opacity: 0.3;
   }
   // Insert your own theme rules here
 }

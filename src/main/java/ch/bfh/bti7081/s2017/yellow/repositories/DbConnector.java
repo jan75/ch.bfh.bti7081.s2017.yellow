@@ -8,10 +8,11 @@ import ch.bfh.bti7081.s2017.yellow.entities.person.NaturalPerson;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Patient;
 import ch.bfh.bti7081.s2017.yellow.entities.person.Person;
 import ch.bfh.bti7081.s2017.yellow.entities.person.User;
+import ch.bfh.bti7081.s2017.yellow.entities.schedule.DailyEstimation;
+import ch.bfh.bti7081.s2017.yellow.entities.schedule.PatientEstimation;
 import ch.bfh.bti7081.s2017.yellow.entities.schedule.Schedule;
 import ch.bfh.bti7081.s2017.yellow.entities.wiki.Wiki;
 import ch.bfh.bti7081.s2017.yellow.entities.wiki.WikiEntry;
-
 import org.h2.tools.Console;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -170,6 +171,8 @@ public class DbConnector {
 				.addAnnotatedClass(Schedule.class)
 				.addAnnotatedClass(Wiki.class)
 				.addAnnotatedClass(WikiEntry.class)
+				.addAnnotatedClass(DailyEstimation.class)
+				.addAnnotatedClass(PatientEstimation.class)
 				.buildMetadata()
 				.buildSessionFactory();
 	}

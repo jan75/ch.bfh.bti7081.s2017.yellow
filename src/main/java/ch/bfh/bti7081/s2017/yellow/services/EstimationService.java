@@ -7,7 +7,9 @@ import ch.bfh.bti7081.s2017.yellow.entities.person.Patient;
 import ch.bfh.bti7081.s2017.yellow.entities.schedule.PatientEstimation;
 import ch.bfh.bti7081.s2017.yellow.entities.schedule.DailyEstimation;
 import ch.bfh.bti7081.s2017.yellow.repositories.DbConnector;
+import ch.bfh.bti7081.s2017.yellow.repositories.DbConnector.DbTask;
 import ch.bfh.bti7081.s2017.yellow.util.HibernateUtil;
+import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 
@@ -39,10 +41,12 @@ public class EstimationService {
     }
 
     public DailyEstimationBean getDailyEstimation(LocalDate date) {
-        Query q = connector.createDbTask().getSession().createQuery("select d from DailyEstimation where d.date = :date");
-        q.setParameter("date", date);
+    	DbTask dbTask = connector.createDbTask();
+    	dbTask.start();
+        Criteria c = dbTask.getSession().createCriteria(DailyEstimation.class)
+                .add(Restrictions.eq("date", date));
 
-        List<DailyEstimationBean> result = q.getResultList();
+        List<DailyEstimationBean> result = estimationService.findEntities(c);
         if (result.size() > 0) {
             selectedDay = result.get(0);
         } else {

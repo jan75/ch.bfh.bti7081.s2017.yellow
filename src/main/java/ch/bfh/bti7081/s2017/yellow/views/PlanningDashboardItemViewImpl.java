@@ -75,6 +75,8 @@ public class PlanningDashboardItemViewImpl extends VerticalLayout implements Pla
                 new Shift("Stefan Raab", ds.createDateFromString("2011-01-01 08:00:00"), ds.createDateFromString("2011-01-01 18:00:00")));
 
         Grid<Shift> grid = new Grid<>();
+        grid.setWidth("100%");
+        grid.setHeight("100%");
         grid.setItems(shifts);
         grid.addColumn(Shift::getEmployee).setCaption("Employee");
         grid.addColumn(Shift::getFrom).setCaption("Shift from");

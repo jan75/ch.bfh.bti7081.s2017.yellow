@@ -1,19 +1,20 @@
 package ch.bfh.bti7081.s2017.yellow.views;
 
-import ch.bfh.bti7081.s2017.yellow.presenters.ContactPresenter;
-import ch.bfh.bti7081.s2017.yellow.presenters.MainMenuPresenter;
-import ch.bfh.bti7081.s2017.yellow.presenters.PlanningPresenter;
-import ch.bfh.bti7081.s2017.yellow.presenters.WikiPresenter;
+import ch.bfh.bti7081.s2017.yellow.presenters.*;
 import ch.bfh.bti7081.s2017.yellow.repositories.DbConnector;
 import ch.bfh.bti7081.s2017.yellow.util.NavigatorController;
 import ch.bfh.bti7081.s2017.yellow.views.contact.ContactView;
 import ch.bfh.bti7081.s2017.yellow.views.contact.ContactViewImpl;
 import ch.bfh.bti7081.s2017.yellow.views.planning.PlanningView;
 import ch.bfh.bti7081.s2017.yellow.views.planning.PlanningViewImpl;
+import ch.bfh.bti7081.s2017.yellow.views.schedule.PatientEstimationView;
+import ch.bfh.bti7081.s2017.yellow.views.schedule.PatientEstimationViewImpl;
 import ch.bfh.bti7081.s2017.yellow.views.wiki.WikiView;
 import ch.bfh.bti7081.s2017.yellow.views.wiki.WikiViewImpl;
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.VaadinRequest;
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
@@ -34,13 +35,14 @@ public class MainView extends UI {
 		NavigatorController.getInstance().setUiContainer(this);
 		VerticalLayout rootLayout = new VerticalLayout();
 
+
 		MenuView view = new MainMenuView();
 		new MainMenuPresenter(view);
 		rootLayout.addComponent(view);
 
         ContactView contactView = new ContactViewImpl();
         new ContactPresenter(contactView);
-        rootLayout.addComponent(contactView);
+		rootLayout.addComponent(contactView);
 
         PlanningView planningView = new PlanningViewImpl();
 		new PlanningPresenter(planningView);
@@ -50,10 +52,17 @@ public class MainView extends UI {
 		new WikiPresenter(wikiView);
 		rootLayout.addComponent(wikiView);
 
+		PatientEstimationView patientEstimationView = new PatientEstimationViewImpl();
+		new EstimateResourcePresenter(patientEstimationView);
+
+
 		NavigatorController.getInstance().addView("", view);
 		NavigatorController.getInstance().addView("contactView", contactView);
 		NavigatorController.getInstance().addView("wikiView", wikiView);
 		NavigatorController.getInstance().addView("planningView", planningView);
+		NavigatorController.getInstance().addView("patientEstimationView", patientEstimationView);
 		setContent(rootLayout);
+
+		
     }
 }

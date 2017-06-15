@@ -9,6 +9,8 @@ import com.vaadin.data.Binder;
 import com.vaadin.data.HasValue;
 import com.vaadin.data.provider.DataProvider;
 import com.vaadin.data.provider.ListDataProvider;
+import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.*;
 
 import java.time.LocalDate;
@@ -115,6 +117,9 @@ public class PatientEstimationViewImpl extends CustomComponent implements Patien
 
         setCompositionRoot(rootLayout);
     }
+
+    @Override
+    public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) { }
 
     @Override
     public void setPatientEstimation(EstimationViewBean estimation) {

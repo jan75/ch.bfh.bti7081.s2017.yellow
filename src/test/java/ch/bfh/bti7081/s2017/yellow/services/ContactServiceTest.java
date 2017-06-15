@@ -21,7 +21,10 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 /**
- * Created by simon on 12.06.17.
+ * This class tests the functionality of the ContactService. This includes loading saving and preparing of contact data.
+ * The data in this test is supplied by a mock DbConnector.
+ * @see DbConnectorMock
+ * @author iSorp
  */
 public class ContactServiceTest {
     @Test
@@ -74,7 +77,9 @@ public class ContactServiceTest {
         assertTrue(service.getContactBookEntries().get(0).getPerson().getFirstName() == "test1");
     }
 
-
+    /**
+     * Supplies data for the test
+     */
     public class DbMock extends DbConnectorMock {
 
         @Override

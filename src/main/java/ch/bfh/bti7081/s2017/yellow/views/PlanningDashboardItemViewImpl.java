@@ -68,7 +68,8 @@ public class PlanningDashboardItemViewImpl extends VerticalLayout implements Pla
                 new Shift("Peter Zwegat", ds.createDateFromString("2011-01-01 04:00:00"), ds.createDateFromString("2011-01-01 08:00:00")),
                 new Shift("Hans Lustig",  ds.createDateFromString("2011-01-01 08:00:00"), ds.createDateFromString("2011-01-01 12:00:00")),
                 new Shift("Otto Schulte", ds.createDateFromString("2011-01-01 04:00:00"), ds.createDateFromString("2011-01-01 12:00:00")),
-                new Shift("Steffi Geil", ds.createDateFromString("2011-01-01 12:00:00"), ds.createDateFromString("2011-01-01 18:00:00")));
+                new Shift("Steffi Geil", ds.createDateFromString("2011-01-01 12:00:00"), ds.createDateFromString("2011-01-01 18:00:00")),
+                new Shift("Franz Panz", ds.createDateFromString("2011-01-01 16:00:00"), ds.createDateFromString("2011-01-01 20:00:00")));
 
         Grid<Shift> grid = new Grid<>();
         grid.setWidth("100%");

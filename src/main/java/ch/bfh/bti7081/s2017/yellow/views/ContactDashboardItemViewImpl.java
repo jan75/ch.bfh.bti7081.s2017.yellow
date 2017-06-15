@@ -1,7 +1,7 @@
 package ch.bfh.bti7081.s2017.yellow.views;
 
 import com.vaadin.ui.Grid;
-import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.VerticalLayout;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Container for DashboardItems, Vertically layouted.
  * @author iSorp
  */
-public class ContactDashboardItemViewImpl extends HorizontalLayout implements ContactDashboardItemView {
+public class ContactDashboardItemViewImpl extends VerticalLayout implements ContactDashboardItemView {
 
     class Contact{
         String prename, surname, phone, email;
@@ -74,7 +74,7 @@ public class ContactDashboardItemViewImpl extends HorizontalLayout implements Co
         contactArrayList.add(contact5);
 
         Grid<Contact> grid = new Grid<>();
-        grid.setWidth("600px");
+        grid.setWidth("100%");
         grid.setHeight("250px");
         grid.setItems(contactArrayList);
         grid.asSingleSelect();

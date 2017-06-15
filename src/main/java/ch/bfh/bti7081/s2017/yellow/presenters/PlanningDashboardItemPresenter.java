@@ -4,7 +4,7 @@ import ch.bfh.bti7081.s2017.yellow.views.DashboardItemView;
 import ch.bfh.bti7081.s2017.yellow.views.PlanningDashboardItemView;
 
 /**
- * Created by taahuem2 on 08.05.17.
+ * Created by theonlyandone on 08.05.17.
  */
 public class PlanningDashboardItemPresenter implements DashboardItemPresenter {
 

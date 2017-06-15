@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by taahuem2 on 12.06.17.
+ * Created by theonlyandone on 12.06.17.
  */
 public class WikiPanel extends Panel {
 

@@ -13,7 +13,7 @@ import java.util.List;
 
 
 /**
- * Created by taahuem2 on 25.05.17.
+ * Created by theonlyandone on 25.05.17.
  */
 
 public class WikiViewImpl extends CustomComponent implements WikiView   {

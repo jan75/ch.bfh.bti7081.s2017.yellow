@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by taahuem2 on 01.06.17.
+ * Created by theonlyandone on 01.06.17.
  */
 public final class WikiDataFactory {
 

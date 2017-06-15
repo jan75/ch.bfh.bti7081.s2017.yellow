@@ -12511,16 +12511,21 @@ div.v-layout.v-horizontal.v-widget {
 	text-align: right;
 }
 
-.mytheme .v-label-wikiEntryContentLabel {
+.mytheme .v-textarea-wikiEntryContentTextArea {
 	margin: 10px;
+	background-color: transparent;
+	border: none;
+	min-height: 230px;
 }
 
 .mytheme .v-panel-wikiPanel {
 	margin-top: 20px;
 }
 
-.mytheme .v-panel-content-wikiPanel {
-	min-height: 200px;
+.mytheme .wikiEntryContentInEditMode {
+	-webkit-box-shadow: 0 0 0 2px rgba(25, 125, 225, 0.5);
+	-moz-box-shadow: 0 0 0 2px rgba(25, 125, 225, 0.5);
+	box-shadow: 0 0 0 2px rgba(25, 125, 225, 0.5);
 }
 
 .mytheme .v-verticallayout-wikiEntryInformationContent {

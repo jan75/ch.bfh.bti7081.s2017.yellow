@@ -13,7 +13,9 @@ import java.util.List;
 
 
 /**
- * Created by theonlyandone on 25.05.17.
+ * Represents the wiki view, acts as container for WikiPanel objects
+ * @author theonlyandone
+ * @see WikiPanel
  */
 
 public class WikiViewImpl extends CustomComponent implements WikiView   {
@@ -58,6 +60,11 @@ public class WikiViewImpl extends CustomComponent implements WikiView   {
         setVisible(false);
     }
 
+    /**
+     * Search function for wiki entries
+     * Only searches in titlebar
+     * @param textToFind searchstring
+     */
     private void search(String textToFind) {
         for (Panel p : wikiEntries) {
             if (p.getCaption().toLowerCase().contains(textToFind.toLowerCase())) {
@@ -69,11 +76,18 @@ public class WikiViewImpl extends CustomComponent implements WikiView   {
         }
     }
 
+    /**
+     * Set wiki instance and loads data
+     * @param wiki Wiki, which you want to display
+     */
     public void updateWiki(Wiki wiki) {
         this.wiki = wiki;
         reloadData();
     }
 
+    /**
+     * Adds all WikiPanels with wikiEntries from our wiki instance to content layout
+     */
     private void reloadData() {
         List<WikiEntry> wikiEntryData = this.wiki.getWikiEntry();
 
@@ -89,6 +103,10 @@ public class WikiViewImpl extends CustomComponent implements WikiView   {
         this.listener = listener;
     }
 
+    /**
+     * This Method is called when the view navigator calls this view and
+     * @param viewChangeEvent
+     */
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
         listener.changeView(viewChangeEvent);

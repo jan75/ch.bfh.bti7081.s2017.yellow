@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by theonlyandone on 01.06.17.
+ * Singleton wiki instance, provides wiki with sample data
+ * @author theonlyandone
+ * @return Static wiki instance
  */
 public final class WikiDataFactory {
 
@@ -23,6 +25,10 @@ public final class WikiDataFactory {
         return wiki;
     }
 
+
+    /**
+     * Initialize static wiki with sample data and saves all entries to db.
+     */
     private static void initializeWiki() {
         DbConnector dbConnector = new DbConnector();
         DbConnector.DbTask dbTask = dbConnector.createDbTask();

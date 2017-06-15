@@ -7,7 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by theonlyandone on 12.06.17.
+ * Represents a full entry in the wiki, with content and wiki admin informations
+ * @author theoneandonly
  */
 public class WikiPanel extends Panel {
 
@@ -81,6 +82,9 @@ public class WikiPanel extends Panel {
 
     }
 
+    /**
+     * Puts wiki admin information toghether in a html table
+     */
     public String getWikiEntryInformation() {
 
         String category = wikiEntry.getCategory();
@@ -107,6 +111,10 @@ public class WikiPanel extends Panel {
                 "  </tr>\n";
     }
 
+    /**
+     * Toggles the read/write functionality of the wiki content textfield
+     * Sets visibility and title of edit and save buttons
+     */
     public void toggleReadOnly() {
         this.readOnly = !this.readOnly;
 
@@ -123,6 +131,9 @@ public class WikiPanel extends Panel {
         this.wikiEntryContent.setReadOnly(readOnly);
     }
 
+    /**
+     * Converts a date to string with format "yyyy-MM-dd"
+     */
     private String convertDateToString(Date date) {
         return new SimpleDateFormat("yyyy-MM-dd").format(date);
     }

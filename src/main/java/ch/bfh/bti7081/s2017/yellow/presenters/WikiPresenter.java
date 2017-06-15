@@ -9,10 +9,10 @@ import com.vaadin.navigator.ViewChangeListener;
 import java.util.Date;
 
 /**
- * Created by theonlyandone on 25.05.17.
+ * Presenter for a wikiview. Supports editing and saving wiki entries to db.
+ * @author theonlyandone
  */
 public class WikiPresenter implements WikiView.WikiViewListener {
-
 
     private class WikiEntry {
 
@@ -33,7 +33,6 @@ public class WikiPresenter implements WikiView.WikiViewListener {
             this.createdFrom = createdFrom;
             this.modifiedFrom =  this.createdFrom;
         }
-
     }
 
     private WikiView view;
@@ -45,13 +44,19 @@ public class WikiPresenter implements WikiView.WikiViewListener {
         wikiView.updateWiki(wiki);
     }
 
-
+    /**
+     * This Method is called when the view navigator calls this view and
+     * Nothing done right now, just log to console
+     * @param event
+     */
     @Override
     public void changeView(ViewChangeListener.ViewChangeEvent event) {
         System.out.println("Change View");
     }
 
-
+    /**
+     * Saves wikiEntry to db
+     */
     @Override
     public void save(ch.bfh.bti7081.s2017.yellow.entities.wiki.WikiEntry entry) {
         DbConnector dbConnector = new DbConnector();
@@ -61,6 +66,9 @@ public class WikiPresenter implements WikiView.WikiViewListener {
         dbTask.end();
     }
 
+    /**
+     * Writes wiki entry title to console, which was edited
+     */
     @Override
     public void edit(ch.bfh.bti7081.s2017.yellow.entities.wiki.WikiEntry entry) {
         System.out.println("Edit " + entry.getCaption());

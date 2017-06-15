@@ -56,8 +56,6 @@ public class PlanningDashboardItemViewImpl extends VerticalLayout implements Pla
         }
     }
 
-
-
     public PlanningDashboardItemViewImpl() {
 
         Label label = new Label("Employees planned today " + new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
@@ -70,13 +68,11 @@ public class PlanningDashboardItemViewImpl extends VerticalLayout implements Pla
                 new Shift("Peter Zwegat", ds.createDateFromString("2011-01-01 04:00:00"), ds.createDateFromString("2011-01-01 08:00:00")),
                 new Shift("Hans Lustig",  ds.createDateFromString("2011-01-01 08:00:00"), ds.createDateFromString("2011-01-01 12:00:00")),
                 new Shift("Otto Schulte", ds.createDateFromString("2011-01-01 04:00:00"), ds.createDateFromString("2011-01-01 12:00:00")),
-                new Shift("Steffi Geil", ds.createDateFromString("2011-01-01 12:00:00"), ds.createDateFromString("2011-01-01 18:00:00")),
-                new Shift("Petra Müller",  ds.createDateFromString("2011-01-01 18:00:00"), ds.createDateFromString("2011-01-01 24:00:00")),
-                new Shift("Stefan Raab", ds.createDateFromString("2011-01-01 08:00:00"), ds.createDateFromString("2011-01-01 18:00:00")));
+                new Shift("Steffi Geil", ds.createDateFromString("2011-01-01 12:00:00"), ds.createDateFromString("2011-01-01 18:00:00")));
 
         Grid<Shift> grid = new Grid<>();
         grid.setWidth("100%");
-        grid.setHeight("100%");
+        grid.setHeight("250px");
         grid.setItems(shifts);
         grid.addColumn(Shift::getEmployee).setCaption("Employee");
         grid.addColumn(Shift::getFrom).setCaption("Shift from");
